@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'inverse-on-surface': '#ebf1ff', 'on-surface-variant': '#43474d', 'on-secondary-fixed-variant': '#00504e', 'surface-variant': '#dce2f3', 'error': '#ba1a1a', 'surface-dim': '#d3daea', 'on-background': '#151c27', 'on-secondary': '#ffffff', 'on-primary': '#ffffff', 'error-container': '#ffdad6', 'surface-container-low': '#f0f3ff', 'background': '#f9f9ff', 'inverse-surface': '#2a313d', 'outline': '#74777e', 'primary': '#000f22', 'surface-container-lowest': '#ffffff', 'secondary-container': '#78f6f1', 'primary-fixed-dim': '#b0c8eb', 'on-primary-fixed': '#001c37', 'on-tertiary': '#ffffff', 'surface-bright': '#f9f9ff', 'surface': '#f9f9ff', 'primary-container': '#0a2540', 'secondary-fixed-dim': '#58d9d5', 'surface-tint': '#49607e', 'surface-container': '#e7eefe', 'on-tertiary-fixed-variant': '#604100', 'on-secondary-fixed': '#00201f', 'secondary': '#006a67', 'on-tertiary-container': '#b28330', 'secondary-fixed': '#78f6f1', 'tertiary-fixed-dim': '#f3be65', 'on-error': '#ffffff', 'on-error-container': '#93000a', 'inverse-primary': '#b0c8eb', 'on-secondary-container': '#00706e', 'on-tertiary-fixed': '#281900', 'surface-container-highest': '#dce2f3', 'surface-container-high': '#e2e8f8', 'primary-fixed': '#d2e4ff', 'tertiary': '#180d00', 'outline-variant': '#c4c6ce', 'on-surface': '#151c27', 'on-primary-container': '#768dad', 'tertiary-container': '#332100', 'on-primary-fixed-variant': '#314865', 'tertiary-fixed': '#ffdeac' }, borderRadius: { DEFAULT: '0.125rem', lg: '0.25rem', xl: '0.5rem', full: '0.75rem' }, spacing: { 'gutter-mobile': '1rem', 'space-lg': '1.5rem', 'space-xl': '2.5rem', 'gutter': '1.5rem', 'space-sm': '0.5rem', 'space-md': '1rem', 'margin': '2rem', 'space-xs': '0.25rem', 'margin-mobile': '1rem' }, fontFamily: { 'label-md': ['Inter'], 'headline-lg': ['Inter'], 'body-lg': ['Inter'], 'headline-xl-mobile': ['Inter'], 'headline-md': ['Inter'], 'headline-xl': ['Inter'], 'label-lg': ['Inter'], 'headline-lg-mobile': ['Inter'], 'caption': ['Inter'], 'body-md': ['Inter'], 'label-rank': ['Inter'], 'body-sm': ['Inter'], 'headline-sm': ['Inter'] }, fontSize: { 'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.02em', fontWeight: '600' }], 'headline-lg': ['28px', { lineHeight: '36px', letterSpacing: '-0.015em', fontWeight: '600' }], 'body-lg': ['16px', { lineHeight: '26px', fontWeight: '400' }], 'headline-xl-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.015em', fontWeight: '700' }], 'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '-0.01em', fontWeight: '600' }], 'headline-xl': ['40px', { lineHeight: '48px', letterSpacing: '-0.02em', fontWeight: '700' }], 'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.01em', fontWeight: '600' }], 'headline-lg-mobile': ['24px', { lineHeight: '32px', letterSpacing: '-0.01em', fontWeight: '600' }], 'caption': ['11px', { lineHeight: '14px', fontWeight: '400' }], 'body-md': ['14px', { lineHeight: '22px', fontWeight: '400' }], 'label-rank': ['11px', { lineHeight: '14px', letterSpacing: '0.05em', fontWeight: '700' }], 'body-sm': ['12px', { lineHeight: '18px', fontWeight: '400' }], 'headline-sm': ['16px', { lineHeight: '24px', fontWeight: '600' }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col antialiased"><header class="fixed top-0 inset-x-0 z-50 bg-primary-container/95 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.08)]"><div class="h-16 px-gutter-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="PRO-LOOKUP Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAIEp142zXDMP5Edbq8enxbkrmCzujEg9WU7hcEVXzz5BXVGTyWOB5tDrmso16o5g6GPiYh2BqlF5X0Jt4qMkG9iN6Fd4B8J966tL4HXblIsjSzaRvuUeHtfTCxZ1XXjoVqesqbwNAeY2OfuiFmYYLV5g0TCp8y8YRiBA3nkdR5PwRv391fL2NsVvLAbNdn0bTUyj9uXKVMPWNAM9zVA_36iJ9nXsYlS0EpEmL-0jcnEbcpfQmNEk"/><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-on-primary tracking-tight truncate leading-none">PRO-LOOKUP</span><span class="font-caption text-caption text-on-primary-container truncate">Classements</span></div></div><div class="flex items-center gap-space-xs"><button aria-label="Notifications" class="relative w-11 h-11 flex items-center justify-center text-on-primary hover:text-secondary-fixed transition-colors"><span class="material-symbols-outlined text-[24px]">notifications</span><span class="absolute top-2 right-2 flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-20 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Dynamic Network Background Accent (Subtle Mesh Nodes) -->
+<div class="w-full bg-gradient-to-b from-primary-container/10 via-surface-container-low to-surface px-gutter-mobile pt-space-md pb-space-lg">
+<!-- Title & Institutional Context Header -->
+<div class="flex flex-col mb-space-md">
+<div class="inline-flex items-center gap-space-xs self-start px-2 py-0.5 rounded-full bg-tertiary-fixed/40 text-on-tertiary-container font-label-rank text-label-rank mb-space-xs">
+<span class="material-symbols-outlined text-[13px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span>INDEX ACADÉMIQUE 2025</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-background tracking-tight">
+        Classement Général &amp; Répertoire
+      </h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+        Hiérarchie des pairs certifiée par l'ordre académique, les comités de recherche et l'industrie de pointe.
+      </p>
+</div>
+<!-- Search Box with Live Pulse Effect -->
+<div class="relative w-full mb-space-sm">
+<span class="absolute inset-y-0 left-3 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">manage_search</span>
+</span>
+<input class="w-full h-11 pl-10 pr-10 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded-lg shadow-sm placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest" id="rank-search-input" placeholder="Chercher par nom, affiliation, discipline..." type="search"/>
+<button aria-label="Filtres avancés" class="absolute inset-y-0 right-2 flex items-center px-1.5 text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button>
+</div>
+<!-- Scrollable Horizontal Tier Filter Pills -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 -mx-gutter-mobile px-gutter-mobile scrollbar-none" id="rank-filters">
+<button class="filter-pill active-pill whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-primary text-on-primary shadow-sm transition-all flex items-center gap-1" data-filter="all">
+<span class="material-symbols-outlined text-[16px]">stars</span>
+<span>Tous les Rangs</span>
+</button>
+<button class="filter-pill whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-lowest text-on-surface shadow-sm hover:bg-surface-container transition-all flex items-center gap-1" data-filter="Professeur">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>
+<span>Professeurs</span>
+</button>
+<button class="filter-pill whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-lowest text-on-surface shadow-sm hover:bg-surface-container transition-all flex items-center gap-1" data-filter="Docteur">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>Docteurs &amp; Directeurs</span>
+</button>
+<button class="filter-pill whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-lowest text-on-surface shadow-sm hover:bg-surface-container transition-all flex items-center gap-1" data-filter="Ingénieur">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span>Ingénieurs Émérites</span>
+</button>
+<button class="filter-pill whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-lowest text-on-surface shadow-sm hover:bg-surface-container transition-all flex items-center gap-1" data-filter="Chercheur">
+<span class="w-1.5 h-1.5 rounded-full bg-surface-tint"></span>
+<span>Chercheurs</span>
+</button>
+</div>
+<!-- Secondary Category Ribbon (Institutions & Fields) -->
+<div class="flex items-center gap-1.5 overflow-x-auto pt-space-xs -mx-gutter-mobile px-gutter-mobile text-caption font-caption text-on-surface-variant">
+<span class="font-label-rank text-label-rank text-outline mr-1">RÉSEAU :</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface cursor-pointer hover:bg-secondary-fixed">Sorbonne</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface cursor-pointer hover:bg-secondary-fixed">Inria</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface cursor-pointer hover:bg-secondary-fixed">CNRS</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface cursor-pointer hover:bg-secondary-fixed">CEA</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface cursor-pointer hover:bg-secondary-fixed">Safran Aero</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface cursor-pointer hover:bg-secondary-fixed">EPFL</span>
+</div>
+</div>
+<!-- Podium Section: Top 3 Verified Leaders of the Month -->
+<section class="px-gutter-mobile pt-space-md pb-space-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[20px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="font-headline-sm text-headline-sm text-on-background">Podium d'Influence Mensuel</span>
+</div>
+<span class="font-caption text-caption text-on-secondary-container bg-secondary-fixed/50 px-2 py-0.5 rounded font-label-md">
+        Mars 2025
+      </span>
+</div>
+<!-- Triple Column Mobile Podium Display -->
+<div class="grid grid-cols-3 gap-2 items-end pt-3 pb-2">
+<!-- Rank #2: Silver / Dr. Meyer -->
+<div class="flex flex-col items-center bg-surface-container-lowest rounded-lg p-2.5 shadow-sm text-center transform transition-transform active:scale-95">
+<div class="relative mb-1">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center p-0.5 shadow-sm">
+<img class="w-full h-full object-cover rounded-full" data-alt="Photographie de profil institutionnelle du Dr Jean-Baptiste Meyer, directeur de recherche en intelligence artificielle et neurosciences, portant un veston sobre sur fond de laboratoire épuré dans des teintes bleu marine et neutres." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGlAGE9QR17TNAXudT8bFNEzlygtX21J-Io9PUde4LtHrO8L9LBGrk65fmUY29J29y2kVlLB2_WEOA_Xj_I4uHotC_-VGvpZLuV8QXQrspBV1yx7WABOzIm1z-4teYtOTvmyDqcDlY-CUeRFkMxX5n1G8t2g4HuhocNaj3KViFr1cnAPZohgyVZY98jvEH1W_FnUbkETc95KRhUMTjNpKg2FlmvwbLNh95Q_MO9q1FZRqk0SICvbg"/>
+</div>
+<span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-surface-container-highest flex items-center justify-center font-label-rank text-label-rank text-on-surface shadow-xs">
+            #2
+          </span>
+</div>
+<span class="font-label-md text-label-md text-on-surface truncate w-full mt-1">Dr. Meyer</span>
+<span class="font-caption text-caption text-secondary truncate w-full">Inria Paris</span>
+<div class="mt-1.5 w-full pt-1 bg-surface-container-high rounded text-center">
+<span class="font-label-rank text-label-rank text-on-surface-variant">1,420</span>
+<span class="block font-caption text-[10px] text-outline leading-none pb-0.5">pairs</span>
+</div>
+</div>
+<!-- Rank #1: Gold Star / Prof. Moreau (Elevated Position) -->
+<div class="flex flex-col items-center bg-surface-container-lowest rounded-lg p-3 shadow-md text-center relative -translate-y-2 transform transition-transform active:scale-95">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-tertiary-fixed flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[15px] text-on-tertiary-fixed" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+<div class="relative mb-1 mt-1">
+<div class="w-14 h-14 rounded-full bg-tertiary-fixed/30 p-1 flex items-center justify-center shadow">
+<img class="w-full h-full object-cover rounded-full" data-alt="Portrait éminent de la Professeure Élisabeth Moreau, chercheuse de renommée internationale à Sorbonne Université, lunettes fines, sourire posé, en posture académique officielle avec éclairage doux et élégant." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSWaqFROjVAFj0NxF_ItSvOfb_TuAgCstI__NKcCkH-dVArSYSQfFK59d_UbzP6LOGdwaI89iDidT3awPWF0Earo5zDP0B3RG9pzuazbmKNtHUK0JpXgHHMd7pH9d5xOpt6PornJUd_IRdWkc0UzrCpoOkgebv-WgemxA2jk6y1vnJAFys7ZeQal_JntOZdg222WeUEgDQ2J5jgF4keTuMf7abr6rwiFv7pYw_L1paMX9TqFVcCf4"/>
+</div>
+<span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-label-rank text-label-rank shadow">
+            #1
+          </span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface truncate w-full leading-tight">Prof. Moreau</span>
+<span class="font-caption text-caption text-tertiary-fixed-dim font-label-md truncate w-full">Sorbonne</span>
+<div class="mt-2 w-full py-1 bg-tertiary-fixed/20 rounded text-center">
+<span class="font-label-rank text-label-rank text-on-tertiary-container">h-58 • 1,840</span>
+<span class="block font-caption text-[10px] text-on-surface-variant leading-none mt-0.5">impact maximal</span>
+</div>
+</div>
+<!-- Rank #3: Bronze / Ing. Sophie Laurent -->
+<div class="flex flex-col items-center bg-surface-container-lowest rounded-lg p-2.5 shadow-sm text-center transform transition-transform active:scale-95">
+<div class="relative mb-1">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center p-0.5 shadow-sm">
+<img class="w-full h-full object-cover rounded-full" data-alt="Portrait d'ingénieure cadre dirigeante, Sophie Laurent, en salle de recherche aérospatiale moderne, tenue de direction sobre, regard déterminé et confiant." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfpvt_Js30AQRz2ArLWjEO7F9oo1dOLpWkFM28cNdGRM4bzCpGxkGeI6DfFGz1veVPfgfndU3uY-J2qM3DutNC6f7nSh8YEENVHEyOD5CRAj5_UikssJ-rlp0X_HujEcIxWlcFWleJZzn3JXpsaJZvBb5_4r6Bt6-5MWLkui_VnJaGy6IdN86Vt26vSablyz_V5We4PNCiN0C33blWkV8LzGndrsmimnZP5cvLdknNVqP06IU427E"/>
+</div>
+<span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-surface-variant flex items-center justify-center font-label-rank text-label-rank text-on-surface-variant shadow-xs">
+            #3
+          </span>
+</div>
+<span class="font-label-md text-label-md text-on-surface truncate w-full mt-1">Ing. Laurent</span>
+<span class="font-caption text-caption text-primary truncate w-full">Safran Aero</span>
+<div class="mt-1.5 w-full pt-1 bg-surface-container-high rounded text-center">
+<span class="font-label-rank text-label-rank text-on-surface-variant">1,180</span>
+<span class="block font-caption text-[10px] text-outline leading-none pb-0.5">pairs</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Ranked Directory Section with Verified Badges & Micro-Metrics -->
+<section class="px-gutter-mobile pt-space-xs pb-space-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-background">Liste Complète des Pairs</h2>
+<span class="font-caption text-caption text-outline">Affichage de 1-4 sur 842</span>
+</div>
+<!-- Member Card #1 (Prof. Élisabeth Moreau) -->
+<div class="member-entry bg-surface-container-lowest rounded-lg p-space-md shadow-sm transition-all hover:shadow-md flex flex-col gap-space-sm" data-category="Professeur">
+<!-- Top Row: Position, Avatar & Primary Identity -->
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm min-w-0">
+<div class="relative shrink-0 mt-0.5">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed/30 p-0.5 shadow-xs">
+<img class="w-full h-full object-cover rounded-full" data-alt="Photographie de visage soignée de la chercheuse Élisabeth Moreau, cadrée au buste, fond sobre neutre et professionnel de haute autorité scientifique." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8YFLSQ-AI4Xc8rh1DcG-mV_ibSb42p4MsRozKbhIDbTJ1N1lEcTNczSG3YsR4mnTVuXUhTYFPCmcIjtS3T-pNvTC82uaVvprOelGZKj3FzIFU5EIQKsiGcAik9G19WuHo_ki3RFQMx1QuEckt4vKcCtwGjgKX4jH3hMJcUSCz_ODlRI5VjCFCMHEOcNgaAgzOlvR8-9FHl8_n-ynDA8zmBwUe8l6xJ-LAStQJahYG_VIMmiMmjqM"/>
+</div>
+<!-- Verified Check Dot -->
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-secondary rounded-full flex items-center justify-center text-on-secondary shadow-xs" title="Profil Académique Certifié">
+<span class="material-symbols-outlined text-[10px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate">Prof. Élisabeth Moreau</span>
+<span class="font-label-rank text-label-rank px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-container">#1</span>
+</div>
+<span class="font-body-sm text-body-sm text-secondary font-label-md">Sorbonne Université</span>
+<p class="font-caption text-caption text-on-surface-variant truncate">Chaire de Physique Quantique Appliquée &amp; Nanomatériaux</p>
+</div>
+</div>
+</div>
+<!-- Rank Badge & Credential Line -->
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 bg-tertiary-fixed/30 text-on-tertiary-container font-label-rank text-label-rank">
+<span class="material-symbols-outlined text-[13px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+          Professeur de Classe Exceptionnelle
+        </span>
+<span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 bg-surface-container text-on-surface-variant font-caption text-caption">
+<span class="material-symbols-outlined text-[12px]">account_balance</span>
+          Institut Universitaire de France
+        </span>
+</div>
+<!-- Card Metrics & Micro-Actions Divider -->
+<div class="flex items-center justify-between pt-2 bg-surface-container-low/60 -mx-space-md -mb-space-md px-space-md py-2.5 rounded-b-lg">
+<div class="flex items-center gap-3 text-caption font-caption text-on-surface-variant">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">hub</span>
+<span class="font-label-md text-label-md text-on-surface">1,840</span>
+<span class="text-outline">pairs</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">analytics</span>
+<span class="font-label-md text-label-md text-on-surface">h-58</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5">
+<button aria-label="Sauvegarder dans ma veille" class="w-8 h-8 rounded bg-surface-container-lowest text-on-surface-variant flex items-center justify-center hover:text-secondary hover:bg-surface-container transition-colors shadow-xs">
+<span class="material-symbols-outlined text-[18px]">bookmark_add</span>
+</button>
+<button class="h-8 px-3 rounded bg-primary text-on-primary font-label-md text-label-md flex items-center gap-1 hover:bg-secondary transition-all shadow-xs">
+<span>Consulter</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Member Card #2 (Dr. Jean-Baptiste Meyer) -->
+<div class="member-entry bg-surface-container-lowest rounded-lg p-space-md shadow-sm transition-all hover:shadow-md flex flex-col gap-space-sm" data-category="Docteur">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm min-w-0">
+<div class="relative shrink-0 mt-0.5">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed/50 p-0.5 shadow-xs">
+<img class="w-full h-full object-cover rounded-full" data-alt="Portrait professionnel épuré du Dr Jean-Baptiste Meyer, chercheur en sciences computationnelles et algorithmes, cadrage moyen en tenue formelle moderne." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBioMWPaX8Hk8doSWHgndkthrXjsIXI2Q6XTJJdZjZIHpm3-NZrzN9Dd7_dl57viCHehAdI1FQXVR5MMSiO_yBVu93Z7XubQ0fd52YI3_EK7m2YVbm-3kEKA40x6z2Bec1exrd_DRHsQ2jxCcVuKphfWfqzX03YWFQJoMWyEK____o8RRZ-ra0gBNl0P7RVVqUHACWHbAGTsZnV223EG0lIQ9NQHN7211JiR3IjjUyxonxCo0DQXks"/>
+</div>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-secondary rounded-full flex items-center justify-center text-on-secondary shadow-xs">
+<span class="material-symbols-outlined text-[10px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate">Dr. Jean-Baptiste Meyer</span>
+<span class="font-label-rank text-label-rank px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface">#2</span>
+</div>
+<span class="font-body-sm text-body-sm text-secondary font-label-md">Inria Paris &amp; ENS</span>
+<p class="font-caption text-caption text-on-surface-variant truncate">Directeur de Recherche • Modèles d'Apprentissage Hybrides</p>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 bg-surface-container-high text-on-surface font-label-rank text-label-rank">
+<span class="material-symbols-outlined text-[13px] text-secondary">verified_user</span>
+          Docteur d'État &amp; Directeur de Recherche
+        </span>
+<span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 bg-surface-container text-on-surface-variant font-caption text-caption">
+<span class="material-symbols-outlined text-[12px]">psychology</span>
+          IA &amp; Robotique
+        </span>
+</div>
+<div class="flex items-center justify-between pt-2 bg-surface-container-low/60 -mx-space-md -mb-space-md px-space-md py-2.5 rounded-b-lg">
+<div class="flex items-center gap-3 text-caption font-caption text-on-surface-variant">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">hub</span>
+<span class="font-label-md text-label-md text-on-surface">1,420</span>
+<span class="text-outline">pairs</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">analytics</span>
+<span class="font-label-md text-label-md text-on-surface">h-46</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5">
+<button aria-label="Connecter au réseau" class="h-8 px-3 rounded bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center gap-1 hover:brightness-95 transition-all shadow-xs">
+<span class="material-symbols-outlined text-[16px]">person_add</span>
+<span>Relier</span>
+</button>
+<button class="h-8 px-3 rounded bg-surface-container-lowest text-on-surface font-label-md text-label-md flex items-center gap-1 hover:bg-surface-container transition-all shadow-xs">
+<span>Dossier</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Member Card #3 (Ing. Sophie Laurent) -->
+<div class="member-entry bg-surface-container-lowest rounded-lg p-space-md shadow-sm transition-all hover:shadow-md flex flex-col gap-space-sm" data-category="Ingénieur">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm min-w-0">
+<div class="relative shrink-0 mt-0.5">
+<div class="w-12 h-12 rounded-full bg-primary-container/10 p-0.5 shadow-xs">
+<img class="w-full h-full object-cover rounded-full" data-alt="Portrait officiel d'ingénieur senior, Sophie Laurent, directrice des programmes aérospatiaux, pose assurée en environnement technologique contemporain." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDksvjN2b2e87U6-OuDS5RfjM0Nq7E5uwL3qhq0n8OyZJp1L98kcEiZ34Irfkki2H0_7a9w3L7wSgx2whgQhl7eU2T1efKBK9owzfk1Ni1LZbzKuQDdOHlExKwuAFbGRMGKUfCZ40rW--z9pbRP8ou-x2un-zloF6VD5HAQMn5gDtlMX5aah9eqLtLAqF3G7OAS25cRl0ft5pPohYEkHQNfZUsvlEBaT5cxfRMy9AquCoQqoAjwTwU"/>
+</div>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-secondary rounded-full flex items-center justify-center text-on-secondary shadow-xs">
+<span class="material-symbols-outlined text-[10px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate">Ing. Sophie Laurent</span>
+<span class="font-label-rank text-label-rank px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant">#3</span>
+</div>
+<span class="font-body-sm text-body-sm text-primary font-label-md">Safran Aero &amp; Polytechnique</span>
+<p class="font-caption text-caption text-on-surface-variant truncate">Directrice R&amp;D Propulsion Décarbonée</p>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 bg-surface-container text-on-surface font-label-rank text-label-rank">
+<span class="material-symbols-outlined text-[13px] text-primary">precision_manufacturing</span>
+          Ingénieur Émérite &amp; Directrice R&amp;D
+        </span>
+<span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 bg-surface-container text-on-surface-variant font-caption text-caption">
+<span class="material-symbols-outlined text-[12px]">flight</span>
+          Aéronautique Future
+        </span>
+</div>
+<div class="flex items-center justify-between pt-2 bg-surface-container-low/60 -mx-space-md -mb-space-md px-space-md py-2.5 rounded-b-lg">
+<div class="flex items-center gap-3 text-caption font-caption text-on-surface-variant">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">hub</span>
+<span class="font-label-md text-label-md text-on-surface">1,180</span>
+<span class="text-outline">pairs</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">pixel_7_pro</span>
+<span class="font-label-md text-label-md text-on-surface">24 brevets</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5">
+<button aria-label="Connecter au réseau" class="h-8 px-3 rounded bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center gap-1 hover:brightness-95 transition-all shadow-xs">
+<span class="material-symbols-outlined text-[16px]">person_add</span>
+<span>Relier</span>
+</button>
+<button class="h-8 px-3 rounded bg-surface-container-lowest text-on-surface font-label-md text-label-md flex items-center gap-1 hover:bg-surface-container transition-all shadow-xs">
+<span>Dossier</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Member Card #4 (Dr. Karim Benali) -->
+<div class="member-entry bg-surface-container-lowest rounded-lg p-space-md shadow-sm transition-all hover:shadow-md flex flex-col gap-space-sm" data-category="Chercheur">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm min-w-0">
+<div class="relative shrink-0 mt-0.5">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest p-0.5 shadow-xs">
+<img class="w-full h-full object-cover rounded-full" data-alt="Portrait académique du Dr Karim Benali, chercheur post-doctoral en physique nucléaire et fusion, expression déterminée, lunettes de créateur et blazer sombre." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5LaEFmz73XfLfKwtce7LvOFaTKfjPIIOb4EUHFrCxfm_U8-lCCo-UXOshhg7PpQj6iN7kmgFdpguR3Iuys73QLmucZ9HSD7kP6g0rJNGeHPrVIIcLWTqBXxEceQvirIVJyXRshr-BDt1d2n8bBx2MhYHpFCMfuTC3h3Mn8ZNHFjA8deb0Dqy4vzQeRKNcorPYNbTdQ-Ck_VKiRZM7HIbRsXDv7YgUcWSBH4MDOOcSirZaiA7TqmE"/>
+</div>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-secondary rounded-full flex items-center justify-center text-on-secondary shadow-xs">
+<span class="material-symbols-outlined text-[10px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate">Dr. Karim Benali</span>
+<span class="font-label-rank text-label-rank px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">#4</span>
+</div>
+<span class="font-body-sm text-body-sm text-secondary font-label-md">CEA Saclay &amp; CNRS</span>
+<p class="font-caption text-caption text-on-surface-variant truncate">Physique Fondamentale • Fusion Magnétique</p>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 bg-surface-container-high text-on-surface font-label-rank text-label-rank">
+<span class="material-symbols-outlined text-[13px] text-surface-tint">science</span>
+          Chercheur Post-Doctoral &amp; Fellow
+        </span>
+<span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 bg-surface-container text-on-surface-variant font-caption text-caption">
+<span class="material-symbols-outlined text-[12px]">bolt</span>
+          Énergie Propre
+        </span>
+</div>
+<div class="flex items-center justify-between pt-2 bg-surface-container-low/60 -mx-space-md -mb-space-md px-space-md py-2.5 rounded-b-lg">
+<div class="flex items-center gap-3 text-caption font-caption text-on-surface-variant">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">hub</span>
+<span class="font-label-md text-label-md text-on-surface">892</span>
+<span class="text-outline">pairs</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">analytics</span>
+<span class="font-label-md text-label-md text-on-surface">h-29</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5">
+<button aria-label="Connecter au réseau" class="h-8 px-3 rounded bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md flex items-center gap-1 hover:brightness-95 transition-all shadow-xs">
+<span class="material-symbols-outlined text-[16px]">person_add</span>
+<span>Relier</span>
+</button>
+<button class="h-8 px-3 rounded bg-surface-container-lowest text-on-surface font-label-md text-label-md flex items-center gap-1 hover:bg-surface-container transition-all shadow-xs">
+<span>Dossier</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Pagination / Load More Footer Band -->
+<div class="px-gutter-mobile pb-space-lg flex flex-col items-center gap-space-sm">
+<button class="w-full h-11 bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 shadow-xs transition-all active:scale-[0.99]" id="load-more-btn">
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+<span>Charger les 20 pairs suivants (Rangs #5 à #24)</span>
+</button>
+<p class="font-caption text-caption text-outline text-center">
+      Index mis à jour toutes les 24h selon les dépôts HAL, ArXiv, et brevets INPI / EPO.
+    </p>
+</div>
+</div>
+<script>
+  // Simple client-side micro-interaction for fast filtering
+  (function() {
+    const filterButtons = document.querySelectorAll('.filter-pill');
+    const memberEntries = document.querySelectorAll('.member-entry');
+    const searchInput = document.getElementById('rank-search-input');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Switch styling
+        filterButtons.forEach(b => {
+          b.classList.remove('bg-primary', 'text-on-primary');
+          b.classList.add('bg-surface-container-lowest', 'text-on-surface');
+        });
+        btn.classList.remove('bg-surface-container-lowest', 'text-on-surface');
+        btn.classList.add('bg-primary', 'text-on-primary');
+
+        const selected = btn.getAttribute('data-filter');
+        memberEntries.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (selected === 'all' || category === selected) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        memberEntries.forEach(card => {
+          const text = card.innerText.toLowerCase();
+          if (text.includes(query)) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    }
+  })();
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-1px_12px_rgba(10,37,64,0.06)]" data-active-classes="text-secondary font-label-md"><div class="flex justify-around items-center h-16 px-space-xs"><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-all" data-path="accueil" href="#"><span class="material-symbols-outlined text-[22px]">feed</span><span class="font-caption text-caption">Accueil</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] h-12 transition-all text-secondary font-label-md" data-path="classements" href="#"><span class="material-symbols-outlined text-[22px]">military_tech</span><span class="font-caption text-caption">Rangs</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-all" data-path="explorer" href="#"><span class="material-symbols-outlined text-[22px]">travel_explore</span><span class="font-caption text-caption">Explorer</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-all" data-path="messages" href="#"><span class="material-symbols-outlined text-[22px]">forum</span><span class="font-caption text-caption">Messages</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-all" data-path="mon-profil" href="#"><span class="material-symbols-outlined text-[22px]">account_circle</span><span class="font-caption text-caption">Profil</span></a></div></nav></body></html>

@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-highest":"#dce2f3","on-secondary":"#ffffff","on-tertiary-container":"#b28330","surface-dim":"#d3daea","outline":"#74777e","on-secondary-fixed-variant":"#00504e","error-container":"#ffdad6","secondary-fixed":"#78f6f1","tertiary-fixed":"#ffdeac","on-primary":"#ffffff","surface-container-lowest":"#ffffff","surface":"#f9f9ff","on-secondary-fixed":"#00201f","on-error-container":"#93000a","on-secondary-container":"#00706e","tertiary-container":"#332100","outline-variant":"#c4c6ce","on-primary-container":"#768dad","primary-container":"#0a2540","primary-fixed-dim":"#b0c8eb","on-background":"#151c27","error":"#ba1a1a","secondary":"#006a67","tertiary":"#180d00","inverse-on-surface":"#ebf1ff","on-tertiary-fixed":"#281900","surface-container-high":"#e2e8f8","tertiary-fixed-dim":"#f3be65","on-tertiary":"#ffffff","on-surface-variant":"#43474d","inverse-primary":"#b0c8eb","on-surface":"#151c27","on-tertiary-fixed-variant":"#604100","inverse-surface":"#2a313d","surface-variant":"#dce2f3","on-primary-fixed-variant":"#314865","surface-tint":"#49607e","on-error":"#ffffff","surface-bright":"#f9f9ff","primary-fixed":"#d2e4ff","primary":"#000f22","surface-container-low":"#f0f3ff","background":"#f9f9ff","secondary-container":"#78f6f1","on-primary-fixed":"#001c37","surface-container":"#e7eefe","secondary-fixed-dim":"#58d9d5"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-sm":"0.5rem","space-xs":"0.25rem","gutter":"1.5rem","margin-mobile":"1rem","gutter-mobile":"1rem","margin":"2rem","space-md":"1rem","space-lg":"1.5rem","space-xl":"2.5rem"},fontFamily:{"body-sm":["Inter"],"headline-lg":["Inter"],"label-md":["Inter"],"body-lg":["Inter"],"headline-lg-mobile":["Inter"],"label-rank":["Inter"],"caption":["Inter"],"body-md":["Inter"],"headline-xl-mobile":["Inter"],"headline-xl":["Inter"],"headline-md":["Inter"],"label-lg":["Inter"],"headline-sm":["Inter"]},fontSize:{"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"26px","fontWeight":"400"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-rank":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"700"}],"caption":["11px",{"lineHeight":"14px","fontWeight":"400"}],"body-md":["14px",{"lineHeight":"22px","fontWeight":"400"}],"headline-xl-mobile":["32px",{"lineHeight":"40px","letterSpacing":"-0.015em","fontWeight":"700"}],"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"headline-sm":["16px",{"lineHeight":"24px","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-secondary selection:text-on-secondary"><header class="fixed top-0 w-full z-50 bg-surface-container-lowest/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(10,37,64,0.04)]"><div class="h-20 max-w-[1240px] mx-auto px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><img alt="Logo Officiel PRO-LOOKUP ZTF" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VPuVv0ODNKxMfZ3GmeW_5sbGAGE98yTB1amLj2iBGVq0fL4FGKpwt-jzHuN6uO4VjcXLASJeh8Scku5uBR_Yzt2PPbSjmmeSTMiAaBxK2BcXasR9xpCIq2VnHoUhaBSpq95Zx7wnR86QAcyGzIRMYMYI1TDjvGoaFFmAQNtH0Co0VvAjQuivbsQMXwE_iR_LSojF0mGO2P8wo2VUrmIm6xlV8wURrN4bUxCT8TkgHO7dKVf2LEZIdD4Q"/><div class="flex flex-col"><span class="font-label-lg text-label-lg text-primary tracking-tight font-bold leading-tight">PRO-LOOKUP</span><span class="font-caption text-caption text-on-surface-variant">Institut Universitaire ZTF — Bertoua</span></div></div><div class="hidden md:flex flex-1 max-w-md mx-space-sm"><div class="relative w-full flex items-center bg-surface-container-low rounded-lg transition-all focus-within:bg-surface-container-lowest focus-within:ring-2 focus-within:ring-secondary"><span class="material-symbols-outlined text-outline ml-space-sm select-none">search</span><input class="w-full bg-transparent px-space-sm py-2 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none" placeholder="Rechercher un membre, un rang, un département..." type="text"/></div></div><nav class="hidden xl:flex items-center gap-space-lg" data-active-classes="text-primary font-bold border-b-2 border-primary"><a aria-current="page" class="transition-colors py-2 text-primary font-bold border-b-2 border-primary" data-path="accueil" href="#">Accueil</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors py-2" data-path="classement-par-rangs" href="#">Classement par Rangs</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors py-2" data-path="publications" href="#">Publications</a><a class="relative font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors py-2 flex items-center gap-1.5" data-path="administration" href="#"><span>Administration</span><span class="bg-tertiary-fixed text-on-tertiary-fixed font-label-rank text-label-rank px-1.5 py-0.5 rounded-full">ZTF</span></a></nav><div class="flex items-center gap-space-sm shrink-0"><a class="hidden sm:inline-flex items-center px-space-md py-2 rounded-lg font-label-md text-label-md text-primary hover:bg-surface-container transition-colors" data-path="connexion" href="#">Connexion</a><a class="hidden sm:inline-flex items-center px-space-md py-2 rounded-lg font-label-md text-label-md bg-primary text-on-primary hover:bg-secondary transition-colors" data-path="inscription" href="#">S'inscrire</a><div class="relative ml-space-xs pl-space-xs flex items-center"><div class="relative flex items-center justify-center p-0.5 rounded-full ring-2 ring-secondary"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WyMKjim4d1Iag7jB2lfMV9eZRNgAT6zATS2-HDPqqmoQgT9Pj5T_eGCVOhoxtpXXQ7Imd5BVdrwsilL29Nllwpb-HNkfhm5KmMFPXYxDUCY2H9KKF8EziDGEYVoeDbAJaIGTaDeTAi_cJFUMMSp6ZykQylQ8KbPuSU6bJBfu1xR8GDBRjZRUOSZ5zpPowNT3XfwNz8dg2V5OK1gIVuN1wSiPDb80BPq7dj8YRvIXLOsKQyxbyvxTfXJw"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-secondary rounded-full ring-2 ring-surface-container-lowest"></span></div></div></div></div></header><main class="w-full pt-20 bg-surface min-h-[calc(100vh-280px)]"><div class="flex flex-col w-full">
+<!-- SECTION HERO PRESTIGE -->
+<section class="relative w-full bg-primary-container text-on-primary overflow-hidden pt-12 pb-24">
+<!-- Ambient academic architectural mesh -->
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<svg class="w-full h-full" fill="none" viewbox="0 0 1440 600" xmlns="http://www.w3.org/2000/svg">
+<circle cx="200" cy="100" r="300" stroke="#78F6F1" stroke-dasharray="4 8" stroke-width="1.5"></circle>
+<circle cx="1200" cy="400" r="450" stroke="#FFDEAC" stroke-width="1"></circle>
+<path d="M-100 500L400 100L900 450L1500 150" stroke="#78F6F1" stroke-opacity="0.3" stroke-width="1"></path>
+<path d="M100 650L700 200L1300 550" stroke="#FFDEAC" stroke-opacity="0.2" stroke-width="1"></path>
+</svg>
+</div>
+<div class="max-w-[1240px] mx-auto px-margin relative z-10">
+<!-- Institutional Breadcrumb Badge -->
+<div class="inline-flex items-center gap-space-xs bg-surface-container-lowest/10 backdrop-blur-md px-3 py-1.5 rounded-full mb-6">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed animate-pulse"></span>
+<span class="font-label-rank text-label-rank tracking-widest uppercase text-tertiary-fixed">Répertoire Académique Officiel • Bertoua</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<div class="lg:col-span-7 flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<img alt="Logo Officiel PRO-LOOKUP ZTF" class="h-10 w-auto object-contain filter brightness-0 invert opacity-95" src="https://lh3.googleusercontent.com/aida/AEtjO1VPuVv0ODNKxMfZ3GmeW_5sbGAGE98yTB1amLj2iBGVq0fL4FGKpwt-jzHuN6uO4VjcXLASJeh8Scku5uBR_Yzt2PPbSjmmeSTMiAaBxK2BcXasR9xpCIq2VnHoUhaBSpq95Zx7wnR86QAcyGzIRMYMYI1TDjvGoaFFmAQNtH0Co0VvAjQuivbsQMXwE_iR_LSojF0mGO2P8wo2VUrmIm6xlV8wURrN4bUxCT8TkgHO7dKVf2LEZIdD4Q"/>
+<span class="h-6 w-px bg-outline/40"></span>
+<span class="font-caption text-caption text-primary-fixed-dim uppercase tracking-wider">Index Scientifique Certifié</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-primary tracking-tight font-extrabold max-w-2xl leading-tight">
+            Le réseau professionnel & académique de l'Institut Universitaire ZTF.
+          </h1>
+<p class="font-body-lg text-body-lg text-primary-fixed-dim max-w-xl">
+            La consultation des profils, publications et thèses est libre et ouverte à la communauté scientifique mondiale. L'adhésion et la certification des dossiers sont strictement réservées aux enseignants-chercheurs, étudiants et personnels affiliés à l'Institut Universitaire ZTF de Bertoua.
+          </p>
+<div class="flex flex-wrap items-center gap-4 pt-2">
+<a class="inline-flex items-center justify-center gap-2 bg-secondary text-on-secondary px-6 py-3.5 rounded-lg font-label-lg text-label-lg font-semibold hover:bg-secondary-fixed hover:text-on-secondary-fixed transition-all shadow-lg hover:shadow-secondary/20" href="#search-engine">
+<span class="material-symbols-outlined text-[20px]">person_search</span>
+              Consulter les profils
+            </a>
+<a class="inline-flex items-center justify-center gap-2 bg-surface-container-lowest/10 backdrop-blur-md text-on-primary px-6 py-3.5 rounded-lg font-label-lg text-label-lg font-semibold hover:bg-surface-container-lowest hover:text-primary transition-all" href="#membership-info">
+<span class="material-symbols-outlined text-[20px]">how_to_reg</span>
+              Rejoindre l'Institut (Membres ZTF)
+            </a>
+</div>
+<!-- Academic Key Metrics -->
+<div class="grid grid-cols-3 gap-4 pt-6 max-w-lg">
+<div class="flex flex-col">
+<span class="font-headline-lg text-headline-lg font-bold text-tertiary-fixed">6</span>
+<span class="font-caption text-caption text-primary-fixed-dim">Corps Académiques Indexés</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-lg text-headline-lg font-bold text-secondary-fixed">840+</span>
+<span class="font-caption text-caption text-primary-fixed-dim">Profils Vérifiés & Déposés</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-lg text-headline-lg font-bold text-on-primary">1 250+</span>
+<span class="font-caption text-caption text-primary-fixed-dim">Communications & Travaux</span>
+</div>
+</div>
+</div>
+<!-- Visual Hero Mosaic -->
+<div class="lg:col-span-5 relative">
+<div class="relative bg-surface-container-lowest p-6 rounded-xl shadow-2xl text-on-surface">
+<div class="flex items-center justify-between pb-4 mb-4 bg-surface-container-low px-4 py-2.5 rounded-lg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">verified_user</span>
+<span class="font-label-md text-label-md font-semibold text-primary">Sceau d'Accréditation ZTF</span>
+</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed font-label-rank text-label-rank px-2 py-0.5 rounded-full font-bold">2024-2025</span>
+</div>
+<div class="relative w-full h-56 rounded-lg overflow-hidden mb-4 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Modern university campus atrium and research laboratory at ZTF Bertoua with professors and students in discussion with scientific equipment, natural daylight, institutional dignity, subtle teal and warm ambient illumination." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFPpPfe8U_G3XCE3Nb_aQnaji_PP2VI9lusMgX590twUGjO3h5pdnq1w8AM3b89FmR-rppW7695np7zifLVB6XtqB_mga18rzkHmehegJLQYtuAWCCWjOPl8wvL-0XHdEyCnqYUQXuHpEntLZ2vEOmbBCW5px8uuNFJG5Q4IerzgrE6vVZIXvU5-wD-QBPL6vJ8U0pfmnreI1eNlcVHxTqjc-AILNZ-sV1UOcvlUEIpldw6WwY490"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent flex items-end p-4">
+<div>
+<span class="text-tertiary-fixed font-caption text-caption uppercase tracking-wider font-semibold">Campus Universitaire • Bertoua</span>
+<p class="text-on-primary font-label-md text-label-md font-medium">Laboratoire des Systèmes Distribués et de l'Innovation Forestière</p>
+</div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-secondary/10 text-secondary flex items-center justify-center font-bold text-label-md">PR</div>
+<div>
+<div class="font-label-md text-label-md font-bold text-primary">Pr. Jean-Calvin Mvondo</div>
+<div class="font-caption text-caption text-on-surface-variant">Génie Logiciel & Intelligence Embarquée</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary text-sm">open_in_new</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-tertiary-fixed-dim/20 text-on-tertiary-container flex items-center justify-center font-bold text-label-md">DR</div>
+<div>
+<div class="font-label-md text-label-md font-bold text-primary">Dr. Astride Ngo Bisseck</div>
+<div class="font-caption text-caption text-on-surface-variant">Mathématiques Appliquées & Modélisation</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary text-sm">open_in_new</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SEARCH & ADVANCED FILTERS DOCK -->
+<section class="relative -mt-10 z-20 max-w-[1240px] mx-auto px-margin w-full" id="search-engine">
+<div class="bg-surface-container-lowest rounded-xl shadow-xl p-6 sm:p-8">
+<div class="flex items-center justify-between gap-4 mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-xl">manage_search</span>
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold">Moteur de Recherche des Enseignants, Chercheurs & Membres</h2>
+</div>
+<span class="hidden sm:inline-flex font-caption text-caption text-on-surface-variant bg-surface-container-low px-3 py-1 rounded-full">Indexation en temps réel</span>
+</div>
+<form class="grid grid-cols-1 md:grid-cols-12 gap-4" onsubmit="event.preventDefault();">
+<!-- Input Text Nom/Mot Clé -->
+<div class="md:col-span-5 flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface font-semibold">Nom, Prénom ou Spécialité</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-lg">search</span>
+<input class="w-full h-11 bg-surface-container-low text-on-surface pl-10 pr-3 rounded-lg font-body-md text-body-md placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary" placeholder="Ex: Mvondo, Cryptographie, Biomasse..." type="text"/>
+</div>
+</div>
+<!-- Filter Rang -->
+<div class="md:col-span-3 flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface font-semibold">Rang Académique</label>
+<div class="relative">
+<select class="w-full h-11 bg-surface-container-low text-on-surface px-3 rounded-lg font-body-md text-body-md appearance-none focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary cursor-pointer">
+<option value="">Tous les rangs</option>
+<option value="prof">Professeurs Titulaires & Associés</option>
+<option value="doc">Docteurs & Maîtres de Conférences</option>
+<option value="ing">Ingénieurs R&D & Chefs de Projets</option>
+<option value="cherch">Chercheurs & Post-Doctorants</option>
+<option value="etud">Doctorants & Étudiants Masters</option>
+<option value="admin">Personnel Administratif & Technique</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<!-- Filter Département -->
+<div class="md:col-span-3 flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface font-semibold">Département d'Affiliation</label>
+<div class="relative">
+<select class="w-full h-11 bg-surface-container-low text-on-surface px-3 rounded-lg font-body-md text-body-md appearance-none focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary cursor-pointer">
+<option value="">Tous les départements</option>
+<option value="gi">Génie Informatique & Réseaux</option>
+<option value="sf">Sciences Fondamentales & Appliquées</option>
+<option value="seg">Sciences Économiques & Gestion</option>
+<option value="agri">Agro-ressources & Environnement Est</option>
+<option value="ed">École Doctorale Interdisciplinaire</option>
+<option value="sg">Secrétariat Général & Rectorat</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<!-- Search Action Button -->
+<div class="md:col-span-1 flex flex-col justify-end">
+<button class="h-11 w-full bg-primary text-on-primary hover:bg-secondary rounded-lg flex items-center justify-center transition-colors shadow-md" type="submit">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</form>
+<!-- Quick Search Badges -->
+<div class="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-surface-container">
+<span class="font-caption text-caption text-on-surface-variant font-medium">Filtres rapides :</span>
+<button class="bg-surface-container text-on-surface-variant hover:text-primary hover:bg-surface-container-high px-2.5 py-1 rounded-full font-label-md text-label-md transition-colors">Laboratoire Big Data ZTF</button>
+<button class="bg-surface-container text-on-surface-variant hover:text-primary hover:bg-surface-container-high px-2.5 py-1 rounded-full font-label-md text-label-md transition-colors">Chaires UNESCO Associées</button>
+<button class="bg-surface-container text-on-surface-variant hover:text-primary hover:bg-surface-container-high px-2.5 py-1 rounded-full font-label-md text-label-md transition-colors">HDR (Habilités à Diriger)</button>
+<button class="bg-surface-container text-on-surface-variant hover:text-primary hover:bg-surface-container-high px-2.5 py-1 rounded-full font-label-md text-label-md transition-colors">Publications 2024</button>
+</div>
+</div>
+</section>
+<!-- GRILLE DES CATEGORIES DE RANGS -->
+<section class="max-w-[1240px] mx-auto px-margin py-space-xl w-full">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<div class="flex items-center gap-2 text-secondary font-label-md text-label-md font-semibold mb-1">
+<span class="material-symbols-outlined text-base">military_tech</span>
+          CORPS & CADRES UNIVERSITAIRES
+        </div>
+<h2 class="font-headline-lg text-headline-lg text-primary font-bold">Hiérarchie Académique & Classification</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+        Chaque membre de l'Institut ZTF est répertorié selon un rang rigoureusement authentifié garantissant l'intégrité scientifique des échanges.
+      </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1: Professeurs -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">workspace_premium</span>
+</div>
+<span class="bg-tertiary-fixed/40 text-on-tertiary-fixed-variant font-label-rank text-label-rank px-2.5 py-1 rounded-full uppercase tracking-wider font-bold">Rang 01 • Honneur</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-1">Professeurs</h3>
+<p class="font-caption text-caption text-on-surface-variant mb-3">Professeurs Titulaires, Émérites & Associés</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+            Garants de l'autorité doctrinale et scientifique de l'institut, directeurs de laboratoires, porteurs de chaires d'excellence et superviseurs des thèses d'État.
+          </p>
+</div>
+<div class="mt-6 pt-4 border-t border-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">38</span>
+<span class="font-caption text-caption text-on-surface-variant">Chaires actives</span>
+</div>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-secondary hover:text-primary font-semibold group-hover:translate-x-1 transition-transform" href="#">
+            Explorer l'annuaire
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Card 2: Docteurs & Enseignants -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">school</span>
+</div>
+<span class="bg-tertiary-fixed/40 text-on-tertiary-fixed-variant font-label-rank text-label-rank px-2.5 py-1 rounded-full uppercase tracking-wider font-bold">Rang 02 • Magistère</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-1">Docteurs & Enseignants</h3>
+<p class="font-caption text-caption text-on-surface-variant mb-3">Maîtres-Assistants, PhD, Chargés de Cours</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+            Piliers de la transmission pédagogique et investigateurs principaux de projets nationaux et régionaux au sein du bassin universitaire de Bertoua.
+          </p>
+</div>
+<div class="mt-6 pt-4 border-t border-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">114</span>
+<span class="font-caption text-caption text-on-surface-variant">Enseignants-chercheurs</span>
+</div>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-secondary hover:text-primary font-semibold group-hover:translate-x-1 transition-transform" href="#">
+            Explorer l'annuaire
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Card 3: Ingénieurs R&D -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">precision_manufacturing</span>
+</div>
+<span class="bg-tertiary-fixed/40 text-on-tertiary-fixed-variant font-label-rank text-label-rank px-2.5 py-1 rounded-full uppercase tracking-wider font-bold">Rang 03 • Technique</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-1">Ingénieurs R&D</h3>
+<p class="font-caption text-caption text-on-surface-variant mb-3">Architectes Systèmes, Chefs de Laboratoire Tech</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+            Responsables du prototypage technologique, du transfert industriel vers les entreprises locales et du développement d'infrastructures de pointe.
+          </p>
+</div>
+<div class="mt-6 pt-4 border-t border-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">62</span>
+<span class="font-caption text-caption text-on-surface-variant">Experts techniques</span>
+</div>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-secondary hover:text-primary font-semibold group-hover:translate-x-1 transition-transform" href="#">
+            Explorer l'annuaire
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Card 4: Chercheurs -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">science</span>
+</div>
+<span class="bg-tertiary-fixed/40 text-on-tertiary-fixed-variant font-label-rank text-label-rank px-2.5 py-1 rounded-full uppercase tracking-wider font-bold">Rang 04 • Recherche</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-1">Chercheurs</h3>
+<p class="font-caption text-caption text-on-surface-variant mb-3">Chargés de Recherche & Post-Doctorants</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+            Focus exclusif sur les protocoles d'investigation avancés, publications à comité de lecture, collaborations transfrontalières et brevets.
+          </p>
+</div>
+<div class="mt-6 pt-4 border-t border-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">87</span>
+<span class="font-caption text-caption text-on-surface-variant">Chercheurs associés</span>
+</div>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-secondary hover:text-primary font-semibold group-hover:translate-x-1 transition-transform" href="#">
+            Explorer l'annuaire
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Card 5: Étudiants & Doctorants -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">history_edu</span>
+</div>
+<span class="bg-tertiary-fixed/40 text-on-tertiary-fixed-variant font-label-rank text-label-rank px-2.5 py-1 rounded-full uppercase tracking-wider font-bold">Rang 05 • Relève</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-1">Étudiants & Doctorants</h3>
+<p class="font-caption text-caption text-on-surface-variant mb-3">Doctorats en cours & Masters Recherche</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+            Nouvelle génération académique, préparant leurs mémoires et thèses au sein des différents pôles sectoriels de Bertoua.
+          </p>
+</div>
+<div class="mt-6 pt-4 border-t border-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">480+</span>
+<span class="font-caption text-caption text-on-surface-variant">Étudiants certifiés</span>
+</div>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-secondary hover:text-primary font-semibold group-hover:translate-x-1 transition-transform" href="#">
+            Explorer l'annuaire
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Card 6: Personnel Administratif -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">account_balance</span>
+</div>
+<span class="bg-tertiary-fixed/40 text-on-tertiary-fixed-variant font-label-rank text-label-rank px-2.5 py-1 rounded-full uppercase tracking-wider font-bold">Rang 06 • Gouvernance</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-1">Personnel Administratif</h3>
+<p class="font-caption text-caption text-on-surface-variant mb-3">Direction, Scolarité & Services d'Appui</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+            Coordination institutionnelle, gestion des accréditations, liaison avec le Ministère de l'Enseignement Supérieur et logistique générale.
+          </p>
+</div>
+<div class="mt-6 pt-4 border-t border-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">59</span>
+<span class="font-caption text-caption text-on-surface-variant">Agents & Cadres</span>
+</div>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-secondary hover:text-primary font-semibold group-hover:translate-x-1 transition-transform" href="#">
+            Explorer l'annuaire
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- PUBLICATIONS RECENTES & TRAVAUX -->
+<section class="w-full bg-surface-container-low py-space-xl">
+<div class="max-w-[1240px] mx-auto px-margin">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<div class="flex items-center gap-2 text-secondary font-label-md text-label-md font-semibold mb-1">
+<span class="material-symbols-outlined text-base">feed</span>
+            PRODUCTION SCIENTIFIQUE CERTIFIÉE
+          </div>
+<h2 class="font-headline-lg text-headline-lg text-primary font-bold">Publications Récentes & Communications</h2>
+</div>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-primary hover:text-secondary font-semibold" href="#">
+          Consulter tout le catalogue de recherche
+          <span class="material-symbols-outlined text-sm">chevron_right</span>
+</a>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Feed Publications (8 Cols) -->
+<div class="lg:col-span-8 flex flex-col gap-4">
+<!-- Article Item 1 -->
+<article class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+<div class="flex items-center gap-2">
+<span class="bg-secondary-fixed text-on-secondary-fixed font-label-rank text-label-rank px-2 py-0.5 rounded font-bold uppercase">Génie Informatique</span>
+<span class="font-caption text-caption text-on-surface-variant">Publié le 12 Février 2025</span>
+</div>
+<span class="font-caption text-caption text-secondary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified</span> DOI: 10.1042/ztf.2025.04
+              </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-2 hover:text-secondary transition-colors cursor-pointer">
+              Optimisation des Protocoles de Routage Décentralisé pour Réseaux Capteurs en Forêt Dense d'Afrique Centrale
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">
+              Cette étude propose une topologie d'économie d'énergie adaptée au couvert végétal humide de la région de Bertoua, réduisant la perte de paquets de transmission de 34% par rapport aux protocoles LoRa standards.
+            </p>
+<div class="flex items-center justify-between pt-3 border-t border-surface-container-low">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-surface-container-high flex items-center justify-center font-semibold text-xs text-primary">EM</div>
+<span class="font-label-md text-label-md text-on-surface">Dr. Eric Momo • Laboratoire Systèmes Ruraux</span>
+</div>
+<div class="flex items-center gap-4 text-outline font-caption text-caption">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">visibility</span> 432 vues</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">download</span> PDF (2.4 Mo)</span>
+</div>
+</div>
+</article>
+<!-- Article Item 2 -->
+<article class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary-fixed-dim"></div>
+<div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+<div class="flex items-center gap-2">
+<span class="bg-surface-container-highest text-primary font-label-rank text-label-rank px-2 py-0.5 rounded font-bold uppercase">Sciences Économiques</span>
+<span class="font-caption text-caption text-on-surface-variant">Publié le 28 Janvier 2025</span>
+</div>
+<span class="font-caption text-caption text-secondary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified</span> DOI: 10.1042/ztf.2025.02
+              </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-2 hover:text-secondary transition-colors cursor-pointer">
+              Corridor Économique Douala-Bangui : Analyse de l'Impact Territorial sur la Ville Carrefour de Bertoua
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">
+              Évaluation économétrique des flux de transit transfrontalier et des opportunités d'industrialisation légère pour les PME locales au sein de la région de l'Est Cameroun.
+            </p>
+<div class="flex items-center justify-between pt-3 border-t border-surface-container-low">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-surface-container-high flex items-center justify-center font-semibold text-xs text-primary">FS</div>
+<span class="font-label-md text-label-md text-on-surface">Pr. François Sani • Chaire Développement Régional</span>
+</div>
+<div class="flex items-center gap-4 text-outline font-caption text-caption">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">visibility</span> 780 vues</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">download</span> PDF (4.1 Mo)</span>
+</div>
+</div>
+</article>
+<!-- Article Item 3 -->
+<article class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+<div class="flex items-center gap-2">
+<span class="bg-secondary-fixed text-on-secondary-fixed font-label-rank text-label-rank px-2 py-0.5 rounded font-bold uppercase">Sciences Fondamentales</span>
+<span class="font-caption text-caption text-on-surface-variant">Publié le 19 Janvier 2025</span>
+</div>
+<span class="font-caption text-caption text-secondary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified</span> Thèse Soutenue
+              </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-2 hover:text-secondary transition-colors cursor-pointer">
+              Modélisation Spectroscopique des Résines Végétales Naturelles du Bassin du Lom-et-Djérem
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">
+              Identification biochimique et caractérisation des principes actifs pour des débouchés pharmaceutiques et éco-matériaux de construction.
+            </p>
+<div class="flex items-center justify-between pt-3 border-t border-surface-container-low">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-surface-container-high flex items-center justify-center font-semibold text-xs text-primary">TN</div>
+<span class="font-label-md text-label-md text-on-surface">Thérèse Ndongo (Doctorante) • Dir. Pr. J. Bella</span>
+</div>
+<div class="flex items-center gap-4 text-outline font-caption text-caption">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">visibility</span> 310 vues</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">download</span> Thèse (8.9 Mo)</span>
+</div>
+</div>
+</article>
+</div>
+<!-- Sidebar / Événements & Données Institutionnelles (4 Cols) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Carte Annonces Officielles -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary">campaign</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary">Avis du Conseil Scientifique</h3>
+</div>
+<div class="space-y-4">
+<div class="p-3.5 rounded-lg bg-surface-container-low">
+<span class="font-caption text-caption text-tertiary-fixed-dim bg-tertiary-container px-2 py-0.5 rounded font-bold uppercase">Appel à Communications</span>
+<h4 class="font-label-md text-label-md font-bold text-primary mt-2">Colloque International ZTF 2025</h4>
+<p class="font-caption text-caption text-on-surface-variant mt-1">Date limite de soumission des résumés : 15 Avril 2025 à minuit.</p>
+</div>
+<div class="p-3.5 rounded-lg bg-surface-container-low">
+<span class="font-caption text-caption text-secondary font-bold uppercase">Soutenance Publique</span>
+<h4 class="font-label-md text-label-md font-bold text-primary mt-2">Doctorat en Informatique Embarquée</h4>
+<p class="font-caption text-caption text-on-surface-variant mt-1">Amphi Thomas Sankara • Vendredi 21 Mars, 10h00.</p>
+</div>
+</div>
+</div>
+<!-- Carte Donut Graph / Répartition des Travaux -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm flex flex-col items-center text-center">
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-1">Répartition de la Recherche</h3>
+<p class="font-caption text-caption text-on-surface-variant mb-6">Publications indexées par département en 2024</p>
+<!-- Minimal SVG Chart -->
+<div class="relative w-40 h-40 mb-4">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#E2E8F8" stroke-width="12"></circle>
+<!-- Segment 1: GI (45%) -->
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#006A67" stroke-dasharray="113 251" stroke-dashoffset="0" stroke-width="12"></circle>
+<!-- Segment 2: SEG (30%) -->
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#0A2540" stroke-dasharray="75 251" stroke-dashoffset="-113" stroke-width="12"></circle>
+<!-- Segment 3: Sciences (25%) -->
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#F3BE65" stroke-dasharray="63 251" stroke-dashoffset="-188" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+<span class="font-headline-md text-headline-md font-bold text-primary">125</span>
+<span class="font-caption text-caption text-on-surface-variant">Articles</span>
+</div>
+</div>
+<div class="w-full grid grid-cols-3 gap-2 text-left pt-2 border-t border-surface-container-low">
+<div class="flex flex-col">
+<span class="flex items-center gap-1 text-[11px] text-on-surface font-medium"><span class="w-2 h-2 rounded-full bg-secondary inline-block"></span> Informatique</span>
+<span class="font-bold text-caption text-primary pl-3">45%</span>
+</div>
+<div class="flex flex-col">
+<span class="flex items-center gap-1 text-[11px] text-on-surface font-medium"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span> Gestion</span>
+<span class="font-bold text-caption text-primary pl-3">30%</span>
+</div>
+<div class="flex flex-col">
+<span class="flex items-center gap-1 text-[11px] text-on-surface font-medium"><span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim inline-block"></span> Sciences</span>
+<span class="font-bold text-caption text-primary pl-3">25%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- MEMBRES EN VEDETTE DE L'INSTITUT -->
+<section class="max-w-[1240px] mx-auto px-margin py-space-xl w-full">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<div class="flex items-center gap-2 text-secondary font-label-md text-label-md font-semibold mb-1">
+<span class="material-symbols-outlined text-base">stars</span>
+          CORPS ENSEIGNANT & CHERCHEURS EN VEDETTE
+        </div>
+<h2 class="font-headline-lg text-headline-lg text-primary font-bold">Membres Remarquables de l'Institut</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+        Sélection de figures académiques reconnues pour l'impact de leurs publications et leur implication pédagogique au campus ZTF.
+      </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Member Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm hover:shadow-lg transition-all flex flex-col items-center text-center relative group">
+<div class="absolute top-4 right-4">
+<span class="bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-label-rank text-label-rank px-2 py-0.5 rounded-full font-bold">Professeur</span>
+</div>
+<div class="relative w-24 h-24 mb-4 mt-2">
+<img class="w-full h-full rounded-full object-cover shadow-md" data-alt="Portrait of an authoritative senior African male professor in university academic robes, dignified posture, calm intellectual expression, dark studio background with subtle warm gold rim light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCISTbxoHDdzRT97vLxLpTU59_3PY4LV_-fIKAzCHtH9lz4BcTHb4mxA_VoxZLdYsxpHcnNZMFv60D23gJEeXwKbpcv2cCfphtc7fJ7ZqvtQidZlOm41siQ_YJA9gn-D5JoEkV2PfhPyRYs5XT8Q2CxsagKaB1XWXWJT2N3MmY0cZ_WmJzUAw0b6wlR_wlCIhukwkYLzNDIwEHnA9gT10mMcmBOOqJwlNMFbxUwsrM5kb2QG2CAkmE"/>
+<span class="absolute bottom-0 right-1 w-4 h-4 bg-secondary rounded-full ring-2 ring-surface-container-lowest"></span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary group-hover:text-secondary transition-colors">Pr. Dieudonné Belibi</h3>
+<p class="font-caption text-caption text-secondary font-medium mb-2">Chef de Département</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Génie Informatique, Cybersécurité & Réseaux Industriels</p>
+<div class="w-full bg-surface-container-low py-2 px-3 rounded-lg mb-4 flex justify-around">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-primary">48</span>
+<span class="font-caption text-caption text-on-surface-variant">Articles</span>
+</div>
+<div class="h-auto w-px bg-surface-container"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-primary">1 240</span>
+<span class="font-caption text-caption text-on-surface-variant">Citations</span>
+</div>
+<div class="h-auto w-px bg-surface-container"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-primary">14</span>
+<span class="font-caption text-caption text-on-surface-variant">Thèses</span>
+</div>
+</div>
+<a class="w-full inline-flex items-center justify-center gap-2 bg-surface-container hover:bg-primary hover:text-on-primary text-primary py-2.5 rounded-lg font-label-md text-label-md font-semibold transition-colors mt-auto" href="#">
+          Voir le profil public
+          <span class="material-symbols-outlined text-sm">visibility</span>
+</a>
+</div>
+<!-- Member Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm hover:shadow-lg transition-all flex flex-col items-center text-center relative group">
+<div class="absolute top-4 right-4">
+<span class="bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-label-rank text-label-rank px-2 py-0.5 rounded-full font-bold">Docteur</span>
+</div>
+<div class="relative w-24 h-24 mb-4 mt-2">
+<img class="w-full h-full rounded-full object-cover shadow-md" data-alt="Professional portrait of a confident Central African female scientist with spectacles and blazer, intelligent expression, university research lab background, sharp editorial lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwYn-YOSnH6pA4dXeYebcyIPxaL29bSm1qsF2PKffhVk7wWq00tx5vwvvB2F9SYxOzwVesJYbNx2Ark8dA3ZZrcbZKfspJMLMSoUjNdX3dBLc3MEMnG23bWQvQbha0SkI6J_7ewVKv08wpF509oMG8hsWBOp9g7SlTydjXnGfYO6sIDi2kkdg985KU3yukaPe7DcxZBfOgU8-ENluO6KPCkaqxXUE8VUaZYFRxRpdRReljMKiXTeg"/>
+<span class="absolute bottom-0 right-1 w-4 h-4 bg-secondary rounded-full ring-2 ring-surface-container-lowest"></span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary group-hover:text-secondary transition-colors">Dr. Marthe Onana</h3>
+<p class="font-caption text-caption text-secondary font-medium mb-2">Maître-Assistante CAMES</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Sciences Économiques & Économétrie Appliquée</p>
+<div class="w-full bg-surface-container-low py-2 px-3 rounded-lg mb-4 flex justify-around">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-primary">22</span>
+<span class="font-caption text-caption text-on-surface-variant">Articles</span>
+</div>
+<div class="h-auto w-px bg-surface-container"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-primary">480</span>
+<span class="font-caption text-caption text-on-surface-variant">Citations</span>
+</div>
+<div class="h-auto w-px bg-surface-container"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-primary">8</span>
+<span class="font-caption text-caption text-on-surface-variant">Masters</span>
+</div>
+</div>
+<a class="w-full inline-flex items-center justify-center gap-2 bg-surface-container hover:bg-primary hover:text-on-primary text-primary py-2.5 rounded-lg font-label-md text-label-md font-semibold transition-colors mt-auto" href="#">
+          Voir le profil public
+          <span class="material-symbols-outlined text-sm">visibility</span>
+</a>
+</div>
+<!-- Member Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm hover:shadow-lg transition-all flex flex-col items-center text-center relative group">
+<div class="absolute top-4 right-4">
+<span class="bg-secondary-fixed text-on-secondary-fixed font-label-rank text-label-rank px-2 py-0.5 rounded-full font-bold">Ingénieur</span>
+</div>
+<div class="relative w-24 h-24 mb-4 mt-2">
+<img class="w-full h-full rounded-full object-cover shadow-md" data-alt="Portrait of an African male systems engineer with telemetry monitors and hardware benches behind, focused gaze, wearing dark technical polo shirt, clean professional photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC65C9alLgfqUfAtyGBh8Yk4j7VHsodzhb3FHEGYaAkJ0jPxLzq6p4JuPcI290qFTxzLuyOLgDFqw_ff03O1TItKW9BMNXXyhLAPI4ccMmZttsCiA6OWrBPsXwYLHsp7iDeMm_I-5NP5TO5i_wzpeVWHmhOQG3bQCaFcW-Eb6JigJlrozSUAz4qgDtiQ_VeVPTGyL6UeCkri2KXQ0QT7GQkU9ozrPTuEgJaxIqg0iJne4n2MdgJr0c"/>
+<span class="absolute bottom-0 right-1 w-4 h-4 bg-secondary rounded-full ring-2 ring-surface-container-lowest"></span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary group-hover:text-secondary transition-colors">Ing. Patrick Ndjock</h3>
+<p class="font-caption text-caption text-secondary font-medium mb-2">Responsable Innovation & FabLab</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Systèmes Embarqués & Télécommunications Est</p>
+<div class="w-full bg-surface-container-low py-2 px-3 rounded-lg mb-4 flex justify-around">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-primary">16</span>
+<span class="font-caption text-caption text-on-surface-variant">Brevets</span>
+</div>
+<div class="h-auto w-px bg-surface-container"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-primary">9</span>
+<span class="font-caption text-caption text-on-surface-variant">Projets R&D</span>
+</div>
+<div class="h-auto w-px bg-surface-container"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-primary">4</span>
+<span class="font-caption text-caption text-on-surface-variant">Prix Tech</span>
+</div>
+</div>
+<a class="w-full inline-flex items-center justify-center gap-2 bg-surface-container hover:bg-primary hover:text-on-primary text-primary py-2.5 rounded-lg font-label-md text-label-md font-semibold transition-colors mt-auto" href="#">
+          Voir le profil public
+          <span class="material-symbols-outlined text-sm">visibility</span>
+</a>
+</div>
+<!-- Member Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm hover:shadow-lg transition-all flex flex-col items-center text-center relative group">
+<div class="absolute top-4 right-4">
+<span class="bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-label-rank text-label-rank px-2 py-0.5 rounded-full font-bold">Chercheur</span>
+</div>
+<div class="relative w-24 h-24 mb-4 mt-2">
+<img class="w-full h-full rounded-full object-cover shadow-md" data-alt="Portrait of a youthful African female doctoral researcher working at a microscope in an agronomy laboratory, focused and smiling gently, warm lighting with laboratory glassware in bokeh background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJAXM1cMq4JWheNRUglECKpW-mvxilArrtY2RdmvkVi8pJqPI06SOs9gVn5bNVy3NrxxZ3XQ3vZNTNefaX4fyrQU2_d55V3nqAEJTrjmLLiM8yY5Dyese_dBhSLnyQJJbWA_DUHl5WSw5B9qRFHxQv_ClNZnKEaIjNdTgB4nFwNjxl33aGc4DZyexL3wd0fS7uaUUaSo2VxCLgw3fC71zhLfJgIpngdUKBWdsmh1-5P-4qJn93poo"/>
+<span class="absolute bottom-0 right-1 w-4 h-4 bg-secondary rounded-full ring-2 ring-surface-container-lowest"></span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary group-hover:text-secondary transition-colors">Dr. Raïssa Tchaptchet</h3>
+<p class="font-caption text-caption text-secondary font-medium mb-2">Post-Doctorante Associée</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Chimie Verte & Valorisation de la Biomasse</p>
+<div class="w-full bg-surface-container-low py-2 px-3 rounded-lg mb-4 flex justify-around">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-primary">11</span>
+<span class="font-caption text-caption text-on-surface-variant">Articles</span>
+</div>
+<div class="h-auto w-px bg-surface-container"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-primary">230</span>
+<span class="font-caption text-caption text-on-surface-variant">Citations</span>
+</div>
+<div class="h-auto w-px bg-surface-container"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-primary">2</span>
+<span class="font-caption text-caption text-on-surface-variant">Brevets</span>
+</div>
+</div>
+<a class="w-full inline-flex items-center justify-center gap-2 bg-surface-container hover:bg-primary hover:text-on-primary text-primary py-2.5 rounded-lg font-label-md text-label-md font-semibold transition-colors mt-auto" href="#">
+          Voir le profil public
+          <span class="material-symbols-outlined text-sm">visibility</span>
+</a>
+</div>
+</div>
+</section>
+<!-- BLOC INSTITUTIONNEL D'ADHESION & PROCESSUS DE VALIDATION -->
+<section class="w-full bg-surface-container-high py-space-xl" id="membership-info">
+<div class="max-w-[1240px] mx-auto px-margin">
+<div class="bg-surface-container-lowest rounded-2xl p-8 sm:p-12 shadow-xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+<div class="lg:col-span-5 flex flex-col gap-4">
+<div class="inline-flex items-center gap-2 text-secondary font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-base">verified</span>
+              PROTOCOLE INSTITUTIONNEL D'ADHÉSION
+            </div>
+<h2 class="font-headline-lg text-headline-lg text-primary font-bold leading-tight">
+              Comment rejoindre le réseau académique ZTF ?
+            </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Afin de maintenir une base de données rigoureuse et conforme aux normes du Ministère de l'Enseignement Supérieur, chaque création de profil passe par un protocole en 3 étapes.
+            </p>
+<div class="pt-4">
+<a class="inline-flex items-center gap-2 bg-primary text-on-primary hover:bg-secondary px-6 py-3 rounded-lg font-label-lg text-label-lg font-semibold transition-colors shadow-md" href="#">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+                Initier ma demande d'adhésion ZTF
+              </a>
+</div>
+</div>
+<div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
+<!-- Étape 1 -->
+<div class="bg-surface-container-low p-5 rounded-xl flex flex-col justify-between h-full relative">
+<div>
+<span class="text-tertiary-fixed-dim font-headline-lg text-headline-lg font-black block mb-2">01</span>
+<h3 class="font-label-lg text-label-lg font-bold text-primary mb-1.5">Matricule ou Référence RH</h3>
+<p class="font-caption text-caption text-on-surface-variant">
+                  Saisie de votre identifiant institutionnel étudiant, enseignant ou contrat de recherche délivré par le secrétariat général de Bertoua.
+                </p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container flex items-center gap-1.5 text-secondary font-caption text-caption font-semibold">
+<span class="material-symbols-outlined text-sm">vpn_key</span>
+                Vérification du rôle
+              </div>
+</div>
+<!-- Étape 2 -->
+<div class="bg-surface-container-low p-5 rounded-xl flex flex-col justify-between h-full relative">
+<div>
+<span class="text-tertiary-fixed-dim font-headline-lg text-headline-lg font-black block mb-2">02</span>
+<h3 class="font-label-lg text-label-lg font-bold text-primary mb-1.5">Dépôt du Dossier Scientifique</h3>
+<p class="font-caption text-caption text-on-surface-variant">
+                  Téléversement des diplômes, arrêté de nomination ou certificats de scolarité de doctorat pour attribution du rang correspondant.
+                </p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container flex items-center gap-1.5 text-secondary font-caption text-caption font-semibold">
+<span class="material-symbols-outlined text-sm">upload_file</span>
+                Audit documentaire
+              </div>
+</div>
+<!-- Étape 3 -->
+<div class="bg-surface-container-low p-5 rounded-xl flex flex-col justify-between h-full relative">
+<div>
+<span class="text-tertiary-fixed-dim font-headline-lg text-headline-lg font-black block mb-2">03</span>
+<h3 class="font-label-lg text-label-lg font-bold text-primary mb-1.5">Certification & Publication</h3>
+<p class="font-caption text-caption text-on-surface-variant">
+                  Validation collégiale par le Conseil de Direction de l'Institut ZTF et activation du profil public dans l'annuaire PRO-LOOKUP.
+                </p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container flex items-center gap-1.5 text-secondary font-caption text-caption font-semibold">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+                Sceau délivré
+              </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div></main><footer class="w-full bg-surface-container-low mt-space-xl shadow-[0_-1px_6px_rgba(10,37,64,0.02)]"><div class="max-w-[1240px] mx-auto px-margin py-space-xl"><div class="grid grid-cols-1 md:grid-cols-4 gap-space-lg mb-space-xl"><div class="flex flex-col gap-space-sm"><div class="flex items-center gap-space-sm"><img alt="Logo Officiel PRO-LOOKUP ZTF" class="h-6 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VPuVv0ODNKxMfZ3GmeW_5sbGAGE98yTB1amLj2iBGVq0fL4FGKpwt-jzHuN6uO4VjcXLASJeh8Scku5uBR_Yzt2PPbSjmmeSTMiAaBxK2BcXasR9xpCIq2VnHoUhaBSpq95Zx7wnR86QAcyGzIRMYMYI1TDjvGoaFFmAQNtH0Co0VvAjQuivbsQMXwE_iR_LSojF0mGO2P8wo2VUrmIm6xlV8wURrN4bUxCT8TkgHO7dKVf2LEZIdD4Q"/><span class="font-label-lg text-label-lg text-primary font-bold">PRO-LOOKUP</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Plateforme institutionnelle d'indexation académique, d'annuaire professoral et de valorisation des travaux de recherche de l'Institut Universitaire ZTF de Bertoua.</p></div><div class="flex flex-col gap-space-xs"><h4 class="font-label-lg text-label-lg text-primary mb-space-xs font-semibold">Navigation</h4><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="accueil" href="#">Accueil Institutionnel</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="classement-par-rangs" href="#">Tableau d'Honneur des Rangs</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="publications" href="#">Index des Publications</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="annuaire" href="#">Corps Enseignant & Chercheurs</a></div><div class="flex flex-col gap-space-xs"><h4 class="font-label-lg text-label-lg text-primary mb-space-xs font-semibold">Départements</h4><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Sciences et Technologies</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Génie Informatique & Réseaux</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Sciences Économiques & Gestion</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">École Doctorale & Laboratoires</a></div><div class="flex flex-col gap-space-xs"><h4 class="font-label-lg text-label-lg text-primary mb-space-xs font-semibold">Institut Universitaire ZTF</h4><p class="font-body-sm text-body-sm text-on-surface-variant">Campus Principal, Quartier Universitaire<br/>Bertoua, Région de l'Est — Cameroun</p><p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">secretariat@ztf-bertoua.cm</p></div></div><div class="pt-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-caption text-caption"><p>© 2025 Institut Universitaire ZTF — Bertoua. Tous droits réservés.</p><div class="flex items-center gap-space-md"><a class="hover:text-primary transition-colors" href="#">Politique de Confidentialité</a><a class="hover:text-primary transition-colors" href="#">Mentions Légales</a><a class="hover:text-primary transition-colors" href="#">Charte Académique</a></div></div></div></footer></body></html>

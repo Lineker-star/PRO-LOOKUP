@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'inverse-on-surface': '#ebf1ff', 'on-surface-variant': '#43474d', 'on-secondary-fixed-variant': '#00504e', 'surface-variant': '#dce2f3', 'error': '#ba1a1a', 'surface-dim': '#d3daea', 'on-background': '#151c27', 'on-secondary': '#ffffff', 'on-primary': '#ffffff', 'error-container': '#ffdad6', 'surface-container-low': '#f0f3ff', 'background': '#f9f9ff', 'inverse-surface': '#2a313d', 'outline': '#74777e', 'primary': '#000f22', 'surface-container-lowest': '#ffffff', 'secondary-container': '#78f6f1', 'primary-fixed-dim': '#b0c8eb', 'on-primary-fixed': '#001c37', 'on-tertiary': '#ffffff', 'surface-bright': '#f9f9ff', 'surface': '#f9f9ff', 'primary-container': '#0a2540', 'secondary-fixed-dim': '#58d9d5', 'surface-tint': '#49607e', 'surface-container': '#e7eefe', 'on-tertiary-fixed-variant': '#604100', 'on-secondary-fixed': '#00201f', 'secondary': '#006a67', 'on-tertiary-container': '#b28330', 'secondary-fixed': '#78f6f1', 'tertiary-fixed-dim': '#f3be65', 'on-error': '#ffffff', 'on-error-container': '#93000a', 'inverse-primary': '#b0c8eb', 'on-secondary-container': '#00706e', 'on-tertiary-fixed': '#281900', 'surface-container-highest': '#dce2f3', 'surface-container-high': '#e2e8f8', 'primary-fixed': '#d2e4ff', 'tertiary': '#180d00', 'outline-variant': '#c4c6ce', 'on-surface': '#151c27', 'on-primary-container': '#768dad', 'tertiary-container': '#332100', 'on-primary-fixed-variant': '#314865', 'tertiary-fixed': '#ffdeac' }, borderRadius: { DEFAULT: '0.125rem', lg: '0.25rem', xl: '0.5rem', full: '0.75rem' }, spacing: { 'gutter-mobile': '1rem', 'space-lg': '1.5rem', 'space-xl': '2.5rem', 'gutter': '1.5rem', 'space-sm': '0.5rem', 'space-md': '1rem', 'margin': '2rem', 'space-xs': '0.25rem', 'margin-mobile': '1rem' }, fontFamily: { 'label-md': ['Inter'], 'headline-lg': ['Inter'], 'body-lg': ['Inter'], 'headline-xl-mobile': ['Inter'], 'headline-md': ['Inter'], 'headline-xl': ['Inter'], 'label-lg': ['Inter'], 'headline-lg-mobile': ['Inter'], 'caption': ['Inter'], 'body-md': ['Inter'], 'label-rank': ['Inter'], 'body-sm': ['Inter'], 'headline-sm': ['Inter'] }, fontSize: { 'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.02em', fontWeight: '600' }], 'headline-lg': ['28px', { lineHeight: '36px', letterSpacing: '-0.015em', fontWeight: '600' }], 'body-lg': ['16px', { lineHeight: '26px', fontWeight: '400' }], 'headline-xl-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.015em', fontWeight: '700' }], 'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '-0.01em', fontWeight: '600' }], 'headline-xl': ['40px', { lineHeight: '48px', letterSpacing: '-0.02em', fontWeight: '700' }], 'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.01em', fontWeight: '600' }], 'headline-lg-mobile': ['24px', { lineHeight: '32px', letterSpacing: '-0.01em', fontWeight: '600' }], 'caption': ['11px', { lineHeight: '14px', fontWeight: '400' }], 'body-md': ['14px', { lineHeight: '22px', fontWeight: '400' }], 'label-rank': ['11px', { lineHeight: '14px', letterSpacing: '0.05em', fontWeight: '700' }], 'body-sm': ['12px', { lineHeight: '18px', fontWeight: '400' }], 'headline-sm': ['16px', { lineHeight: '24px', fontWeight: '600' }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col antialiased"><header class="fixed top-0 inset-x-0 z-50 bg-primary-container/95 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.08)]"><div class="h-16 px-gutter-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="PRO-LOOKUP Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAIEp142zXDMP5Edbq8enxbkrmCzujEg9WU7hcEVXzz5BXVGTyWOB5tDrmso16o5g6GPiYh2BqlF5X0Jt4qMkG9iN6Fd4B8J966tL4HXblIsjSzaRvuUeHtfTCxZ1XXjoVqesqbwNAeY2OfuiFmYYLV5g0TCp8y8YRiBA3nkdR5PwRv391fL2NsVvLAbNdn0bTUyj9uXKVMPWNAM9zVA_36iJ9nXsYlS0EpEmL-0jcnEbcpfQmNEk"/><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-on-primary tracking-tight truncate leading-none">PRO-LOOKUP</span><span class="font-caption text-caption text-on-primary-container truncate">Accueil</span></div></div><div class="flex items-center gap-space-xs"><button aria-label="Notifications" class="relative w-11 h-11 flex items-center justify-center text-on-primary hover:text-secondary-fixed transition-colors"><span class="material-symbols-outlined text-[24px]">notifications</span><span class="absolute top-2 right-2 flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-20 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Hero Section -->
+<section class="relative px-gutter-mobile pt-space-lg pb-space-xl bg-surface-container-lowest shadow-sm overflow-hidden">
+<div class="absolute -top-12 -right-12 w-56 h-56 rounded-full bg-secondary-fixed/20 blur-3xl pointer-events-none"></div>
+<div class="absolute top-36 -left-16 w-48 h-48 rounded-full bg-tertiary-fixed/20 blur-2xl pointer-events-none"></div>
+<div class="relative flex flex-col gap-space-md">
+<!-- Live Badge Pill -->
+<div class="inline-flex items-center gap-space-xs self-start px-3 py-1 rounded-full bg-secondary-container/30 text-on-secondary-container">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-rank text-label-rank uppercase tracking-wider">Réseau Certifié &amp; Indexé</span>
+</div>
+<!-- Hero Headline -->
+<h1 class="font-headline-xl-mobile text-headline-xl-mobile text-primary-container tracking-tight">
+        Découvrez et connectez-vous avec l'élite académique &amp; technique
+        <span class="text-secondary underline decoration-secondary/30 underline-offset-4">classée par rangs</span>.
+      </h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        La plateforme d'autorité dédiée aux chaires de recherche, docteurs émérites et ingénieurs d'exception. Validez votre expertise et rejoignez vos pairs.
+      </p>
+<!-- Primary Action Buttons -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<button class="w-full h-12 flex items-center justify-center gap-space-xs rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg shadow-md hover:bg-secondary/90 active:scale-[0.99] transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+<span>Rejoindre le réseau</span>
+</button>
+<button class="w-full h-12 flex items-center justify-center gap-space-xs rounded-lg bg-surface-container-low text-primary-container font-label-lg text-label-lg hover:bg-surface-container active:scale-[0.99] transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">login</span>
+<span>Se connecter</span>
+</button>
+</div>
+<!-- Quick Trust Indicators -->
+<div class="grid grid-cols-3 gap-space-xs pt-space-sm">
+<div class="flex flex-col p-space-sm rounded bg-surface-container-low">
+<span class="font-headline-sm text-headline-sm text-primary-container">29.8k+</span>
+<span class="font-caption text-caption text-on-surface-variant">Membres vérifiés</span>
+</div>
+<div class="flex flex-col p-space-sm rounded bg-surface-container-low">
+<span class="font-headline-sm text-headline-sm text-primary-container">140+</span>
+<span class="font-caption text-caption text-on-surface-variant">Laboratoires</span>
+</div>
+<div class="flex flex-col p-space-sm rounded bg-surface-container-low">
+<span class="font-headline-sm text-headline-sm text-primary-container">99.4%</span>
+<span class="font-caption text-caption text-on-surface-variant">Pair-revue</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Search Trigger -->
+<section class="px-gutter-mobile -mt-4 z-10">
+<div class="p-space-sm rounded-lg bg-surface-container-lowest shadow-md flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-[22px]">search</span>
+<input class="w-full bg-transparent font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none" placeholder="Rechercher un chercheur, brevet, affiliation..." type="text"/>
+<button aria-label="Filtrer" class="w-9 h-9 flex items-center justify-center rounded bg-surface-container-low text-primary-container">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+</div>
+</section>
+<!-- Section: Explorer par Rang -->
+<section class="flex flex-col px-gutter-mobile pt-space-xl gap-space-md">
+<div class="flex items-end justify-between">
+<div class="flex flex-col">
+<span class="font-label-rank text-label-rank text-on-tertiary-container uppercase tracking-wider">Hiérarchie Institutionnelle</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary-container">Explorer par Rang</h2>
+</div>
+<button class="font-label-md text-label-md text-secondary flex items-center gap-0.5 hover:underline">
+<span>Voir tout</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+<!-- Rank Cards Grid -->
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Professeur Émérite (Col Span 2 for prestige emphasis) -->
+<div class="col-span-2 p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between hover:shadow-md transition-all active:scale-[0.99] cursor-pointer">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-full bg-tertiary-container/10 flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined text-[26px]">school</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-primary-container">Professeur Émérite</span>
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<span class="font-caption text-caption text-on-surface-variant">Chaires universitaires &amp; Directeurs</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-label-rank text-label-rank">1 420</span>
+<span class="font-caption text-caption text-on-surface-variant">Membres</span>
+</div>
+</div>
+<!-- Docteur / PhD -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md hover:shadow-md transition-all active:scale-[0.98] cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[22px]">science</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-rank text-label-rank">3 850</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary-container">Docteur / PhD</span>
+<span class="font-caption text-caption text-on-surface-variant">Thèse d'État &amp; HDR</span>
+</div>
+</div>
+<!-- Ingénieur Principal -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md hover:shadow-md transition-all active:scale-[0.98] cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="w-10 h-10 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">precision_manufacturing</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-rank text-label-rank">8 200</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary-container">Ingénieur Principal</span>
+<span class="font-caption text-caption text-on-surface-variant">R&amp;D &amp; Systèmes complexes</span>
+</div>
+</div>
+<!-- Chercheur & Post-Doc -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md hover:shadow-md transition-all active:scale-[0.98] cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[22px]">biotech</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-rank text-label-rank">4 110</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary-container">Chercheur Post-Doc</span>
+<span class="font-caption text-caption text-on-surface-variant">Publications &amp; Laboratoires</span>
+</div>
+</div>
+<!-- Doctorant / Étudiant -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md hover:shadow-md transition-all active:scale-[0.98] cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[22px]">history_edu</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-rank text-label-rank">12 300</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary-container">Doctorant Invité</span>
+<span class="font-caption text-caption text-on-surface-variant">Recherche émergente</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Membres en Vedette -->
+<section class="flex flex-col pt-space-xl gap-space-md">
+<div class="flex items-end justify-between px-gutter-mobile">
+<div class="flex flex-col">
+<span class="font-label-rank text-label-rank text-secondary uppercase tracking-wider">Sélection par les pairs</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary-container">Membres en Vedette</h2>
+</div>
+<span class="font-caption text-caption text-on-surface-variant">Indice H-Index &gt; 35</span>
+</div>
+<!-- Horizontal Swipeable Profiles Container -->
+<div class="flex gap-space-md overflow-x-auto px-gutter-mobile pb-space-sm pt-space-xs snap-x snap-mandatory">
+<!-- Profile Card 1 -->
+<article class="min-w-[280px] max-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-md flex flex-col justify-between gap-space-md snap-center shrink-0">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-start justify-between">
+<div class="relative w-16 h-16 rounded-full p-0.5 bg-tertiary-fixed-dim">
+<img class="w-full h-full rounded-full object-cover" data-alt="Portrait professionnel d'une professeure d'université en neurosciences, lumière naturelle douce en laboratoire, regard sérieux et bienveillant, élégance sobre, fond estompé composé d'équipements scientifiques modernes et de boiseries universitaires." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd5sYlPQyAZ7cOLVD-wI8dF2s6W-6C2tbX62LM11jtBSKjd8_NoMToeGbYBgJJx-vtSNAeySVxcMfpNTkPd0_oL6aLeC4kNC_PmdG4KequyLUVJvG9eYifxH-jcc2sADPQBzLTOpB593ubtgf9En_XkDoI2K2NutY8fPUAnnM76-KEAVt6bi68iG0rh5tluxtpmf4O7FC6F_c3yglO2vcMf_HMSSZ-bAecEGbDX3HLcbbGid30s-0"/>
+<span class="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-secondary flex items-center justify-center text-on-secondary" title="Diplôme Validé">
+<span class="material-symbols-outlined text-[10px]">check</span>
+</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-container/10 text-on-tertiary-container font-label-rank text-label-rank">Professeur</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary-container">Pr. Hélène Vaneau</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Sorbonne Université • CNRS</span>
+<span class="font-caption text-caption text-on-surface-variant/80 mt-0.5">Neuro-informatique &amp; IA Médicale</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<div class="flex items-center justify-between py-1 px-2 rounded bg-surface-container-low font-caption text-caption text-on-surface-variant">
+<span>Publications : <b class="text-primary-container">84</b></span>
+<span>H-Index : <b class="text-primary-container">48</b></span>
+</div>
+<button class="w-full h-10 flex items-center justify-center gap-space-xs rounded bg-surface-container-high text-primary-container font-label-md text-label-md hover:bg-secondary hover:text-on-secondary transition-all" type="button">
+<span>Consulter le profil</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Profile Card 2 -->
+<article class="min-w-[280px] max-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-md flex flex-col justify-between gap-space-md snap-center shrink-0">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-start justify-between">
+<div class="relative w-16 h-16 rounded-full p-0.5 bg-secondary">
+<img class="w-full h-full rounded-full object-cover" data-alt="Portrait studio soigné d'un ingénieur en chef et docteur en physique quantique, portant des lunettes et une veste sobre, dans un environnement technologique épuré aux reflets bleutés institutionnels." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzQYcTbhX7c8FnazQCG4oqsOknQJoXFD7Gc5B_yZhBwqi62g-nxuQvudyTxyBoF-6eWrl68u0NKKdXyqmBO-oVGNzCD2sHCHtaccHkO-EibrsTL8OQEPzV9tIrzqOAHqbwS7K-JR8773_dqfwykwfMNjHslwuNcN_dW5yLg2Um5dBfs3QceiXmFaL8CQSBo3g7DqBd2yo6IgGRRmpNGGUczRrx0-jokkynf6wquBFE7HWkvUpI7mc"/>
+<span class="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-secondary flex items-center justify-center text-on-secondary" title="Diplôme Validé">
+<span class="material-symbols-outlined text-[10px]">check</span>
+</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/30 text-on-secondary-container font-label-rank text-label-rank">PhD &amp; Ingénieur</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary-container">Dr. Marc-Antoine Seyd</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">École Polytechnique • Thales</span>
+<span class="font-caption text-caption text-on-surface-variant/80 mt-0.5">Optique Quantique &amp; Cryptographie</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<div class="flex items-center justify-between py-1 px-2 rounded bg-surface-container-low font-caption text-caption text-on-surface-variant">
+<span>Brevets : <b class="text-primary-container">12</b></span>
+<span>Citations : <b class="text-primary-container">3.2k</b></span>
+</div>
+<button class="w-full h-10 flex items-center justify-center gap-space-xs rounded bg-surface-container-high text-primary-container font-label-md text-label-md hover:bg-secondary hover:text-on-secondary transition-all" type="button">
+<span>Consulter le profil</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Profile Card 3 -->
+<article class="min-w-[280px] max-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-md flex flex-col justify-between gap-space-md snap-center shrink-0">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-start justify-between">
+<div class="relative w-16 h-16 rounded-full p-0.5 bg-tertiary-fixed-dim">
+<img class="w-full h-full rounded-full object-cover" data-alt="Portrait en plan rapproché d'une chercheuse biologiste moléculaire souriante et concentrée, en blouse blanche dans une salle blanche de recherche médicale, éclairage clair et précis." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtbH2pKgkrqMPOqQg84N6WxkhRpkZwBWNBCarZkuxU3tDx4I0Pka8eaYgMnxvbcgdM9uMcRwsikMAFbFZW8SgFMeGSV0OEcrNvZGp7USj70uzE--sxM5BQaeAizRhWerdjvM0xe1PBOBGh_HhgTLUcu1__kzgR3HVnvgjE_hBfDLWBEAcKEeUJiyg1mxLhzRAKaCzOqK4G9qEIhHmD-vj9sT3gFM_KkLKowmpLy41o2hku6DV6V40"/>
+<span class="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-secondary flex items-center justify-center text-on-secondary" title="Diplôme Validé">
+<span class="material-symbols-outlined text-[10px]">check</span>
+</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-container/10 text-on-tertiary-container font-label-rank text-label-rank">Docteur</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary-container">Dr. Amina Benyahia</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Institut Pasteur</span>
+<span class="font-caption text-caption text-on-surface-variant/80 mt-0.5">Génétique Moléculaire &amp; Thérapie</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<div class="flex items-center justify-between py-1 px-2 rounded bg-surface-container-low font-caption text-caption text-on-surface-variant">
+<span>Publications : <b class="text-primary-container">39</b></span>
+<span>H-Index : <b class="text-primary-container">29</b></span>
+</div>
+<button class="w-full h-10 flex items-center justify-center gap-space-xs rounded bg-surface-container-high text-primary-container font-label-md text-label-md hover:bg-secondary hover:text-on-secondary transition-all" type="button">
+<span>Consulter le profil</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</article>
+</div>
+</section>
+<!-- Institutional Verification / Trust Section -->
+<section class="px-gutter-mobile pt-space-xl pb-space-lg flex flex-col gap-space-md">
+<div class="p-space-lg rounded-xl bg-primary-container text-on-primary flex flex-col gap-space-md shadow-lg relative overflow-hidden">
+<!-- Ambient network lines pattern -->
+<div class="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center">
+<svg class="w-full h-full stroke-current" fill="none" viewbox="0 0 200 200">
+<circle cx="100" cy="100" r="80" stroke-width="1.5"></circle>
+<path d="M40 100 L100 40 L160 100 L100 160 Z" stroke-width="1.5"></path>
+<circle cx="100" cy="40" fill="currentColor" r="5"></circle>
+<circle cx="160" cy="100" fill="currentColor" r="5"></circle>
+<circle cx="100" cy="160" fill="currentColor" r="5"></circle>
+<circle cx="40" cy="100" fill="currentColor" r="5"></circle>
+</svg>
+</div>
+<div class="relative flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary-fixed">
+<span class="material-symbols-outlined text-[24px]">verified_user</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-primary">Indexation Sécurisée &amp; Certifiée</span>
+<span class="font-caption text-caption text-on-primary-container">Protocole de consensus académique</span>
+</div>
+</div>
+<p class="relative font-body-sm text-body-sm text-on-primary/90">
+        Chaque profil est audité via notre réseau de comités scientifiques partenaires. L'attribution des galons repose sur les thèses soutenues, les brevets déposés et l'indice d'impact bibliométrique.
+      </p>
+<div class="relative flex flex-col gap-space-xs pt-space-xs">
+<div class="flex items-center gap-space-xs text-secondary-fixed font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>Authentification directe avec les universités partenaires</span>
+</div>
+<div class="flex items-center gap-space-xs text-secondary-fixed font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+<span>Respect strict des données de propriété intellectuelle</span>
+</div>
+</div>
+<div class="relative pt-space-sm flex items-center justify-between text-on-primary-container font-caption text-caption">
+<span>Partenaires officiels : CNRS, INRIA, CEA, Inserm</span>
+<button class="text-secondary-fixed underline hover:text-white">Charte éthique</button>
+</div>
+</div>
+</section>
+<!-- Community Call to Action Footer Card -->
+<section class="px-gutter-mobile pb-space-xl">
+<div class="p-space-lg rounded-xl bg-surface-container-low flex flex-col items-center text-center gap-space-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container/40 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[28px]">hub</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-primary-container">Faites valoir votre rang dans la recherche</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">
+          L'accès est gratuit pour les enseignants-chercheurs, docteurs et ingénieurs diplômés d'État.
+        </p>
+</div>
+<button class="w-full h-11 flex items-center justify-center rounded-lg bg-primary-container text-on-primary font-label-lg text-label-lg shadow hover:bg-primary active:scale-[0.99] transition-all" type="button">
+        Créer mon dossier académique
+      </button>
+</div>
+</section>
+</div></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-1px_12px_rgba(10,37,64,0.06)]" data-active-classes="text-secondary font-label-md"><div class="flex justify-around items-center h-16 px-space-xs"><a aria-current="page" class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] h-12 transition-all text-secondary font-label-md" data-path="accueil" href="#"><span class="material-symbols-outlined text-[22px]">feed</span><span class="font-caption text-caption">Accueil</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-all" data-path="classements" href="#"><span class="material-symbols-outlined text-[22px]">military_tech</span><span class="font-caption text-caption">Rangs</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-all" data-path="explorer" href="#"><span class="material-symbols-outlined text-[22px]">travel_explore</span><span class="font-caption text-caption">Explorer</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-all" data-path="messages" href="#"><span class="material-symbols-outlined text-[22px]">forum</span><span class="font-caption text-caption">Messages</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-all" data-path="mon-profil" href="#"><span class="material-symbols-outlined text-[22px]">account_circle</span><span class="font-caption text-caption">Profil</span></a></div></nav></body></html>
