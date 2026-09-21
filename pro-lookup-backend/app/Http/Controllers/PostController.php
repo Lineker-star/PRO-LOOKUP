@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -17,7 +16,8 @@ class PostController extends Controller
         $user = $request->user();
 
         $posts = Post::query()
-            ->with(['user', 'comments.user', 'likes'])
+            ->with(['user.rank', 'comments.user', 'likes'])
+            ->whereHas('user', fn ($query) => $query->where('status', 'approved'))
             ->where(function ($query) use ($user) {
                 $query->where('visibility', 'public')
                     ->orWhere(function ($sub) use ($user) {
@@ -38,6 +38,7 @@ class PostController extends Controller
                         'first_name' => $post->user->first_name,
                         'last_name' => $post->user->last_name,
                         'slug' => $post->user->slug,
+                        'rank' => $post->user->rank,
                     ],
                     'content' => $post->content,
                     'visibility' => $post->visibility,
@@ -59,7 +60,7 @@ class PostController extends Controller
 
         $validator = Validator::make($request->all(), [
             'content' => ['required', 'string', 'max:2000'],
-            'image_path' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'max:5120'],
             'visibility' => ['sometimes', 'in:public,connections'],
         ]);
 
@@ -67,10 +68,14 @@ class PostController extends Controller
             throw ValidationException::withMessages($validator->errors()->toArray());
         }
 
+        $imagePath = $request->hasFile('image')
+            ? $request->file('image')->store('posts', 'public')
+            : null;
+
         $post = Post::create([
             'user_id' => $user->id,
             'content' => $request->content,
-            'image_path' => $request->image_path,
+            'image_path' => $imagePath,
             'visibility' => $request->visibility ?? 'public',
         ]);
 

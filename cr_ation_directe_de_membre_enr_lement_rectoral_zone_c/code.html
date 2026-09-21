@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-error-container": "#93000a", "inverse-on-surface": "#ebf1ff", "on-tertiary-container": "#b28330", "on-primary-fixed-variant": "#314865", "outline-variant": "#c4c6ce", "surface-container-highest": "#dce2f3", "primary-container": "#0a2540", "tertiary-fixed": "#ffdeac", "outline": "#74777e", "surface": "#f9f9ff", "surface-container-high": "#e2e8f8", "surface-dim": "#d3daea", "primary-fixed-dim": "#b0c8eb", "surface-container-low": "#f0f3ff", "surface-container": "#e7eefe", "background": "#f9f9ff", "primary-fixed": "#d2e4ff", "on-secondary-container": "#00706e", "on-secondary-fixed-variant": "#00504e", "primary": "#000f22", "tertiary": "#180d00", "surface-bright": "#f9f9ff", "inverse-primary": "#b0c8eb", "on-tertiary-fixed": "#281900", "secondary-fixed-dim": "#58d9d5", "secondary": "#006a67", "error-container": "#ffdad6", "on-secondary": "#ffffff", "on-primary": "#ffffff", "on-tertiary": "#ffffff", "surface-container-lowest": "#ffffff", "secondary-container": "#78f6f1", "inverse-surface": "#2a313d", "on-tertiary-fixed-variant": "#604100", "surface-variant": "#dce2f3", "error": "#ba1a1a", "on-primary-container": "#768dad", "on-surface": "#151c27", "tertiary-fixed-dim": "#f3be65", "on-secondary-fixed": "#00201f", "surface-tint": "#49607e", "on-background": "#151c27", "tertiary-container": "#332100", "on-surface-variant": "#43474d", "on-error": "#ffffff", "secondary-fixed": "#78f6f1", "on-primary-fixed": "#001c37" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-lg": "1.5rem", "space-xl": "2.5rem", "space-sm": "0.5rem", "space-md": "1rem", "gutter-mobile": "1rem", "gutter": "1.5rem", "space-xs": "0.25rem", "margin": "2rem", "margin-mobile": "1rem" }, "fontFamily": { "headline-xl": [ "Inter" ], "caption": [ "Inter" ], "body-lg": [ "Inter" ], "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "headline-sm": [ "Inter" ], "headline-lg-mobile": [ "Inter" ], "headline-lg": [ "Inter" ], "label-md": [ "Inter" ], "headline-md": [ "Inter" ], "label-lg": [ "Inter" ], "headline-xl-mobile": [ "Inter" ], "label-rank": [ "Inter" ] }, "fontSize": { "headline-xl": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "caption": [ "11px", { "lineHeight": "14px", "fontWeight": "400" } ], "body-lg": [ "16px", { "lineHeight": "26px", "fontWeight": "400" } ], "body-md": [ "14px", { "lineHeight": "22px", "fontWeight": "400" } ], "body-sm": [ "12px", { "lineHeight": "18px", "fontWeight": "400" } ], "headline-sm": [ "16px", { "lineHeight": "24px", "fontWeight": "600" } ], "headline-lg-mobile": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-lg": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "label-md": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" } ], "headline-md": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "label-lg": [ "14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" } ], "headline-xl-mobile": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "700" } ], "label-rank": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "700" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-secondary selection:text-on-secondary"><aside class="fixed left-0 top-0 bottom-0 w-72 bg-surface-container-lowest z-50 flex flex-col shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest"><span class="material-symbols-outlined text-secondary text-[24px]">shield</span><div class="flex flex-col"><span class="font-label-rank text-label-rank uppercase text-on-tertiary-container tracking-wider">Zone C • Rectorat</span><span class="font-headline-sm text-headline-sm text-primary tracking-tight">PRO-LOOKUP</span></div></div><div class="px-space-md py-space-sm"><div class="p-space-sm bg-surface-container-low rounded-lg flex items-center justify-between"><span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>Instance Active</span><span class="font-caption text-caption text-secondary font-semibold">IUZTF-EST</span></div></div><div class="flex-1 overflow-y-auto px-space-md py-space-sm"><nav class="space-y-space-xs" data-active-classes="bg-primary-container text-on-primary font-headline-sm shadow-sm"><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="tableau-de-bord" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[20px] text-on-surface-variant group-hover:text-on-surface">dashboard</span><span class="font-label-lg text-label-lg">Tableau de bord</span></div><span class="font-caption text-caption text-on-surface-variant group-hover:text-on-surface">Vue</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="demandes-en-attente" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[20px] text-on-surface-variant group-hover:text-on-surface">assignment_turned_in</span><span class="font-label-lg text-label-lg">Demandes en attente</span></div><span class="px-space-xs py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-rank text-label-rank font-bold">12</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="tous-les-membres" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[20px] text-on-surface-variant group-hover:text-on-surface">contacts</span><span class="font-label-lg text-label-lg">Tous les membres</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="creation-directe" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[20px] text-on-surface-variant group-hover:text-on-surface">person_add</span><span class="font-label-lg text-label-lg">Création directe</span></div><span class="material-symbols-outlined text-[16px] text-secondary">bolt</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="gestion-des-rangs" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[20px] text-on-surface-variant group-hover:text-on-surface">military_tech</span><span class="font-label-lg text-label-lg">Gestion des rangs</span></div><span class="font-caption text-caption text-on-tertiary-container font-semibold">CAMES</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="audit-et-securite" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[20px] text-on-surface-variant group-hover:text-on-surface">lock_clock</span><span class="font-label-lg text-label-lg">Audit &amp; Sécurité</span></div></a></nav></div><div class="p-space-md bg-surface-container-lowest"><div class="p-space-md bg-surface-container-low rounded-lg"><div class="flex items-center justify-between"><span class="font-label-rank text-label-rank text-on-surface-variant uppercase">Protocole TLS</span><span class="font-label-rank text-label-rank text-secondary font-bold">SHA-256</span></div><p class="mt-space-xs font-caption text-caption text-on-surface-variant">Portail d'arbitrage académique et de certification universitaire.</p></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><img alt="Logo officiel PRO-LOOKUP avec symbole académique et réseau de pairs, chevron et étoile or, et mention Institut Universitaire ZTF — Bertoua" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Vd4VufZ0WJfj2mfyAPAuuxYsFh-6rJKT-QwNSn1pWYXCOQ5euMGuEy0-jVCmYwC0NeQLyyqucDyumiOmPntAyiwu2dtNkwTsHMLRCdbIYEiPYNXV_D2ebyvgM439K-yPOD_EjnrjYcfr-mftvFRjYpF_4V6j3LmAKa3llJE1M14SBpuoffjF0gL_zD9d6bRzQlR1Lw3qc_poM2cA-7Wx3h8pISdY2YqMS1IJa5v0UQ8AnBRnKEbe2q7A"/><div class="hidden sm:flex items-center gap-space-sm"><span class="px-space-sm py-1 bg-surface-container-high rounded-full font-label-rank text-label-rank text-primary font-bold tracking-wide uppercase">Administration Rectorale — Portail Privé</span><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-low text-secondary font-caption text-caption font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Serveur ZTF Sécurisé • v3.4</div></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-md pl-space-md"><div class="hidden xl:flex flex-col text-right"><span class="font-label-md text-label-md text-primary font-bold leading-tight">Dr. Martin Abena</span><span class="font-caption text-caption text-on-surface-variant leading-tight">Secrétaire Général Adjoint / Administrateur Système</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ring-2 ring-secondary ring-offset-2"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex items-center gap-space-xs"><a class="p-space-xs rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors flex items-center justify-center" data-path="parametres-systeme" href="#" title="Paramètres Système"><span class="material-symbols-outlined text-[20px]">tune</span></a><a class="p-space-xs rounded text-error hover:bg-error-container hover:text-on-error-container transition-colors flex items-center justify-center" data-path="deconnexion" href="#" title="Déconnexion Sécurisée"><span class="material-symbols-outlined text-[20px]">logout</span></a></div></div></div></header><main class="relative pt-16 min-h-screen bg-surface"><div class="flex flex-col w-full">
+<div class="max-w-[1240px] w-full mx-auto px-gutter py-space-lg flex flex-col gap-space-xl">
+<!-- Zone supérieure : Fil d'ariane & Titrage Statutaire -->
+<section class="flex flex-col gap-space-sm">
+<nav class="flex items-center gap-space-xs text-on-surface-variant font-caption text-caption uppercase tracking-wider">
+<span>Administration</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Gouvernance</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-semibold">Création directe de profil homologué</span>
+</nav>
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md mt-space-xs">
+<div class="flex flex-col gap-space-xs max-w-3xl">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-rank text-label-rank uppercase tracking-widest font-bold">
+              Procédure d'Exception • Décret 2024-C3
+            </span>
+<span class="flex items-center gap-1 font-caption text-caption text-secondary font-semibold">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+              Zone C Rectorat ZTF
+            </span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-primary tracking-tight">
+            Enrôlement Direct &amp; Attribution de Prérogatives Académiques
+          </h1>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Enregistrement prioritaire d'office d'enseignants-chercheurs, chaires invitées et doyens avec validation immédiate sans passage par la file d'attente. Attribution instantanée des privilèges statutaires de l'Institut Universitaire ZTF.
+          </p>
+</div>
+<!-- Alerte statutaire compacte -->
+<div class="bg-surface-container-high rounded-lg p-space-md flex items-center gap-space-md shadow-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container text-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">gavel</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary font-bold">Visa Rectoral Actif</span>
+<span class="font-caption text-caption text-on-surface-variant">Session vérifiée Dr. M. Abena</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Conteneur principal du formulaire en deux colonnes structurelles -->
+<form class="flex flex-col gap-space-xl" id="rectorat-enrolment-form" onsubmit="event.preventDefault(); triggerEnrolmentNotification();">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Colonne Gauche (7 cols) : Identité & Qualification académique -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<!-- SECTION 1 : Identité & Coordonnées -->
+<div class="bg-surface-container-lowest rounded-lg p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">badge</span>
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight">1. Identité et Coordonnées Officielles</h2>
+</div>
+<span class="font-label-rank text-label-rank bg-surface-container-low text-on-surface-variant px-space-sm py-1 rounded-full uppercase">Étape 01/04</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-primary">Civilité / Titre Académique <span class="text-error">*</span></label>
+<select class="h-10 bg-surface-container-lowest text-on-surface font-body-md rounded-lg px-3 focus:outline-none focus:ring-2 focus:ring-secondary text-body-md" required="">
+<option value="pr">Professeur (Pr.)</option>
+<option value="dr">Docteur (Dr.)</option>
+<option value="ing">Ingénieur en Chef (Ing.)</option>
+<option value="mc">Maître de Conférences (MCF)</option>
+<option value="mr">Monsieur / Chercheur (M.)</option>
+<option value="mme">Madame / Chercheuse (Mme)</option>
+</select>
+</div>
+<div class="flex flex-col gap-space-xs md:col-span-2">
+<label class="font-label-md text-label-md text-primary">Nom Patronyme Officiel <span class="text-error">*</span></label>
+<input class="h-10 bg-surface-container-lowest text-on-surface font-body-md rounded-lg px-3 focus:outline-none focus:ring-2 focus:ring-secondary uppercase tracking-wide" placeholder="Ex: NGOUH KAMDEM" required="" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-primary">Prénoms Usuels <span class="text-error">*</span></label>
+<input class="h-10 bg-surface-container-lowest text-on-surface font-body-md rounded-lg px-3 focus:outline-none focus:ring-2 focus:ring-secondary" placeholder="Ex: Jean-Baptiste Martial" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-primary">Nationalité / Pays d'origine</label>
+<div class="relative">
+<input class="w-full h-10 bg-surface-container-lowest text-on-surface font-body-md rounded-lg px-3 pr-8 focus:outline-none focus:ring-2 focus:ring-secondary" type="text" value="Cameroun"/>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-on-surface-variant text-[18px]">public</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-primary">Courriel Académique Rectoral <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full h-10 bg-surface-container-lowest text-on-surface font-body-md rounded-lg px-3 pr-8 focus:outline-none focus:ring-2 focus:ring-secondary" placeholder="nom.chercheur@ztf-univ.cm" required="" type="email"/>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-secondary text-[18px]">alternate_email</span>
+</div>
+<span class="font-caption text-caption text-on-surface-variant">Domaines admis : @ztf-univ.cm ou @univ-bertoua.cm</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-primary">Téléphone Professionnel / Astreinte <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full h-10 bg-surface-container-lowest text-on-surface font-body-md rounded-lg px-3 pr-8 focus:outline-none focus:ring-2 focus:ring-secondary" placeholder="+237 690 00 00 00" required="" type="tel"/>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-on-surface-variant text-[18px]">call</span>
+</div>
+<span class="font-caption text-caption text-on-surface-variant">Format standard international requis pour 2FA</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-primary">Faculté d'Attache Principale <span class="text-error">*</span></label>
+<select class="h-10 bg-surface-container-lowest text-on-surface font-body-md rounded-lg px-3 focus:outline-none focus:ring-2 focus:ring-secondary" required="">
+<option value="sciences">Faculté des Sciences Fondamentales &amp; Appliquées</option>
+<option value="polytech">École Supérieure Polytechnique de Bertoua (ESPB)</option>
+<option value="medecine">Faculté de Médecine et Sciences Biomédicales</option>
+<option value="lettres">Faculté des Sciences Économiques et de Gestion</option>
+<option value="rectorat">Centre Autonome de Recherche &amp; Innovation ZTF</option>
+</select>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-primary">Département ou Laboratoire d'Affectation <span class="text-error">*</span></label>
+<input class="h-10 bg-surface-container-lowest text-on-surface font-body-md rounded-lg px-3 focus:outline-none focus:ring-2 focus:ring-secondary" placeholder="Ex: Laboratoire d'Intelligence Algorithmique (LIA-ZTF)" required="" type="text"/>
+</div>
+</div>
+</div>
+<!-- SECTION 2 : Qualification & Accréditation CAMES / Institutionnelle -->
+<div class="bg-surface-container-lowest rounded-lg p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">military_tech</span>
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight">2. Qualification &amp; Rang Statutaire CAMES</h2>
+</div>
+<span class="font-label-rank text-label-rank bg-tertiary-fixed text-on-tertiary-fixed px-space-sm py-1 rounded-full uppercase font-bold">Standard CAMES</span>
+</div>
+<!-- Radio Cards Rangs Académiques -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-primary">Attribution du Rang Académique Principal <span class="text-error">*</span></span>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm pt-space-xs">
+<!-- Option 1: Rang A -->
+<label class="relative flex flex-col p-space-md rounded-lg bg-surface cursor-pointer hover:bg-surface-container-high transition-colors group">
+<input checked="" class="peer sr-only" name="academic_rank" type="radio" value="rang_a"/>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-4 h-4 rounded-full bg-surface-container-lowest peer-checked:bg-secondary flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-secondary hidden peer-checked:block"></span>
+</span>
+<span class="font-label-lg text-label-lg text-primary">Professeur Titulaire</span>
+</div>
+<span class="px-space-xs py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-rank text-label-rank font-bold">Rang A</span>
+</div>
+<p class="mt-space-xs font-body-sm text-body-sm text-on-surface-variant">
+                    Plein accès jurys de thèse, direction de laboratoire, chaire d'excellence &amp; collège électoral.
+                  </p>
+<div class="absolute inset-0 rounded-lg pointer-events-none transition-all peer-checked:shadow-sm"></div>
+</label>
+<!-- Option 2: Rang B -->
+<label class="relative flex flex-col p-space-md rounded-lg bg-surface cursor-pointer hover:bg-surface-container-high transition-colors group">
+<input class="peer sr-only" name="academic_rank" type="radio" value="rang_b"/>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-4 h-4 rounded-full bg-surface-container-lowest peer-checked:bg-secondary flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-secondary hidden peer-checked:block"></span>
+</span>
+<span class="font-label-lg text-label-lg text-primary">Maître de Conférences</span>
+</div>
+<span class="px-space-xs py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-rank text-label-rank font-bold">Rang B</span>
+</div>
+<p class="mt-space-xs font-body-sm text-body-sm text-on-surface-variant">
+                    Habilitation à diriger des recherches (HDR), co-direction doctorale, cours magistraux de cycle 3.
+                  </p>
+<div class="absolute inset-0 rounded-lg pointer-events-none transition-all peer-checked:shadow-sm"></div>
+</label>
+<!-- Option 3: Chercheur Senior / Docteur -->
+<label class="relative flex flex-col p-space-md rounded-lg bg-surface cursor-pointer hover:bg-surface-container-high transition-colors group">
+<input class="peer sr-only" name="academic_rank" type="radio" value="chercheur_senior"/>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-4 h-4 rounded-full bg-surface-container-lowest peer-checked:bg-secondary flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-secondary hidden peer-checked:block"></span>
+</span>
+<span class="font-label-lg text-label-lg text-primary">Chercheur Senior / Docteur</span>
+</div>
+<span class="px-space-xs py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-rank text-label-rank font-bold">Post-Doc</span>
+</div>
+<p class="mt-space-xs font-body-sm text-body-sm text-on-surface-variant">
+                    Docteur PhD certifié, chargé de cours homologué d'office, chercheur associé d'institut.
+                  </p>
+<div class="absolute inset-0 rounded-lg pointer-events-none transition-all peer-checked:shadow-sm"></div>
+</label>
+<!-- Option 4: Doctorant / Ingénieur R&D -->
+<label class="relative flex flex-col p-space-md rounded-lg bg-surface cursor-pointer hover:bg-surface-container-high transition-colors group">
+<input class="peer sr-only" name="academic_rank" type="radio" value="chercheur_rd"/>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-4 h-4 rounded-full bg-surface-container-lowest peer-checked:bg-secondary flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-secondary hidden peer-checked:block"></span>
+</span>
+<span class="font-label-lg text-label-lg text-primary">Doctorant / Ingénieur R&amp;D</span>
+</div>
+<span class="px-space-xs py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-rank text-label-rank font-bold">Projet ZTF</span>
+</div>
+<p class="mt-space-xs font-body-sm text-body-sm text-on-surface-variant">
+                    Ingénieur de plateforme scientifique, chercheur junior affecté à un laboratoire ZTF.
+                  </p>
+<div class="absolute inset-0 rounded-lg pointer-events-none transition-all peer-checked:shadow-sm"></div>
+</label>
+</div>
+</div>
+<!-- Métadonnées CAMES & Référence -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-space-sm">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-primary">Matricule CAMES / Référence Arrêté Ministériel <span class="text-error">*</span></label>
+<input class="h-10 bg-surface-container-lowest text-on-surface font-body-md rounded-lg px-3 focus:outline-none focus:ring-2 focus:ring-secondary uppercase" placeholder="Ex: CAMES-2023-SN-8941 / ARR-MINESUP-042" required="" type="text"/>
+<span class="font-caption text-caption text-on-surface-variant">Pièce authentifiée par le Secrétariat Général</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-primary">Date d'effet / Prise de fonction <span class="text-error">*</span></label>
+<input class="h-10 bg-surface-container-lowest text-on-surface font-body-md rounded-lg px-3 focus:outline-none focus:ring-2 focus:ring-secondary" required="" type="date" value="2024-10-01"/>
+<span class="font-caption text-caption text-on-surface-variant">Calcul automatique de l'ancienneté au tableau de bord</span>
+</div>
+</div>
+<!-- Identifiants numériques pérennes -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-primary">Identifiant ORCID (iDO)</label>
+<div class="relative">
+<input class="w-full h-10 bg-surface-container-lowest text-on-surface font-body-md rounded-lg px-3 pr-8 focus:outline-none focus:ring-2 focus:ring-secondary" placeholder="0000-0002-1825-0097" type="text"/>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-secondary text-[18px]">fingerprint</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-primary">Profil Scopus / Google Scholar ID</label>
+<div class="relative">
+<input class="w-full h-10 bg-surface-container-lowest text-on-surface font-body-md rounded-lg px-3 pr-8 focus:outline-none focus:ring-2 focus:ring-secondary" placeholder="Ex: scholar.google.com/citations?user=..." type="text"/>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-on-surface-variant text-[18px]">school</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Colonne Droite (5 cols) : Privilèges, Visa Rectoral & Signature -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- SECTION 3 : Droits d'Accès & Privilèges Système -->
+<div class="bg-surface-container-lowest rounded-lg p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">admin_panel_settings</span>
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight">3. Prérogatives &amp; Accès</h2>
+</div>
+<span class="font-label-rank text-label-rank bg-secondary-container text-on-secondary-container px-space-sm py-1 rounded-full uppercase font-bold">Sécurisé TLS</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Les habilitations cochées seront déployées en temps réel sur les serveurs de diplomation et l'intranet académique ZTF.
+            </p>
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<!-- Checkbox 1 -->
+<label class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface hover:bg-surface-container-low cursor-pointer transition-colors">
+<input checked="" class="w-4 h-4 mt-1 rounded text-primary focus:ring-secondary flex-shrink-0" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary leading-tight">Validation &amp; Certification Immédiate</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Délivre d'office le badge or officiel « Actif &amp; Certifié » sans passer par le comité d'examen.</span>
+</div>
+</label>
+<!-- Checkbox 2 -->
+<label class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface hover:bg-surface-container-low cursor-pointer transition-colors">
+<input checked="" class="w-4 h-4 mt-1 rounded text-primary focus:ring-secondary flex-shrink-0" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary leading-tight">Générer Clé d'Accès Provisoire (Email Chiffré)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Expédie les jetons d'initialisation du compte avec validité 72h et consigne de sécurité PGP.</span>
+</div>
+</label>
+<!-- Checkbox 3 -->
+<label class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface hover:bg-surface-container-low cursor-pointer transition-colors">
+<input checked="" class="w-4 h-4 mt-1 rounded text-primary focus:ring-secondary flex-shrink-0" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary leading-tight">Habilitation Jurys de Thèse &amp; Rapports</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Autorise la convocation immédiate comme président ou rapporteur des soutenances doctorales.</span>
+</div>
+</label>
+<!-- Checkbox 4 -->
+<label class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface hover:bg-surface-container-low cursor-pointer transition-colors">
+<input class="w-4 h-4 mt-1 rounded text-primary focus:ring-secondary flex-shrink-0" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary leading-tight">Inscription à l'Annuaire Public &amp; Classement</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Indexe les travaux du membre dans le baromètre d'excellence accessible aux institutions tierces.</span>
+</div>
+</label>
+</div>
+<!-- Indicateur cryptographique -->
+<div class="mt-space-xs p-space-sm bg-surface-container rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-primary font-caption text-caption">
+<span class="material-symbols-outlined text-[16px] text-secondary">lock</span>
+                Signature d'empreinte : <span class="font-mono text-on-tertiary-container font-bold">SHA256:4a8b...9f01</span>
+</div>
+<span class="font-label-rank text-label-rank text-secondary font-bold">ACTIVE</span>
+</div>
+</div>
+<!-- SECTION 4 : Motif d'Enrôlement Direct & Visa Autorité -->
+<div class="bg-surface-container-lowest rounded-lg p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">draw</span>
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight">4. Motif Légal &amp; Visa Rectoral</h2>
+</div>
+<span class="font-label-rank text-label-rank bg-tertiary-fixed text-on-tertiary-fixed px-space-sm py-1 rounded-full uppercase font-bold">Zone C</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-primary">Motif Officiel d'Enrôlement Direct <span class="text-error">*</span></label>
+<textarea class="bg-surface text-on-surface font-body-md rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-secondary resize-none text-body-md" placeholder="Indiquer la base légale (ex: Recrutement Chaire d'Excellence IA-ZTF, Arrêté Rectoral n°2024/091, Doyen désigné en conseil d'administration)..." required="" rows="3"></textarea>
+<span class="font-caption text-caption text-on-surface-variant">Ce libellé figurera sur l'attestation numérique d'homologation.</span>
+</div>
+<!-- Bloc Visa de l'Administrateur Connecté -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption uppercase tracking-wider text-on-surface-variant font-semibold">Signataire Institutionnel</span>
+<span class="inline-flex items-center gap-1 font-caption text-caption text-secondary font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                  Session Active
+                </span>
+</div>
+<div class="flex items-center gap-space-md mt-space-xs">
+<div class="w-11 h-11 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-headline-sm">
+                  MA
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-lg text-label-lg text-primary truncate">Dr. Martin Abena</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Secrétaire Général Adjoint / Administrateur Système</span>
+<span class="font-caption text-caption text-on-surface-variant">Institut Universitaire ZTF Bertoua • Mandat 2023-2026</span>
+</div>
+</div>
+</div>
+<!-- Aperçu d'attestation rapide -->
+<div class="bg-surface p-space-sm rounded-lg flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">assignment_turned_in</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+                Le récépissé d'homologation directe sera horodaté et consigné dans le registre légal sous la cote <strong class="text-primary">REG-ZTF-2024-C-OCT</strong>.
+              </span>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION BASSE : Actions d'Exécution Rectorales -->
+<section class="bg-surface-container-lowest rounded-lg p-space-lg shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md w-full md:w-auto">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">verified_user</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary font-bold">Certification Immédiate &amp; Irrévocable</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">L'inscription débloque immédiatement les prérogatives sans validation ultérieure.</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm w-full md:w-auto justify-end">
+<button class="px-space-md h-11 bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-lg text-label-lg rounded-lg transition-colors flex items-center gap-space-xs" type="reset">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+<span>Réinitialiser le formulaire</span>
+</button>
+<button class="px-space-md h-11 bg-surface-container text-primary hover:bg-surface-container-highest font-label-lg text-label-lg rounded-lg transition-colors flex items-center gap-space-xs" onclick="saveStatutoryDraft()" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+<span>Enregistrer comme brouillon</span>
+</button>
+<button class="px-space-lg h-11 bg-primary text-on-primary hover:bg-secondary hover:text-on-secondary font-label-lg text-label-lg rounded-lg shadow-md transition-all flex items-center gap-space-xs" type="submit">
+<span class="material-symbols-outlined text-[20px]">how_to_reg</span>
+<span>Créer et homologuer le profil immédiatement</span>
+</button>
+</div>
+</section>
+</form>
+<!-- Zone de Confirmation / Feedback interactif (caché par défaut) -->
+<div class="hidden bg-secondary-container text-on-secondary-container rounded-lg p-space-lg shadow-md flex items-start justify-between gap-space-md" id="enrolment-feedback">
+<div class="flex items-start gap-space-md">
+<span class="material-symbols-outlined text-[32px] text-secondary">task_alt</span>
+<div class="flex flex-col gap-1">
+<h3 class="font-headline-sm text-headline-sm text-primary">Homologation Rectorale Validée avec Succès</h3>
+<p class="font-body-md text-body-md text-on-secondary-container">
+            L'enseignant-chercheur a été inséré dans le registre d'autorité. La notification chiffrée contenant la clé statutaire ZTF a été transmise à son adresse académique.
+          </p>
+<div class="flex items-center gap-space-md mt-space-xs font-label-md text-label-md">
+<span class="font-mono bg-surface-container-lowest/80 px-2 py-0.5 rounded text-primary">CERT-ID: #ZTF-2024-C3-8941</span>
+<span class="text-secondary font-semibold">Statut : Actif • Droits Thèse Activés</span>
+</div>
+</div>
+</div>
+<button class="text-on-secondary-container hover:text-primary p-1" onclick="document.getElementById('enrolment-feedback').classList.add('hidden')">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  function triggerEnrolmentNotification() {
+    const feedback = document.getElementById('enrolment-feedback');
+    if (feedback) {
+      feedback.classList.remove('hidden');
+      feedback.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  function saveStatutoryDraft() {
+    alert("Brouillon statutaire sauvegardé avec succès dans le coffre-fort rectoral Zone C.");
+  }
+</script></main></div></body></html>

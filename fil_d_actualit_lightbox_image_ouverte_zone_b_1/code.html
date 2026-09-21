@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>PRO-LOOKUP</title><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"surface-bright":"#f9f9ff","outline-variant":"#c4c6ce","error":"#ba1a1a","surface-tint":"#49607e","on-tertiary":"#ffffff","on-secondary-fixed":"#00201f","on-background":"#151c27","secondary-container":"#78f6f1","secondary-fixed-dim":"#58d9d5","on-secondary-fixed-variant":"#00504e","surface-container-low":"#f0f3ff","on-primary":"#ffffff","primary-fixed":"#d2e4ff","surface-container-lowest":"#ffffff","outline":"#74777e","tertiary-fixed-dim":"#f3be65","on-secondary-container":"#00706e","surface-container":"#e7eefe","inverse-surface":"#2a313d","on-error-container":"#93000a","primary-fixed-dim":"#b0c8eb","secondary-fixed":"#78f6f1","tertiary-fixed":"#ffdeac","inverse-on-surface":"#ebf1ff","inverse-primary":"#b0c8eb","on-tertiary-fixed":"#281900","surface-variant":"#dce2f3","on-primary-container":"#768dad","on-secondary":"#ffffff","tertiary-container":"#332100","on-tertiary-container":"#b28330","on-surface":"#151c27","on-primary-fixed-variant":"#314865","primary":"#000f22","background":"#f9f9ff","secondary":"#006a67","on-error":"#ffffff","surface-dim":"#d3daea","on-surface-variant":"#43474d","on-primary-fixed":"#001c37","error-container":"#ffdad6","surface-container-highest":"#dce2f3","tertiary":"#180d00","surface-container-high":"#e2e8f8","surface":"#f9f9ff","primary-container":"#0a2540","on-tertiary-fixed-variant":"#604100"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-xs":"0.25rem","space-xl":"2.5rem","space-md":"1rem","margin-mobile":"1rem","margin":"2rem","gutter-mobile":"1rem","space-lg":"1.5rem","space-sm":"0.5rem","gutter":"1.5rem"},"fontFamily":{"body-md":["Inter"],"headline-xl":["Inter"],"body-sm":["Inter"],"body-lg":["Inter"],"headline-md":["Inter"],"headline-lg-mobile":["Inter"],"caption":["Inter"],"headline-xl-mobile":["Inter"],"label-md":["Inter"],"label-rank":["Inter"],"headline-lg":["Inter"],"label-lg":["Inter"],"headline-sm":["Inter"]},"fontSize":{"body-md":["14px",{"lineHeight":"22px","fontWeight":"400"}],"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"26px","fontWeight":"400"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"caption":["11px",{"lineHeight":"14px","fontWeight":"400"}],"headline-xl-mobile":["32px",{"lineHeight":"40px","letterSpacing":"-0.015em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"label-rank":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"700"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"headline-sm":["16px",{"lineHeight":"24px","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen"><header class="fixed top-0 left-0 right-0 w-full z-50 bg-surface-container-lowest shadow-[0_1px_8px_rgba(10,37,64,0.06)]"><div class="h-16 max-w-[1240px] mx-auto px-margin-mobile md:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md flex-1 max-w-lg"><a class="flex items-center gap-space-xs shrink-0" data-path="accueil" href="#"><img alt="logo-pro-lookup.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1X59l2FaENqllcUk2viDrU_G8YS-M5U7OyWzbM-4ZTsBMkOp8u8LT6MAr_Q_Pkdyi6wygQ00Anb9zbm456wNdqiRe_0Iie7VgrMdcGETvTdEFW9_I1eKomJcxgUK56X5XTp847xzGqWZ9m7mSdogGHN8dED5QfxBSoe8jpCv9dSUWxwn2LWSJqUhmGHw-zoOUFkWgiDWN-clgsO3YAD3TjTuR0EAcZMEQHefgFTFwjdNgit6nxqLprmSK5TfIwph4i_ixTO4jnu"/><span class="hidden lg:inline-block font-headline-sm text-headline-sm text-primary font-bold tracking-tight">PRO-LOOKUP</span></a><div class="relative w-full max-w-sm hidden sm:block"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">search</span><input class="w-full h-10 pl-9 pr-3 bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm rounded focus:outline-none focus:ring-2 focus:ring-secondary/30 transition-all" placeholder="Rechercher un collègue, publication, laboratoire..." type="text"/></div></div><nav class="flex items-center gap-space-md" data-active-classes="text-primary font-semibold"><a class="relative flex flex-col items-center justify-center h-16 px-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="accueil" href="#"><span class="font-label-md text-label-md">Accueil</span></a><a class="relative flex flex-col items-center justify-center h-16 px-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="mon-reseau" href="#"><span class="font-label-md text-label-md flex items-center gap-1">Mon Réseau<span class="h-4 min-w-[16px] px-1 bg-secondary text-on-secondary font-caption text-caption rounded-full flex items-center justify-center">3</span></span></a><a class="relative flex flex-col items-center justify-center h-16 px-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="messagerie" href="#"><span class="font-label-md text-label-md flex items-center gap-1">Messagerie<span class="h-4 min-w-[16px] px-1 bg-secondary text-on-secondary font-caption text-caption rounded-full flex items-center justify-center">2</span></span></a><a class="relative flex flex-col items-center justify-center h-16 px-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="notifications" href="#"><span class="font-label-md text-label-md flex items-center gap-1">Notifications<span class="h-4 min-w-[16px] px-1 bg-error text-on-error font-caption text-caption rounded-full flex items-center justify-center">5</span></span></a><div class="h-8 w-px bg-outline-variant/30 hidden md:block"></div><a class="flex items-center gap-space-xs pl-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="profil-chercheur" href="#"><div class="relative p-0.5 rounded-full ring-2 ring-secondary"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1Xk8KBODnE_zj-PZi7YL4cdq29nYN9gfyIKRLnWsiuX3keWlMcZbrHKO8BaDxL4MT-edjpbFzVD_7zk_rHX8FuAqN5DcGvgfo_dgXNHk8y6rjNoflC0nrcdIInriCQzpMHK2i6Se6IHt_unhi36mioIBcPxE5jIDez53vlAgdmlCZXvisriOSJStZ-RqAlgPaF7vmy8mcVTbyxKB9ub2nPzDb-YMeMX0r16t_WIyBunO60TdqXixP5c7g"/></div><div class="hidden xl:flex flex-col items-start text-left leading-none"><span class="font-label-md text-label-md font-semibold text-on-surface">Vous</span><span class="font-caption text-caption text-outline">Docteur / Chercheur</span></div></a></nav></div></header><main class="w-full pt-16 bg-surface"><div class="flex flex-col w-full relative min-h-screen">
+<!-- Arrière-plan : Fil d'Actualité Académique Flouté -->
+<div class="w-full max-w-[1240px] mx-auto px-margin-mobile md:px-margin py-space-md opacity-40 blur-sm pointer-events-none select-none">
+<!-- Barre supérieure de statut réseau -->
+<div class="flex items-center justify-between p-space-md bg-surface-container-lowest rounded-xl shadow-sm mb-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-lg text-label-lg font-bold">
+          ZTF
+        </div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Flux Recherche &amp; Innovation</h2>
+<p class="font-caption text-caption text-outline">Zone Tropicale Francophone • Consortium Énergies Renouvelables</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="px-3 py-1 bg-surface-container-high rounded-full font-label-md text-label-md text-on-surface-variant">42 publications indexées ce mois</span>
+</div>
+</div>
+<!-- Grille simulée du fil -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Colonne principale -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- Post Déclencheur en arrière-plan -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-md">
+<div class="relative w-12 h-12 rounded-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Portrait professionnel du Dr. Marc Valérien, chercheur en physique appliquée et nanomatériaux solaires, costume sobre et lunettes fines dans un laboratoire moderne équipé d'analyseurs spectraux." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCq6K--2w6MrAg2fRRbkvFMkWsvsZeQk8eK9yUpFewvbpyGmnGZhEuT86ACcDAWGDy7JRc-cQuNp-wh0OUrj1HbpFnt7IZWb_tCV8JS-PQbeJkR0nRkuFErGuXTo-LnZMVIsaEeqvN1nZOQ9su264GiMyQw9gvu94aMiBm1ZaySxT1SbxMXaqWrLi4zsooW0zzcGqXW_CT_RTMwLIMcc0oFX7Kb3uKkUz6wbP8tK4YMaIdtxCMlJEs"/>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Dr. Marc Valérien</span>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-rank text-label-rank">Docteur / Chercheur</span>
+</div>
+<p class="font-caption text-caption text-outline">Laboratoire de Photovoltaïque Appliquée • Université de Yaoundé I &amp; ZTF</p>
+</div>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface">Synthèse des mesures in situ à la station Bertoua-Nord. Le couplage pérovskite-silicium démontre une résilience inédite face aux pics d'hygrométrie de la canopée équatoriale.</p>
+<div class="w-full h-72 rounded-lg bg-primary-container overflow-hidden"></div>
+</article>
+<!-- Autre post factice -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-high"></div>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface">Prof. Aminata Sow</span>
+<p class="font-caption text-caption text-outline">Chaire UNESCO Matériaux 2D</p>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface">Appel à communications conjoint ZTF-CNRS pour le symposium africain sur l'hydrogène vert...</p>
+</article>
+</div>
+<!-- Colonne latérale -->
+<aside class="lg:col-span-4 flex flex-col gap-space-lg">
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-sm">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Indices &amp; Métriques ZTF</span>
+<div class="h-24 bg-surface-container-low rounded-lg"></div>
+</div>
+</aside>
+</div>
+</div>
+<!-- OVERLAY / LIGHTBOX VISIONNEUSE PLEIN ÉCRAN SCIENTIFIQUE -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-primary/90 backdrop-blur-md p-space-sm sm:p-space-md md:p-space-lg overflow-hidden animate-in fade-in duration-200" id="scientific-lightbox">
+<!-- Conteneur Principal Modal Lightbox -->
+<div class="relative w-full h-full max-w-[1400px] max-h-[942px] bg-primary-container rounded-xl shadow-[0_20px_48px_rgba(0,15,34,0.65)] flex flex-col overflow-hidden">
+<!-- Barre d'outils supérieure / Header de Visionneuse -->
+<header class="flex items-center justify-between px-space-md py-space-sm bg-primary/60 backdrop-blur-sm z-20">
+<!-- Titre et métadonnées rapides -->
+<div class="flex items-center gap-space-md min-w-0 pr-space-md">
+<div class="flex items-center gap-space-xs shrink-0 px-2 py-1 rounded bg-secondary/15 text-secondary-container font-label-rank text-label-rank tracking-wider">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+            ZTF ARCHIVE-HD
+          </div>
+<div class="min-w-0">
+<h1 class="font-headline-sm text-headline-sm text-on-primary font-semibold truncate leading-tight">
+              Résultats expérimentaux : Efficacité de conversion photovoltaïque selon le gradient d'humidité - Station Bertoua-Nord
+            </h1>
+<p class="font-caption text-caption text-primary-fixed-dim truncate">
+              Dataset DOI: 10.1088/ztf.solarenergy.2024.088 • Fig. 4b • Résolution Source 4096x2160
+            </p>
+</div>
+</div>
+<!-- Commandes d'action & Contrôles d'inspection HD -->
+<div class="flex items-center gap-space-xs shrink-0">
+<!-- Commandes de Zoom -->
+<div class="flex items-center bg-inverse-surface/80 rounded-lg p-0.5">
+<button aria-label="Réduire le zoom" class="p-2 text-inverse-on-surface hover:text-secondary-fixed transition-colors flex items-center justify-center rounded" id="zoom-out-btn">
+<span class="material-symbols-outlined text-[20px]">zoom_out</span>
+</button>
+<span class="font-caption text-caption font-semibold px-2 text-inverse-on-surface select-none min-w-[42px] text-center" id="zoom-indicator">100%</span>
+<button aria-label="Agrandir le zoom" class="p-2 text-inverse-on-surface hover:text-secondary-fixed transition-colors flex items-center justify-center rounded" id="zoom-in-btn">
+<span class="material-symbols-outlined text-[20px]">zoom_in</span>
+</button>
+<button aria-label="Réinitialiser vue" class="p-2 text-inverse-on-surface hover:text-secondary-fixed transition-colors flex items-center justify-center rounded" id="zoom-reset-btn">
+<span class="material-symbols-outlined text-[18px]">fit_screen</span>
+</button>
+</div>
+<div class="w-px h-6 bg-outline-variant/20 mx-1 hidden sm:block"></div>
+<!-- Bouton Téléchargement Haute Définition -->
+<div class="relative group">
+<button class="flex items-center gap-space-xs px-3 py-2 bg-secondary text-on-secondary rounded-lg font-label-md text-label-md shadow-sm hover:brightness-110 active:scale-95 transition-all" id="download-trigger">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span class="hidden md:inline">Exporter HD</span>
+<span class="material-symbols-outlined text-[14px]">expand_more</span>
+</button>
+<!-- Dropdown Options -->
+<div class="absolute right-0 top-full mt-1.5 w-44 bg-surface-container-lowest rounded-lg shadow-xl p-1 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all z-30">
+<a class="flex items-center justify-between px-3 py-2 rounded text-on-surface hover:bg-surface-container font-caption text-caption font-medium" href="#">
+<span>Vecteur PDF (300 DPI)</span>
+<span class="text-outline">4.2 MB</span>
+</a>
+<a class="flex items-center justify-between px-3 py-2 rounded text-on-surface hover:bg-surface-container font-caption text-caption font-medium" href="#">
+<span>Trame PNG 4K</span>
+<span class="text-outline">8.9 MB</span>
+</a>
+<a class="flex items-center justify-between px-3 py-2 rounded text-on-surface hover:bg-surface-container font-caption text-caption font-medium" href="#">
+<span>Données brutes CSV</span>
+<span class="text-outline">120 KB</span>
+</a>
+</div>
+</div>
+<!-- Partage Direct -->
+<button aria-label="Partager la figure" class="p-2 text-primary-fixed hover:text-on-primary bg-inverse-surface/80 hover:bg-secondary/40 rounded-lg transition-colors flex items-center justify-center" id="share-btn">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+<!-- Bouton Fermeture -->
+<button aria-label="Fermer la visionneuse" class="p-2 ml-1 text-primary-fixed hover:text-on-primary bg-error/20 hover:bg-error text-error-container hover:text-on-error rounded-lg transition-colors flex items-center justify-center" id="close-lightbox">
+<span class="material-symbols-outlined text-[22px]">close</span>
+</button>
+</div>
+</header>
+<!-- Corps : Canvas Graphique Haute Définition + Volet Latéral Académique -->
+<div class="flex-1 flex flex-col lg:flex-row min-h-0 overflow-hidden relative">
+<!-- Aire Centrale d'Inspection HD (Zone Graphique) -->
+<main class="flex-1 relative flex items-center justify-center p-space-md md:p-space-lg overflow-hidden bg-[#051324] select-none cursor-grab active:cursor-grabbing">
+<!-- Grille d'arrière-plan technique (subtile) -->
+<div class="absolute inset-0 opacity-15 pointer-events-none" style="background-image: radial-gradient(rgba(120, 246, 241, 0.4) 1px, transparent 1px); background-size: 24px 24px;"></div>
+<!-- Repère d'inspection ZTF -->
+<div class="absolute top-4 left-4 z-10 flex flex-col gap-1 pointer-events-none">
+<span class="font-caption text-caption text-secondary-fixed/80 uppercase tracking-widest font-semibold">Tension de saturation : 1.18V</span>
+<span class="font-caption text-caption text-outline font-mono">HR: 45% → 98% RH | T: 34.2°C ± 0.4°C</span>
+</div>
+<!-- FIGURE GRAPHIQUE SCIENTIFIQUE VECTORIELLE HD -->
+<div class="relative max-w-full max-h-full flex items-center justify-center transition-transform duration-150 ease-out origin-center" id="chart-viewport">
+<div class="relative bg-[#081d33]/90 rounded-xl p-space-lg shadow-2xl max-w-4xl w-full">
+<!-- Cartouche de titre intégré à la figure -->
+<div class="flex items-center justify-between pb-space-sm mb-space-md">
+<div>
+<span class="font-caption text-caption uppercase tracking-wider text-secondary-fixed font-bold">Figure 4.B • Rendement Photovoltaïque vs Gradient d'Hygrométrie</span>
+<p class="font-headline-sm text-headline-sm text-on-primary font-bold">Cellules Tandem Pérovskite/Si (Structure Texturée ZTF-7)</p>
+</div>
+<div class="text-right">
+<span class="font-label-rank text-label-rank text-tertiary-fixed bg-tertiary-container/80 px-2.5 py-1 rounded">R² = 0.9942</span>
+</div>
+</div>
+<!-- Graphique Vectoriel Complet -->
+<div class="w-full h-72 sm:h-80 md:h-96">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="xMidYMid meet" viewbox="0 0 800 420">
+<defs>
+<!-- Gradient Ligne Tandem Pérovskite -->
+<lineargradient id="grad-perov" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#006A67" stop-opacity="1"></stop>
+<stop offset="60%" stop-color="#78F6F1" stop-opacity="1"></stop>
+<stop offset="100%" stop-color="#FFDEAC" stop-opacity="1"></stop>
+</lineargradient>
+<!-- Zone d'ombre de confiance -->
+<lineargradient id="area-confidence" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#78F6F1" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#78F6F1" stop-opacity="0.0"></stop>
+</lineargradient>
+<!-- Ligne Témoin Silicium Standard -->
+<lineargradient id="grad-standard" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#74777E" stop-opacity="0.9"></stop>
+<stop offset="100%" stop-color="#C4C6CE" stop-opacity="0.6"></stop>
+</lineargradient>
+</defs>
+<!-- Lignes de Grille Horizontales (Efficacité %) -->
+<g class="text-outline-variant/30 text-[10px]">
+<line stroke="currentColor" stroke-dasharray="3 3" x1="70" x2="760" y1="50" y2="50"></line>
+<text fill="#C4C6CE" font-family="Inter" font-size="11" text-anchor="end" x="60" y="54">28 %</text>
+<line stroke="currentColor" stroke-dasharray="3 3" x1="70" x2="760" y1="120" y2="120"></line>
+<text fill="#C4C6CE" font-family="Inter" font-size="11" text-anchor="end" x="60" y="124">24 %</text>
+<line stroke="currentColor" stroke-dasharray="3 3" x1="70" x2="760" y1="190" y2="190"></line>
+<text fill="#C4C6CE" font-family="Inter" font-size="11" text-anchor="end" x="60" y="194">20 %</text>
+<line stroke="currentColor" stroke-dasharray="3 3" x1="70" x2="760" y1="260" y2="260"></line>
+<text fill="#C4C6CE" font-family="Inter" font-size="11" text-anchor="end" x="60" y="264">16 %</text>
+<line stroke="currentColor" stroke-dasharray="3 3" x1="70" x2="760" y1="330" y2="330"></line>
+<text fill="#C4C6CE" font-family="Inter" font-size="11" text-anchor="end" x="60" y="334">12 %</text>
+</g>
+<!-- Lignes de Grille Verticales (Humidité Relative %) -->
+<g class="text-outline-variant/20">
+<line stroke="currentColor" stroke-dasharray="2 4" x1="160" x2="160" y1="50" y2="350"></line>
+<line stroke="currentColor" stroke-dasharray="2 4" x1="310" x2="310" y1="50" y2="350"></line>
+<line stroke="currentColor" stroke-dasharray="2 4" x1="460" x2="460" y1="50" y2="350"></line>
+<line stroke="currentColor" stroke-dasharray="2 4" x1="610" x2="610" y1="50" y2="350"></line>
+<line stroke="currentColor" stroke-dasharray="2 4" x1="760" x2="760" y1="50" y2="350"></line>
+</g>
+<!-- Axes Principaux -->
+<line stroke="#74777E" stroke-width="1.5" x1="70" x2="760" y1="350" y2="350"></line>
+<line stroke="#74777E" stroke-width="1.5" x1="70" x2="70" y1="50" y2="350"></line>
+<!-- Graduations X -->
+<g fill="#C4C6CE" font-family="Inter" font-size="11" text-anchor="middle">
+<text x="70" y="372">40% HR</text>
+<text x="210" y="372">55% HR</text>
+<text x="350" y="372">70% HR</text>
+<text x="490" y="372">85% HR</text>
+<text x="630" y="372">95% HR</text>
+<text x="760" y="372">100% HR</text>
+<text fill="#78F6F1" font-size="12" font-weight="600" x="415" y="398">Gradient d'Humidité Relative Ambiante (Bertoua-Nord)</text>
+</g>
+<!-- Titre Axe Y Vertical -->
+<text fill="#78F6F1" font-family="Inter" font-size="12" font-weight="600" text-anchor="middle" transform="rotate(-90)" x="-200" y="24">
+                    Efficacité de Conversion Énergétique η (%)
+                  </text>
+<!-- Zone d'intervalle de confiance ZTF-7 -->
+<polygon fill="url(#area-confidence)" points="70,72 180,82 320,102 470,126 620,158 760,196 760,230 620,188 470,152 320,126 180,104 70,90"></polygon>
+<!-- Courbe 1 : Témoin Monocristallin Standard (Dégénérescence forte en zone humide) -->
+<path d="M 70,195 Q 260,225 450,290 T 760,345" fill="none" stroke="url(#grad-standard)" stroke-dasharray="5 4" stroke-width="2"></path>
+<!-- Courbe 2 : Technologie ZTF-7 Tandem Bi-couche (Stabilité accrue) -->
+<path d="M 70,81 C 210,91 380,118 530,144 S 690,178 760,212" fill="none" stroke="url(#grad-perov)" stroke-width="3.5"></path>
+<!-- Points de Mesures Expérimentales Réelles (Scatter ZTF-7) -->
+<g fill="#78F6F1" stroke="#000F22" stroke-width="1.5">
+<circle cx="70" cy="81" r="5"></circle>
+<circle cx="160" cy="87" r="5"></circle>
+<circle cx="260" cy="99" r="5"></circle>
+<circle cx="360" cy="114" r="5"></circle>
+<circle cx="460" cy="132" r="5"></circle>
+<circle cx="560" cy="151" r="5"></circle>
+<circle cx="660" cy="180" r="5"></circle>
+<circle cx="760" cy="212" r="5"></circle>
+</g>
+<!-- Annotations Intérieures et Flèches d'Écart -->
+<g>
+<!-- Repère gain ZTF -->
+<rect fill="#0A2540" fill-opacity="0.95" height="42" rx="4" width="220" x="520" y="80"></rect>
+<text fill="#FFDEAC" font-family="Inter" font-size="11" font-weight="700" x="532" y="98">+44.8% Résilience Hydrophobe</text>
+<text fill="#ebf1ff" font-family="Inter" font-size="10" x="532" y="112">Passivation nanométrique d'interface</text>
+<!-- Ligne directrice vers point critique -->
+<path d="M 630,122 L 660,172" stroke="#FFDEAC" stroke-dasharray="2 2" stroke-width="1"></path>
+<circle class="animate-ping" cx="660" cy="180" fill="none" r="8" stroke="#FFDEAC" stroke-width="2" style="transform-origin: 660px 180px; animation-duration: 3s;"></circle>
+</g>
+<!-- Légende intégrée dans la figure -->
+<g transform="translate(90, 275)">
+<rect fill="#000F22" fill-opacity="0.75" height="58" rx="4" width="260" x="0" y="0"></rect>
+<!-- Entrée 1 -->
+<line stroke="#78F6F1" stroke-width="3" x1="12" x2="36" y1="18" y2="18"></line>
+<circle cx="24" cy="18" fill="#78F6F1" r="3"></circle>
+<text fill="#ebf1ff" font-family="Inter" font-size="10.5" x="44" y="22">Tandem Pérovskite ZTF-7 (Station Bertoua)</text>
+<!-- Entrée 2 -->
+<line stroke="#C4C6CE" stroke-dasharray="4 3" stroke-width="2" x1="12" x2="36" y1="40" y2="40"></line>
+<text fill="#C4C6CE" font-family="Inter" font-size="10.5" x="44" y="44">Silicium c-Si Industriel Standard</text>
+</g>
+</svg>
+</div>
+<!-- Note de bas de graphique -->
+<div class="flex items-center justify-between pt-space-xs text-outline font-caption text-caption">
+<span>Cycles de brumisation continue : 1200 h • Facteur de forme (FF): 0.79</span>
+<span>Projet ZTF-ENERGY-2024-C3</span>
+</div>
+</div>
+</div>
+<!-- Puce Flottante "Navigation Précédent / Suivant" -->
+<button aria-label="Figure précédente" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-inverse-surface/60 hover:bg-secondary text-inverse-on-surface hover:text-on-secondary flex items-center justify-center transition-all shadow-lg backdrop-blur-sm">
+<span class="material-symbols-outlined text-[24px]">chevron_left</span>
+</button>
+<button aria-label="Figure suivante" class="absolute right-3 lg:right-[384px] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-inverse-surface/60 hover:bg-secondary text-inverse-on-surface hover:text-on-secondary flex items-center justify-center transition-all shadow-lg backdrop-blur-sm">
+<span class="material-symbols-outlined text-[24px]">chevron_right</span>
+</button>
+</main>
+<!-- VOLET LATÉRAL ACADÉMIQUE / DOSSIER COMPACT -->
+<aside class="w-full lg:w-96 bg-primary-container shrink-0 flex flex-col justify-between overflow-y-auto z-10">
+<div class="p-space-lg flex flex-col gap-space-md">
+<!-- Carte Identité Chercheur / Auteur -->
+<div class="flex items-start gap-space-md bg-inverse-surface/30 p-space-md rounded-xl">
+<!-- Avatar avec bague de prestige Or/Docteur -->
+<div class="relative shrink-0 p-0.5 rounded-full ring-2 ring-tertiary-fixed shadow-sm">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Photographie portrait académique du Dr. Marc Valérien souriant avec assurance en veston sombre devant des équations de physique du solide." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfuyZvaaVGB92rP8irCQQ7S7LpKDENRl5T0KzVvHn6fVpYMhTUrFY17PUhZCe9hBrQ63iaO4kV046qoJUaDUm8Z29-c5g_ketrufjHIoXJPzON2IEYHF2L5hPpXp7JsTqYY2Qjc1VWMmvli9VaTsu7uVdiEg26WoAFQaBgyOov6PhHZuLlredDZBx-8nziex6zePsBYtZIB3K8rVQUdkgsjLd1848PmJFmT74H6PnV_dHpwJW3uig"/>
+<span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-tertiary-container text-tertiary-fixed flex items-center justify-center font-caption text-[10px]" title="Validé par les pairs">
+<span class="material-symbols-outlined text-[12px]">verified</span>
+</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<h3 class="font-label-lg text-label-lg font-bold text-on-primary truncate">Dr. Marc Valérien</h3>
+<!-- Badge Or Doux Docteur / Chercheur -->
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-rank text-label-rank tracking-wide font-bold">
+                    Docteur / Chercheur
+                  </span>
+</div>
+<p class="font-caption text-caption text-primary-fixed-dim line-clamp-1 mt-0.5">
+                  Directeur de Recherche • Chaire Systèmes Photovoltaïques ZTF
+                </p>
+<div class="flex items-center gap-2 mt-1 text-outline font-caption text-[11px]">
+<span>Publié le 18 Oct. 2024</span>
+<span>•</span>
+<span class="text-secondary-fixed flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">public</span> Libre Accès
+                  </span>
+</div>
+</div>
+</div>
+<!-- Légende Scientifique Officielle -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-secondary-fixed uppercase tracking-wider font-semibold">
+                Légende &amp; Analyse Empirique
+              </span>
+<p class="font-body-sm text-body-sm text-surface-container-high leading-relaxed text-justify">
+                Évolution comparative du rendement énergétique sous contrainte d'humidité continue (40% à 98% HR) simulant le climat équatorial de la station Bertoua-Nord. L'adjonction de l'intercouche d'encapsulation nanométrique fluorée démontre une conservation de 81.3% du rendement initial à saturation, contre un effondrement à 43.1% pour les témoins commerciaux en silicium monocristallin.
+              </p>
+</div>
+<!-- Métadonnées & Classification ZTF -->
+<div class="grid grid-cols-2 gap-space-sm bg-inverse-surface/40 p-space-sm rounded-lg">
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline">Campagne Terrain</span>
+<span class="font-label-md text-label-md text-on-primary font-medium">Bertoua-Nord #04</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline">Revue Associée</span>
+<span class="font-label-md text-label-md text-on-primary font-medium">ZTF Energy Letters</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline">Licence Données</span>
+<span class="font-label-md text-label-md text-on-primary font-medium">CC-BY-NC 4.0</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline">Vérification Hash</span>
+<span class="font-label-md text-label-md text-secondary-fixed font-mono">0x9d4a...7f12</span>
+</div>
+</div>
+<!-- DOI Copiable Immédiatement -->
+<div class="flex items-center justify-between p-space-sm bg-primary/80 rounded-lg">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="material-symbols-outlined text-tertiary-fixed text-[18px]">bookmark</span>
+<span class="font-caption text-caption text-inverse-on-surface font-mono truncate">doi:10.1088/ztf.solarenergy.2024.088</span>
+</div>
+<button class="px-2 py-1 text-primary-fixed hover:text-on-primary text-caption rounded transition-colors flex items-center gap-1" id="copy-doi-btn">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span id="doi-label">Copier</span>
+</button>
+</div>
+</div>
+<!-- Section Inférieure : Barre d'Actions Sociales & Académiques -->
+<div class="p-space-lg bg-primary/70 backdrop-blur-sm flex flex-col gap-space-md">
+<!-- Statistiques de Réactions -->
+<div class="flex items-center justify-between text-outline font-caption text-caption">
+<div class="flex items-center gap-1">
+<span class="flex items-center justify-center w-5 h-5 rounded-full bg-secondary text-on-secondary text-[10px]">
+<span class="material-symbols-outlined text-[12px]">thumb_up</span>
+</span>
+<span class="flex items-center justify-center w-5 h-5 rounded-full bg-tertiary-container text-tertiary-fixed text-[10px] -ml-2">
+<span class="material-symbols-outlined text-[12px]">school</span>
+</span>
+<span class="ml-1 text-inverse-on-surface">Dr. Kouamé et 41 autres pairs</span>
+</div>
+<span>18 remarques scientifiques</span>
+</div>
+<!-- Boutons d'Action Clés -->
+<div class="grid grid-cols-3 gap-space-xs">
+<!-- J'aime / Approuver -->
+<button class="flex flex-col items-center justify-center py-2 px-1 rounded-lg bg-inverse-surface/40 hover:bg-inverse-surface text-inverse-on-surface hover:text-secondary-fixed transition-all group" id="like-btn">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">thumb_up</span>
+<span class="font-label-md text-label-md mt-0.5">J'aime (42)</span>
+</button>
+<!-- Commenter / Échanger -->
+<button class="flex flex-col items-center justify-center py-2 px-1 rounded-lg bg-inverse-surface/40 hover:bg-inverse-surface text-inverse-on-surface hover:text-secondary-fixed transition-all group">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">chat_bubble</span>
+<span class="font-label-md text-label-md mt-0.5">Discuter (18)</span>
+</button>
+<!-- Citer DOI (Prestige académique) -->
+<button class="flex flex-col items-center justify-center py-2 px-1 rounded-lg bg-tertiary-container/60 hover:bg-tertiary-container text-tertiary-fixed transition-all group" id="cite-modal-btn">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">format_quote</span>
+<span class="font-label-md text-label-md mt-0.5 font-bold">Citer BibTeX</span>
+</button>
+</div>
+<!-- Mention Institutionnelle ZTF Pinned -->
+<div class="flex items-center justify-between text-[11px] text-outline pt-1">
+<span class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed inline-block"></span>
+                Consortium ZTF Afrique Centrale
+              </span>
+<a class="text-secondary-fixed hover:underline" href="#">Signaler une anomalie</a>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+<!-- Notification Toast Copie DOI -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-secondary text-on-secondary px-4 py-2 rounded-lg font-label-md text-label-md shadow-2xl flex items-center gap-2 translate-y-16 opacity-0 pointer-events-none transition-all duration-300" id="toast-doi">
+<span class="material-symbols-outlined text-[18px]">done</span>
+<span>Référence DOI copiée dans le presse-papier !</span>
+</div>
+</div>
+<script>
+  (function() {
+    // Zoom State Controller
+    let currentZoom = 100;
+    const minZoom = 70;
+    const maxZoom = 250;
+    const zoomStep = 25;
+
+    const chartViewport = document.getElementById('chart-viewport');
+    const zoomIndicator = document.getElementById('zoom-indicator');
+    const zoomInBtn = document.getElementById('zoom-in-btn');
+    const zoomOutBtn = document.getElementById('zoom-out-btn');
+    const zoomResetBtn = document.getElementById('zoom-reset-btn');
+    const closeBtn = document.getElementById('close-lightbox');
+    const copyDoiBtn = document.getElementById('copy-doi-btn');
+    const toastDoi = document.getElementById('toast-doi');
+    const likeBtn = document.getElementById('like-btn');
+    const citeModalBtn = document.getElementById('cite-modal-btn');
+
+    function applyZoom(zoom) {
+      currentZoom = Math.min(Math.max(zoom, minZoom), maxZoom);
+      if (chartViewport && zoomIndicator) {
+        chartViewport.style.transform = `scale(${currentZoom / 100})`;
+        zoomIndicator.textContent = `${currentZoom}%`;
+      }
+    }
+
+    if (zoomInBtn) {
+      zoomInBtn.addEventListener('click', () => applyZoom(currentZoom + zoomStep));
+    }
+
+    if (zoomOutBtn) {
+      zoomOutBtn.addEventListener('click', () => applyZoom(currentZoom - zoomStep));
+    }
+
+    if (zoomResetBtn) {
+      zoomResetBtn.addEventListener('click', () => applyZoom(100));
+    }
+
+    // Gestion du bouton de fermeture
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        const lightbox = document.getElementById('scientific-lightbox');
+        if (lightbox) {
+          lightbox.style.opacity = '0';
+          lightbox.style.transform = 'scale(0.98)';
+          lightbox.style.transition = 'all 0.25s ease-out';
+          setTimeout(() => {
+            lightbox.classList.add('hidden');
+          }, 250);
+        }
+      });
+    }
+
+    // Copie du DOI
+    if (copyDoiBtn && toastDoi) {
+      copyDoiBtn.addEventListener('click', () => {
+        navigator.clipboard?.writeText('https://doi.org/10.1088/ztf.solarenergy.2024.088').catch(() => {});
+        toastDoi.classList.remove('translate-y-16', 'opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+          toastDoi.classList.add('translate-y-16', 'opacity-0', 'pointer-events-none');
+        }, 2600);
+      });
+    }
+
+    // Interaction J'aime / Upvote
+    let liked = false;
+    if (likeBtn) {
+      likeBtn.addEventListener('click', () => {
+        liked = !liked;
+        if (liked) {
+          likeBtn.classList.remove('bg-inverse-surface/40', 'text-inverse-on-surface');
+          likeBtn.classList.add('bg-secondary', 'text-on-secondary');
+          likeBtn.querySelector('span:nth-child(2)').textContent = "J'aime (43)";
+        } else {
+          likeBtn.classList.add('bg-inverse-surface/40', 'text-inverse-on-surface');
+          likeBtn.classList.remove('bg-secondary', 'text-on-secondary');
+          likeBtn.querySelector('span:nth-child(2)').textContent = "J'aime (42)";
+        }
+      });
+    }
+
+    // Alerte citation BibTeX formatée
+    if (citeModalBtn) {
+      citeModalBtn.addEventListener('click', () => {
+        const bibtexSnippet = `@article{valerien2024photovoltaic,\n  title={Résultats expérimentaux : Efficacité photovoltaïque selon gradient d'humidité},\n  author={Valérien, Marc},\n  journal={ZTF Energy Letters},\n  year={2024}\n}`;
+        navigator.clipboard?.writeText(bibtexSnippet).catch(() => {});
+        if (toastDoi) {
+          toastDoi.querySelector('span:last-child').textContent = "Citation BibTeX copiée au format TeX !";
+          toastDoi.classList.remove('translate-y-16', 'opacity-0', 'pointer-events-none');
+          setTimeout(() => {
+            toastDoi.classList.add('translate-y-16', 'opacity-0', 'pointer-events-none');
+            toastDoi.querySelector('span:last-child').textContent = "Référence DOI copiée dans le presse-papier !";
+          }, 3000);
+        }
+      });
+    }
+
+    // Raccourci Échap pour fermer
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const lightbox = document.getElementById('scientific-lightbox');
+        if (lightbox && !lightbox.classList.contains('hidden')) {
+          closeBtn?.click();
+        }
+      }
+    });
+  })();
+</script></main></body></html>

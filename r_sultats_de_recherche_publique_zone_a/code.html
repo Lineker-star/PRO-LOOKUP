@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-container":"#b28330","surface-container-lowest":"#ffffff","on-error":"#ffffff","on-surface-variant":"#43474d","on-surface":"#151c27","inverse-primary":"#b0c8eb","secondary-container":"#78f6f1","on-tertiary-fixed":"#281900","on-secondary-container":"#00706e","on-error-container":"#93000a","on-background":"#151c27","surface-variant":"#dce2f3","on-secondary":"#ffffff","on-tertiary":"#ffffff","surface-dim":"#d3daea","primary":"#000f22","tertiary":"#180d00","secondary":"#006a67","primary-fixed":"#d2e4ff","error":"#ba1a1a","surface-bright":"#f9f9ff","surface-container-high":"#e2e8f8","outline":"#74777e","on-primary-fixed":"#001c37","inverse-on-surface":"#ebf1ff","surface-tint":"#49607e","on-primary-container":"#768dad","surface-container-low":"#f0f3ff","on-primary-fixed-variant":"#314865","on-secondary-fixed":"#00201f","primary-fixed-dim":"#b0c8eb","tertiary-fixed":"#ffdeac","background":"#f9f9ff","surface-container-highest":"#dce2f3","secondary-fixed-dim":"#58d9d5","surface-container":"#e7eefe","error-container":"#ffdad6","tertiary-fixed-dim":"#f3be65","secondary-fixed":"#78f6f1","on-primary":"#ffffff","surface":"#f9f9ff","outline-variant":"#c4c6ce","primary-container":"#0a2540","on-secondary-fixed-variant":"#00504e","inverse-surface":"#2a313d","on-tertiary-fixed-variant":"#604100","tertiary-container":"#332100"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"space-sm":"0.5rem",gutter:"1.5rem","margin-mobile":"1rem","space-xs":"0.25rem","space-lg":"1.5rem",margin:"2rem","space-md":"1rem","space-xl":"2.5rem","gutter-mobile":"1rem"},fontFamily:{"headline-sm":["Inter"],"headline-lg-mobile":["Inter"],"label-md":["Inter"],"label-lg":["Inter"],"headline-md":["Inter"],"headline-xl-mobile":["Inter"],caption:["Inter"],"headline-xl":["Inter"],"headline-lg":["Inter"],"body-md":["Inter"],"body-sm":["Inter"],"label-rank":["Inter"],"body-lg":["Inter"]},fontSize:{"headline-sm":["16px",{lineHeight:"24px",fontWeight:"600"}],"headline-lg-mobile":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"600"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"label-lg":["14px",{lineHeight:"20px",letterSpacing:"0.01em",fontWeight:"600"}],"headline-md":["20px",{lineHeight:"28px",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-xl-mobile":["32px",{lineHeight:"40px",letterSpacing:"-0.015em",fontWeight:"700"}],caption:["11px",{lineHeight:"14px",fontWeight:"400"}],"headline-xl":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"700"}],"headline-lg":["28px",{lineHeight:"36px",letterSpacing:"-0.015em",fontWeight:"600"}],"body-md":["14px",{lineHeight:"22px",fontWeight:"400"}],"body-sm":["12px",{lineHeight:"18px",fontWeight:"400"}],"label-rank":["11px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"26px",fontWeight:"400"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-secondary selection:text-on-secondary"><header class="fixed top-0 left-0 right-0 w-full z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(10,37,64,0.06)]"><div class="h-20 max-w-[1240px] mx-auto px-gutter flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><img alt="Logo officiel PRO-LOOKUP avec symbole académique et réseau de pairs, chevron et étoile or, et mention Institut Universitaire ZTF — Bertoua" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Vd4VufZ0WJfj2mfyAPAuuxYsFh-6rJKT-QwNSn1pWYXCOQ5euMGuEy0-jVCmYwC0NeQLyyqucDyumiOmPntAyiwu2dtNkwTsHMLRCdbIYEiPYNXV_D2ebyvgM439K-yPOD_EjnrjYcfr-mftvFRjYpF_4V6j3LmAKa3llJE1M14SBpuoffjF0gL_zD9d6bRzQlR1Lw3qc_poM2cA-7Wx3h8pISdY2YqMS1IJa5v0UQ8AnBRnKEbe2q7A"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">PRO-LOOKUP</span><span class="font-caption text-caption text-on-surface-variant">Institut Universitaire ZTF • Bertoua</span></div></div><div class="hidden xl:flex items-center flex-1 max-w-xs mx-space-md"><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span><input class="w-full h-10 pl-9 pr-3 rounded bg-surface-container-low font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:bg-surface-container-lowest focus:ring-1 focus:ring-secondary transition-all" placeholder="Chercher un chercheur, labo, DOI..." type="search"/></div></div><nav class="hidden lg:flex items-center gap-space-lg" data-active-classes="text-secondary font-headline-sm"><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="accueil" href="#">Accueil</a><a aria-current="page" class="transition-colors text-secondary font-headline-sm" data-path="annuaire-des-chercheurs" href="#">Annuaire des Chercheurs</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="classement-public" href="#">Classement Public</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="publications-en-acces-libre" href="#">Publications en Accès Libre</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="a-propos-de-l-institut-ztf" href="#">À propos de l'Institut ZTF</a></nav><div class="flex items-center gap-space-sm shrink-0"><a class="hidden sm:inline-flex items-center justify-center px-space-md py-space-xs rounded font-label-lg text-label-lg text-primary hover:bg-surface-container hover:text-on-surface transition-colors" data-path="connexion" href="#">S'identifier</a><a class="inline-flex items-center justify-center px-space-md py-space-xs rounded bg-secondary hover:bg-on-secondary-container font-label-lg text-label-lg text-on-secondary transition-colors shadow-[0_1px_3px_rgba(10,37,64,0.08)]" data-path="inscription" href="#">Rejoindre le Réseau</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Section: Research Search Bar Header -->
+<section class="relative w-full bg-surface-container-low py-space-xl overflow-hidden shadow-sm">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 bg-secondary/5 rounded-full blur-3xl pointer-events-none -mr-20"></div>
+<div class="absolute left-1/4 -bottom-10 w-72 h-72 bg-on-tertiary-container/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="max-w-[1240px] mx-auto px-gutter relative z-10">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs text-on-tertiary-container font-label-rank text-label-rank uppercase tracking-widest mb-space-xs">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+            Index Scientifique National CAMES / ZTF
+          </div>
+<h1 class="font-headline-xl text-headline-xl text-primary tracking-tight">Annuaire & Registre Public des Chercheurs</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mt-1">
+            Moteur de consultation publique des chaires de recherche, publications indexées et laboratoires affiliés à l'Institut Universitaire ZTF de Bertoua.
+          </p>
+</div>
+<div class="flex items-center gap-space-sm bg-surface-container-lowest px-space-md py-space-sm rounded-xl shadow-sm self-start md:self-auto">
+<span class="material-symbols-outlined text-secondary text-[24px]">verified_user</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary">Dossiers Authentifiés</span>
+<span class="font-caption text-caption text-on-surface-variant">Signature cryptographique ZTF</span>
+</div>
+</div>
+</div>
+<!-- Search Input Container -->
+<div class="bg-surface-container-lowest rounded-xl p-space-sm shadow-md flex flex-col lg:flex-row items-stretch gap-space-sm">
+<div class="relative flex-1 flex items-center">
+<span class="material-symbols-outlined absolute left-space-md text-secondary text-[22px]">search</span>
+<input class="w-full h-12 pl-12 pr-10 rounded-lg bg-surface-container-low/60 font-headline-sm text-headline-sm text-primary placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest transition-all" id="main-academic-search" placeholder="Nom de chercheur, thématique de recherche, mot-clé DOI..." type="text" value="Énergies Solaires Bertoua"/>
+<button class="absolute right-space-sm text-outline hover:text-primary transition-colors" id="clear-search-btn">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="relative min-w-[180px]">
+<select class="w-full h-12 px-space-md appearance-none rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface font-semibold focus:outline-none cursor-pointer">
+<option>Tous les domaines</option>
+<option selected="">Physique & Énergie</option>
+<option>Génie des Matériaux</option>
+<option>Informatique & Réseaux</option>
+<option>Sciences de l'Environnement</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-sm top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+</div>
+<button class="h-12 px-space-xl rounded-lg bg-primary hover:bg-secondary text-on-primary font-label-lg text-label-lg transition-colors shadow-sm flex items-center justify-center gap-space-xs shrink-0">
+<span class="material-symbols-outlined text-[18px]">travel_explore</span>
+<span>Actualiser</span>
+</button>
+</div>
+</div>
+<!-- Search Meta Strip -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm mt-space-md text-on-surface-variant">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-lg text-label-lg text-primary font-bold">38 résultats trouvés</span>
+<span class="font-body-sm text-body-sm">pour la requête</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary/10 text-secondary font-label-md text-label-md">
+            « Énergies Solaires Bertoua »
+          </span>
+<span class="font-caption text-caption ml-space-xs text-outline">(Temps de calcul : 0.042s)</span>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs font-caption text-caption">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Tri actuel : Pertinence scientifique & Rang CAMES</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content Layout (Sidebar + Results) -->
+<div class="max-w-[1240px] w-full mx-auto px-gutter py-space-xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<!-- Left Column: Filters Sidebar -->
+<aside class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Filter Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-lg">
+<div class="flex items-center justify-between pb-space-sm bg-gradient-to-r from-surface-container-high/40 to-transparent p-2 rounded-md">
+<div class="flex items-center gap-space-xs text-primary font-headline-sm text-headline-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">tune</span>
+<span>Filtres de Recherche</span>
+</div>
+<button class="font-label-md text-label-md text-secondary hover:text-on-secondary-container transition-colors">
+              Réinitialiser
+            </button>
+</div>
+<!-- Section 1: Type de Résultat -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-lg text-label-lg text-primary uppercase tracking-wider text-xs">Type d'entité</span>
+<div class="flex flex-col gap-space-xs">
+<label class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low cursor-pointer transition-colors">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="w-4 h-4 rounded bg-surface-container accent-primary cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Chercheurs & Équipes</span>
+</div>
+<span class="font-caption text-caption px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant">24</span>
+</label>
+<label class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low cursor-pointer transition-colors">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="w-4 h-4 rounded bg-surface-container accent-primary cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Publications & Articles DOI</span>
+</div>
+<span class="font-caption text-caption px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant">11</span>
+</label>
+<label class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low cursor-pointer transition-colors">
+<div class="flex items-center gap-space-sm">
+<input class="w-4 h-4 rounded bg-surface-container accent-primary cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Projets de Laboratoire</span>
+</div>
+<span class="font-caption text-caption px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant">3</span>
+</label>
+</div>
+</div>
+<!-- Section 2: Rang Académique -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-lg text-label-lg text-primary uppercase tracking-wider text-xs">Rang Académique (CAMES)</span>
+<div class="flex flex-col gap-space-xs">
+<label class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low cursor-pointer transition-colors">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="w-4 h-4 rounded bg-surface-container accent-primary cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Professeur Titulaire</span>
+</div>
+<span class="font-label-rank text-label-rank text-on-tertiary-container bg-on-tertiary-container/10 px-2 py-0.5 rounded-full">Rang A</span>
+</label>
+<label class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low cursor-pointer transition-colors">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="w-4 h-4 rounded bg-surface-container accent-primary cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Maître de Conférences</span>
+</div>
+<span class="font-label-rank text-label-rank text-secondary bg-secondary/10 px-2 py-0.5 rounded-full">Rang B</span>
+</label>
+<label class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low cursor-pointer transition-colors">
+<div class="flex items-center gap-space-sm">
+<input class="w-4 h-4 rounded bg-surface-container accent-primary cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Docteur / Chercheur</span>
+</div>
+<span class="font-caption text-caption text-outline">Post-doc</span>
+</label>
+<label class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low cursor-pointer transition-colors">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="w-4 h-4 rounded bg-surface-container accent-primary cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Doctorant R&D</span>
+</div>
+<span class="font-caption text-caption text-outline">Junior</span>
+</label>
+</div>
+</div>
+<!-- Section 3: Faculté & Institut -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-lg text-label-lg text-primary uppercase tracking-wider text-xs">Faculté & Institut de Rattachement</span>
+<div class="flex flex-col gap-space-xs">
+<label class="flex items-center gap-space-sm p-2 rounded hover:bg-surface-container-low cursor-pointer transition-colors">
+<input checked="" class="w-4 h-4 accent-secondary" name="faculty" type="radio"/>
+<span class="font-body-md text-body-md text-on-surface">Tous les départements</span>
+</label>
+<label class="flex items-center gap-space-sm p-2 rounded hover:bg-surface-container-low cursor-pointer transition-colors">
+<input class="w-4 h-4 accent-secondary" name="faculty" type="radio"/>
+<span class="font-body-md text-body-md text-on-surface">Faculté des Sciences (FS)</span>
+</label>
+<label class="flex items-center gap-space-sm p-2 rounded hover:bg-surface-container-low cursor-pointer transition-colors">
+<input class="w-4 h-4 accent-secondary" name="faculty" type="radio"/>
+<span class="font-body-md text-body-md text-on-surface">École Nat. Sup. Polytechnique</span>
+</label>
+<label class="flex items-center gap-space-sm p-2 rounded hover:bg-surface-container-low cursor-pointer transition-colors">
+<input class="w-4 h-4 accent-secondary" name="faculty" type="radio"/>
+<span class="font-body-md text-body-md text-on-surface">Chaires Associées ZTF Bertoua</span>
+</label>
+</div>
+</div>
+<!-- Section 4: Disponibilité académique -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-lg text-label-lg text-primary uppercase tracking-wider text-xs">Statut d'engagement</span>
+<div class="flex flex-col gap-space-xs">
+<label class="flex items-center gap-space-sm p-2 rounded hover:bg-surface-container-low cursor-pointer transition-colors">
+<input checked="" class="w-4 h-4 rounded bg-surface-container accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface">Jurys de thèse & HDR</span>
+<span class="font-caption text-caption text-outline">Disponible ce semestre</span>
+</div>
+</label>
+<label class="flex items-center gap-space-sm p-2 rounded hover:bg-surface-container-low cursor-pointer transition-colors">
+<input checked="" class="w-4 h-4 rounded bg-surface-container accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface">Comités de lecture & Review</span>
+<span class="font-caption text-caption text-outline">Revues Q1 / Q2</span>
+</div>
+</label>
+<label class="flex items-center gap-space-sm p-2 rounded hover:bg-surface-container-low cursor-pointer transition-colors">
+<input class="w-4 h-4 rounded bg-surface-container accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface">Collaborations internationales</span>
+<span class="font-caption text-caption text-outline">Projets bilatéraux</span>
+</div>
+</label>
+</div>
+</div>
+</div>
+<!-- Metric Widget: Regional Solar Research -->
+<div class="bg-primary text-on-primary rounded-xl p-space-lg shadow-md flex flex-col gap-space-md relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 bg-secondary/20 rounded-full blur-xl"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-rank text-label-rank text-secondary-fixed uppercase tracking-wider">Indicateur Pôle Est</span>
+<span class="material-symbols-outlined text-secondary-fixed text-[20px]">solar_power</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-xl text-headline-xl tracking-tight text-surface-container-lowest">84.2 %</span>
+<span class="font-caption text-caption text-surface-variant">Taux d'indexation en accès ouvert pour les projets solaires à Bertoua</span>
+</div>
+<!-- Inline Progress Chart -->
+<div class="w-full bg-on-primary-fixed-variant/40 rounded-full h-2 overflow-hidden">
+<div class="bg-secondary-fixed h-full rounded-full" style="width: 84.2%;"></div>
+</div>
+<div class="flex items-center justify-between pt-space-xs font-caption text-caption text-surface-variant">
+<span>Données validées Q1 2025</span>
+<a class="underline hover:text-on-primary transition-colors" href="#">Consulter rapport</a>
+</div>
+</div>
+</aside>
+<!-- Right Column: Results Stream -->
+<main class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- Active Applied Filters Chips -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-caption text-caption text-on-surface-variant uppercase tracking-wider mr-1">Filtres actifs:</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-md text-label-md">
+            Rang A & B
+            <button class="hover:text-error transition-colors"><span class="material-symbols-outlined text-[14px]">cancel</span></button>
+</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-md text-label-md">
+            Jurys disponibles
+            <button class="hover:text-error transition-colors"><span class="material-symbols-outlined text-[14px]">cancel</span></button>
+</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-md text-label-md">
+            Bertoua & Est Cameroun
+            <button class="hover:text-error transition-colors"><span class="material-symbols-outlined text-[14px]">cancel</span></button>
+</span>
+<button class="font-label-md text-label-md text-secondary hover:underline ml-auto">
+            Effacer tout
+          </button>
+</div>
+<!-- Result Card 1: Pr. Félix Eto'o -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm hover:shadow-md transition-all flex flex-col gap-space-md relative">
+<!-- Top Accent / Header -->
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<!-- Avatar with Dual-ring (Professeur Titulaire) -->
+<div class="relative shrink-0">
+<div class="w-16 h-16 rounded-full p-1 bg-gradient-to-tr from-on-tertiary-container via-tertiary-fixed to-on-tertiary-container shadow-sm">
+<img class="w-full h-full rounded-full object-cover bg-surface-container" data-alt="Portrait photographique formel d'un professeur d'université camerounais en costume sombre avec lunettes dorées, arrière-plan de bibliothèque universitaire prestigieuse, éclairage doux de studio académique de haut niveau." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBf0Ov6R3pmbvahsvhSQ_XG6eRND4NGh5Gk99SO7zZB0ZrHNIh7nY7xB7U5U-2JLitPeCW6SjkWdb2kbTw0CDu4oFF2EADDRchZextq765iuXhkSFRzhEsEuJkYA596IZIVo_S33NI7xAGq_BbvEvzi5Fea9Y8N8lGXNwsNMU-iiWUy2Y_3SlTpfpkpKHtfsH9jQSk5wazLWDc87HpMRLubY9-oydrHXKLdceEbyy1BimDlyt9mu9k"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-on-tertiary-container text-on-tertiary rounded-full w-5 h-5 flex items-center justify-center shadow-xs">
+<span class="material-symbols-outlined text-[12px]">workspace_premium</span>
+</div>
+</div>
+<!-- Identity & Institution -->
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-space-xs mb-1">
+<h2 class="font-headline-md text-headline-md text-primary font-bold">Pr. Félix Eto'o</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container font-label-rank text-label-rank">
+<span class="material-symbols-outlined text-[14px]">star</span>
+                    PROFESSEUR TITULAIRE (CAMES)
+                  </span>
+</div>
+<p class="font-body-md text-body-md text-secondary font-medium">
+                  Spécialiste des semi-conducteurs photovoltaïques & conversion thermique
+                </p>
+<p class="font-caption text-caption text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[15px]">apartment</span>
+                  Université de Dschang • Titulaire de la Chaire Associée Solaire ZTF Bertoua
+                </p>
+</div>
+</div>
+<!-- Badges and Status -->
+<div class="flex sm:flex-col items-end gap-1">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-secondary/10 text-on-secondary-container font-label-md text-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                Disponible pour Jurys HDR
+              </span>
+<span class="font-caption text-caption text-outline">ID CAMES: CM-2012-8821</span>
+</div>
+</div>
+<!-- Academic Highlights / Metrics Strip -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm bg-surface-container-low/50 p-space-sm rounded-lg">
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline uppercase tracking-wider">Publications</span>
+<span class="font-headline-sm text-headline-sm text-primary">38 articles</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline uppercase tracking-wider">H-Index</span>
+<span class="font-headline-sm text-headline-sm text-secondary">19 (Scopus)</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline uppercase tracking-wider">Citations</span>
+<span class="font-headline-sm text-headline-sm text-primary">1 420+</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline uppercase tracking-wider">Dernier Dépôt</span>
+<span class="font-body-sm text-body-sm text-on-surface font-semibold">Janvier 2025</span>
+</div>
+</div>
+<!-- Bio Excerpt -->
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed line-clamp-2">
+            Pionnier des technologies photovoltaïques en milieu équatorial humide. Dirige le programme pilote de micro-réseaux hybrides solaires de la région de l'Est en synergie avec l'Institut Universitaire ZTF et la Société Nationale d'Électricité.
+          </p>
+<!-- Footer Actions -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-surface-container font-caption text-caption text-on-surface-variant">Cellules Pérovskites</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-caption text-caption text-on-surface-variant">Réseaux Isolés</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-caption text-caption text-on-surface-variant">Bertoua Est-CM</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<a class="h-9 px-space-md rounded bg-primary hover:bg-secondary text-on-primary font-label-md text-label-md transition-colors flex items-center gap-1 shadow-xs" href="#">
+<span>Consulter le profil public</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- Interspersed Publication Card: Sol-Pub-01 -->
+<article class="bg-surface-container-low rounded-xl p-space-lg shadow-sm flex flex-col gap-space-sm relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-secondary"></div>
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-secondary/15 text-secondary font-label-rank text-label-rank uppercase tracking-wider">
+                Article Indexé DOI • Open Access
+              </span>
+<span class="font-caption text-caption text-outline">Revue Africaine de Physique Appliquée (2024)</span>
+</div>
+<span class="font-label-md text-label-md text-on-tertiary-container font-semibold">Citations: 14</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary hover:text-secondary cursor-pointer transition-colors">
+            « Optimisation du rendement des capteurs solaires polycristallins sous climat chaud et humide : Cas d'étude du plateau de Bertoua »
+          </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-2">
+            Résumé : Cette étude évalue la dégradation thermique et l'impact de la forte hygrométrie de l'Est camerounais sur les cellules photovoltaïques conventionnelles. Des solutions de refroidissement par thermosiphon passif adaptées aux infrastructures rurales y sont modélisées.
+          </p>
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-sm text-caption font-caption text-on-surface-variant">
+<span class="font-semibold text-primary">Auteurs :</span>
+<span>Pr. Félix Eto'o, Ing. Patrick Mbarga, et al.</span>
+<span class="text-outline">•</span>
+<span class="font-mono text-secondary">doi:10.1016/j.solener.ztf.2024.08.112</span>
+</div>
+<a class="inline-flex items-center gap-1 px-space-md py-1.5 rounded bg-surface-container-lowest hover:bg-primary hover:text-on-primary text-primary font-label-md text-label-md transition-all shadow-xs" href="#">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+<span>Consulter l'article</span>
+</a>
+</div>
+</article>
+<!-- Result Card 2: Dre. Sandrine Tchuente -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm hover:shadow-md transition-all flex flex-col gap-space-md relative">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<!-- Avatar with Single-ring Teal (Maître de Conférences) -->
+<div class="relative shrink-0">
+<div class="w-16 h-16 rounded-full p-1 bg-secondary shadow-sm">
+<img class="w-full h-full rounded-full object-cover bg-surface-container" data-alt="Portrait photographique d'une chercheuse camerounaise docteure en physique des matériaux, souriante et déterminée, vêtue d'une veste professionnelle contemporaine, travaillant dans un laboratoire d'analyse technologique moderne aux tons bleutés." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCldi6eUcO2sU8BUswfiiKMRqSm4gWLtKLrpcFDOptvQcP1x1AOOiM02RDbYGnnOcT-oETh007Y1hUz0zBYa9SdeKYxpOA1evVAupSahBVgREVeg6enTrduJqnm4M6NMDK521hUBCqLq7NuV3ZPobPfQzgzW8MzEopSLsxK1iaFKYJvSus-GjMag3bxyVl2-JkOWSioy7TjAVg7nWRnc4aDQx527f6gRNTkIQqv-XgznDVV6_bonXc"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-secondary text-on-secondary rounded-full w-5 h-5 flex items-center justify-center shadow-xs">
+<span class="material-symbols-outlined text-[12px]">science</span>
+</div>
+</div>
+<!-- Identity & Institution -->
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-space-xs mb-1">
+<h2 class="font-headline-md text-headline-md text-primary font-bold">Dre. Sandrine Tchuente</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary/15 text-on-secondary-container font-label-rank text-label-rank">
+                    MAÎTRE DE CONFÉRENCES
+                  </span>
+</div>
+<p class="font-body-md text-body-md text-secondary font-medium">
+                  Département Physique des Matériaux • Nanomatériaux pour Stockage Électrique
+                </p>
+<p class="font-caption text-caption text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[15px]">school</span>
+                  Institut Universitaire ZTF Bertoua • Unité Mixte Matériaux Solaires
+                </p>
+</div>
+</div>
+<!-- Badges and Status -->
+<div class="flex sm:flex-col items-end gap-1">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-secondary/10 text-on-secondary-container font-label-md text-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                Comités de lecture Q1
+              </span>
+<span class="font-caption text-caption text-outline">ID CAMES: CM-2018-4092</span>
+</div>
+</div>
+<!-- Academic Highlights / Metrics Strip -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm bg-surface-container-low/50 p-space-sm rounded-lg">
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline uppercase tracking-wider">Publications</span>
+<span class="font-headline-sm text-headline-sm text-primary">19 articles</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline uppercase tracking-wider">H-Index</span>
+<span class="font-headline-sm text-headline-sm text-secondary">11 (Google Scholar)</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline uppercase tracking-wider">Projets Financés</span>
+<span class="font-headline-sm text-headline-sm text-primary">3 Programmes</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline uppercase tracking-wider">Brevets Déposés</span>
+<span class="font-headline-sm text-headline-sm text-on-tertiary-container">2 Inventions OAPI</span>
+</div>
+</div>
+<!-- Bio Excerpt -->
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed line-clamp-2">
+            Recherches axées sur l'encapsulation nanométrique de supercondensateurs pour le lissage de production des parcs photovoltaïques de l'Est-Cameroun. Responsable pédagogique du Master 2 Énergies Renouvelables ZTF.
+          </p>
+<!-- Footer Actions -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-surface-container font-caption text-caption text-on-surface-variant">Stockage Électrochimique</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-caption text-caption text-on-surface-variant">Nanotubes Carbone</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-caption text-caption text-on-surface-variant">OAPI Bertoua</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<a class="h-9 px-space-md rounded bg-primary hover:bg-secondary text-on-primary font-label-md text-label-md transition-colors flex items-center gap-1 shadow-xs" href="#">
+<span>Consulter le profil public</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- Result Card 3: Ing. Patrick Mbarga -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm hover:shadow-md transition-all flex flex-col gap-space-md relative">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<!-- Avatar with Ring Light (Doctorant R&D) -->
+<div class="relative shrink-0">
+<div class="w-16 h-16 rounded-full p-1 bg-surface-variant shadow-sm">
+<img class="w-full h-full rounded-full object-cover bg-surface-container" data-alt="Portrait d'un jeune ingénieur chercheur africain avec équipement de mesure et tablette de laboratoire, posture professionnelle souriante, fond de chantier de centrale solaire photovoltaïque sous lumière dorée." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDt5381IkYVR3tyOob0UVhDVRg2Ox0feJ4irMnw8oPMUKNz5Sdd4Ps8yVGYZhpROw0F6Lv-nBb_fzsZdoLeFJ7QWxNZKiECXu4Wmfk2lLbohQSX6OD_ung1mSEFZ_5fcj-DmnUqpTmTqBi_hfo3ustmZGb6M-LLnv7mqOJ5VcyyNve9k_qenxQ7O8l_E7ctGAL2kHp3S_zWLCKB4xsF5dZTaWmMj4OvghyF07hv3j6cXoHeJCunK9o"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-surface-tint text-on-primary rounded-full w-5 h-5 flex items-center justify-center shadow-xs">
+<span class="material-symbols-outlined text-[12px]">engineering</span>
+</div>
+</div>
+<!-- Identity & Institution -->
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-space-xs mb-1">
+<h2 class="font-headline-md text-headline-md text-primary font-bold">Ing. Patrick Mbarga</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-rank text-label-rank">
+                    DOCTORANT R&D (ANNÉE 3)
+                  </span>
+</div>
+<p class="font-body-md text-body-md text-secondary font-medium">
+                  Projet Centrales Solaires Bertoua • Modélisation Micro-Grid & IA Embarquée
+                </p>
+<p class="font-caption text-caption text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[15px]">business_center</span>
+                  École Nationale Supérieure Polytechnique de Yaoundé • Labo Associé ZTF Bertoua
+                </p>
+</div>
+</div>
+<!-- Badges and Status -->
+<div class="flex sm:flex-col items-end gap-1">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-container-high text-primary font-label-md text-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Thèse en cours (2025)
+              </span>
+<span class="font-caption text-caption text-outline">Directeur : Pr. F. Eto'o</span>
+</div>
+</div>
+<!-- Academic Highlights / Metrics Strip -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm bg-surface-container-low/50 p-space-sm rounded-lg">
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline uppercase tracking-wider">Publications</span>
+<span class="font-headline-sm text-headline-sm text-primary">5 communications</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline uppercase tracking-wider">H-Index</span>
+<span class="font-headline-sm text-headline-sm text-secondary">3</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline uppercase tracking-wider">Code / Dataset</span>
+<span class="font-body-sm text-body-sm text-on-surface font-semibold">GitHub Ouvert</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline uppercase tracking-wider">Stage Terrain</span>
+<span class="font-body-sm text-body-sm text-secondary font-semibold">Centrale Bertoua II</span>
+</div>
+</div>
+<!-- Bio Excerpt -->
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed line-clamp-2">
+            Ingénieur de conception en génie électrique, Patrick Mbarga développe des algorithmes d'apprentissage profond pour prédire l'intermittence solaire et réguler le dispatching de charge entre batteries et réseau public à Bertoua.
+          </p>
+<!-- Footer Actions -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-surface-container font-caption text-caption text-on-surface-variant">Smart Grids</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-caption text-caption text-on-surface-variant">Prédiction IA</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-caption text-caption text-on-surface-variant">Génie Électrique</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<a class="h-9 px-space-md rounded bg-primary hover:bg-secondary text-on-primary font-label-md text-label-md transition-colors flex items-center gap-1 shadow-xs" href="#">
+<span>Consulter le profil public</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- Interspersed Publication Card: Sol-Pub-02 -->
+<article class="bg-surface-container-low rounded-xl p-space-lg shadow-sm flex flex-col gap-space-sm relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-on-tertiary-container"></div>
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-on-tertiary-container/15 text-on-tertiary-container font-label-rank text-label-rank uppercase tracking-wider">
+                Brevet d'Invention Enregistré • OAPI
+              </span>
+<span class="font-caption text-caption text-outline">Dépôt N° CM/2024/09931</span>
+</div>
+<span class="font-label-md text-label-md text-primary font-semibold">Statut : Homologué</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary hover:text-secondary cursor-pointer transition-colors">
+            « Dispositif modulaire d'autonettoyage électrostatique des modules photovoltaïques sans apport d'eau pour zones semi-arides et sahéliennes »
+          </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-2">
+            Technologie brevetée développée au sein du Laboratoire de Bertoua, permettant de réduire la perte de rendement due à la poussière de l'harmattan de plus de 28% sur les installations de grande puissance.
+          </p>
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-sm text-caption font-caption text-on-surface-variant">
+<span class="font-semibold text-primary">Inventeurs :</span>
+<span>Dre. Sandrine Tchuente, Pr. Félix Eto'o</span>
+<span class="text-outline">•</span>
+<span>Institut Universitaire ZTF Bertoua</span>
+</div>
+<a class="inline-flex items-center gap-1 px-space-md py-1.5 rounded bg-surface-container-lowest hover:bg-primary hover:text-on-primary text-primary font-label-md text-label-md transition-all shadow-xs" href="#">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Fiche Technique Brevet</span>
+</a>
+</div>
+</article>
+<!-- Pagination Section -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-space-md pt-space-md">
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+            Affichage de <strong>1 – 5</strong> sur <strong>38</strong> résultats académiques
+          </span>
+<nav aria-label="Pagination des résultats" class="flex items-center gap-space-xs">
+<button class="w-10 h-10 rounded-lg bg-surface-container-low text-outline flex items-center justify-center cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center shadow-xs">
+              1
+            </button>
+<button class="w-10 h-10 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-primary font-label-md text-label-md flex items-center justify-center transition-colors">
+              2
+            </button>
+<button class="w-10 h-10 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-primary font-label-md text-label-md flex items-center justify-center transition-colors">
+              3
+            </button>
+<span class="w-8 h-10 flex items-center justify-center text-outline font-label-md text-label-md">...</span>
+<button class="w-10 h-10 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-primary font-label-md text-label-md flex items-center justify-center transition-colors">
+              8
+            </button>
+<button class="w-10 h-10 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-primary flex items-center justify-center transition-colors shadow-xs">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</nav>
+</div>
+</main>
+</div>
+</div>
+<!-- Bottom Callout / Onboarding Strip -->
+<section class="w-full bg-surface-container-high/60 py-space-xl mt-space-lg">
+<div class="max-w-[1240px] mx-auto px-gutter">
+<div class="bg-gradient-to-r from-primary-container via-primary to-primary-container text-on-primary rounded-xl p-space-xl shadow-lg relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-space-lg">
+<!-- Ambient lighting -->
+<div class="absolute left-0 top-0 w-80 h-80 bg-secondary/15 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute right-0 bottom-0 w-80 h-80 bg-on-tertiary-container/15 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex items-start gap-space-lg relative z-10">
+<div class="w-14 h-14 rounded-xl bg-on-primary/10 flex items-center justify-center shrink-0 text-secondary-fixed">
+<span class="material-symbols-outlined text-[32px]">assignment_turned_in</span>
+</div>
+<div class="flex flex-col gap-1 max-w-2xl">
+<div class="flex items-center gap-space-xs text-on-tertiary-container font-label-rank text-label-rank uppercase tracking-widest">
+<span>Recensement des Chercheurs • Faculté de Bertoua</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-surface-container-lowest tracking-tight">
+              Vous êtes chercheur à l'Institut Universitaire ZTF et vous n'apparaissez pas ?
+            </h2>
+<p class="font-body-md text-body-md text-surface-variant leading-relaxed">
+              Soumettez votre dossier d'homologation auprès du secrétariat académique et du conseil scientifique pour rattacher vos identifiants ORCID, Scopus et vos unités de recherche.
+            </p>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-space-sm relative z-10 shrink-0 w-full lg:w-auto">
+<a class="w-full sm:w-auto h-12 px-space-lg rounded-lg bg-secondary hover:bg-secondary-fixed text-on-secondary font-label-lg text-label-lg transition-colors flex items-center justify-center gap-2 shadow-md" href="#">
+<span class="material-symbols-outlined text-[20px]">how_to_reg</span>
+<span>Soumettre mon dossier</span>
+</a>
+<a class="w-full sm:w-auto h-12 px-space-md rounded-lg bg-on-primary/10 hover:bg-on-primary/20 text-on-primary font-label-lg text-label-lg transition-colors flex items-center justify-center gap-1" href="#">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+<span>Guide d'indexation</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Inline Micro-interactions Script -->
+<script>
+    (function() {
+      const searchInput = document.getElementById('main-academic-search');
+      const clearBtn = document.getElementById('clear-search-btn');
+
+      if (searchInput && clearBtn) {
+        clearBtn.addEventListener('click', function() {
+          searchInput.value = '';
+          searchInput.focus();
+        });
+      }
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-low text-on-surface-variant mt-space-xl shadow-[0_-1px_6px_rgba(10,37,64,0.03)]"><div class="max-w-[1240px] mx-auto px-gutter py-space-xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-xl"><div class="flex flex-col gap-space-sm"><div class="flex items-center gap-space-sm mb-space-xs"><img alt="Logo officiel PRO-LOOKUP avec symbole académique et réseau de pairs, chevron et étoile or, et mention Institut Universitaire ZTF — Bertoua" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Vd4VufZ0WJfj2mfyAPAuuxYsFh-6rJKT-QwNSn1pWYXCOQ5euMGuEy0-jVCmYwC0NeQLyyqucDyumiOmPntAyiwu2dtNkwTsHMLRCdbIYEiPYNXV_D2ebyvgM439K-yPOD_EjnrjYcfr-mftvFRjYpF_4V6j3LmAKa3llJE1M14SBpuoffjF0gL_zD9d6bRzQlR1Lw3qc_poM2cA-7Wx3h8pISdY2YqMS1IJa5v0UQ8AnBRnKEbe2q7A"/><span class="font-headline-sm text-headline-sm text-primary">PRO-LOOKUP</span></div><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Plateforme d'indexation académique et d'évaluation par les pairs de l'Institut Universitaire ZTF de Bertoua. Rayonnement scientifique et recherche d'excellence en Afrique Centrale.</p><div class="mt-space-sm inline-flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container font-label-rank text-label-rank"><span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>AFFILIATION ACADÉMIQUE CAMES</div></div><div class="flex flex-col gap-space-sm"><span class="font-label-lg text-label-lg text-primary uppercase tracking-wider mb-space-xs">Recherche & Accès</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="annuaire-des-chercheurs" href="#">Annuaire des Chercheurs</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="classement-public" href="#">Classement Académique & H-Index</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="publications-en-acces-libre" href="#">Dépôt Ouvert & Publications</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="annuaire-des-laboratoires" href="#">Laboratoires de Bertoua</a></div><div class="flex flex-col gap-space-sm"><span class="font-label-lg text-label-lg text-primary uppercase tracking-wider mb-space-xs">Gouvernance & Éthique</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="charte-ethique-cames" href="#">Charte d'Éthique Scientifique CAMES</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="protection-des-donnees" href="#">Protection des Données de Recherche</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="mentions-legales" href="#">Mentions Légales & Statuts</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="a-propos-de-l-institut-ztf" href="#">Présentation du Rectorat</a></div><div class="flex flex-col gap-space-sm"><span class="font-label-lg text-label-lg text-primary uppercase tracking-wider mb-space-xs">Contact & Administration</span><p class="font-body-sm text-body-sm text-on-surface-variant">Campus Universitaire ZTF<br/>BP 450, Bertoua, Région de l'Est, Cameroun</p><div class="flex flex-col gap-1 mt-space-xs"><span class="font-caption text-caption text-on-surface-variant">Support Chercheurs & DSI :</span><a class="font-body-sm text-body-sm text-secondary hover:underline" href="mailto:dsi@ztf-bertoua.cm">dsi@ztf-bertoua.cm</a></div><div class="flex flex-col gap-1"><span class="font-caption text-caption text-on-surface-variant">Secrétariat du Rectorat :</span><a class="font-body-sm text-body-sm text-secondary hover:underline" href="mailto:rectorat@ztf-bertoua.cm">rectorat@ztf-bertoua.cm</a></div></div></div><div class="max-w-[1240px] mx-auto px-gutter py-space-md border-t border-surface-container-high/60 flex flex-col md:flex-row items-center justify-between gap-space-sm font-caption text-caption text-on-surface-variant"><span>© 2025 Institut Universitaire ZTF — Bertoua. Tous droits réservés. Plateforme PRO-LOOKUP.</span><div class="flex items-center gap-space-md"><a class="hover:text-primary transition-colors" data-path="charte-ethique-cames" href="#">Éthique CAMES / ZTF</a><a class="hover:text-primary transition-colors" data-path="protection-des-donnees" href="#">RGPD & Recherche</a><a class="hover:text-primary transition-colors" data-path="mentions-legales" href="#">Mentions Légales</a></div></div></footer></body></html>

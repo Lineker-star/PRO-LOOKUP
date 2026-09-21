@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>PRO-LOOKUP</title><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"surface-bright":"#f9f9ff","outline-variant":"#c4c6ce","error":"#ba1a1a","surface-tint":"#49607e","on-tertiary":"#ffffff","on-secondary-fixed":"#00201f","on-background":"#151c27","secondary-container":"#78f6f1","secondary-fixed-dim":"#58d9d5","on-secondary-fixed-variant":"#00504e","surface-container-low":"#f0f3ff","on-primary":"#ffffff","primary-fixed":"#d2e4ff","surface-container-lowest":"#ffffff","outline":"#74777e","tertiary-fixed-dim":"#f3be65","on-secondary-container":"#00706e","surface-container":"#e7eefe","inverse-surface":"#2a313d","on-error-container":"#93000a","primary-fixed-dim":"#b0c8eb","secondary-fixed":"#78f6f1","tertiary-fixed":"#ffdeac","inverse-on-surface":"#ebf1ff","inverse-primary":"#b0c8eb","on-tertiary-fixed":"#281900","surface-variant":"#dce2f3","on-primary-container":"#768dad","on-secondary":"#ffffff","tertiary-container":"#332100","on-tertiary-container":"#b28330","on-surface":"#151c27","on-primary-fixed-variant":"#314865","primary":"#000f22","background":"#f9f9ff","secondary":"#006a67","on-error":"#ffffff","surface-dim":"#d3daea","on-surface-variant":"#43474d","on-primary-fixed":"#001c37","error-container":"#ffdad6","surface-container-highest":"#dce2f3","tertiary":"#180d00","surface-container-high":"#e2e8f8","surface":"#f9f9ff","primary-container":"#0a2540","on-tertiary-fixed-variant":"#604100"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-xs":"0.25rem","space-xl":"2.5rem","space-md":"1rem","margin-mobile":"1rem","margin":"2rem","gutter-mobile":"1rem","space-lg":"1.5rem","space-sm":"0.5rem","gutter":"1.5rem"},"fontFamily":{"body-md":["Inter"],"headline-xl":["Inter"],"body-sm":["Inter"],"body-lg":["Inter"],"headline-md":["Inter"],"headline-lg-mobile":["Inter"],"caption":["Inter"],"headline-xl-mobile":["Inter"],"label-md":["Inter"],"label-rank":["Inter"],"headline-lg":["Inter"],"label-lg":["Inter"],"headline-sm":["Inter"]},"fontSize":{"body-md":["14px",{"lineHeight":"22px","fontWeight":"400"}],"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"26px","fontWeight":"400"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"caption":["11px",{"lineHeight":"14px","fontWeight":"400"}],"headline-xl-mobile":["32px",{"lineHeight":"40px","letterSpacing":"-0.015em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"label-rank":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"700"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"headline-sm":["16px",{"lineHeight":"24px","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen"><header class="fixed top-0 left-0 right-0 w-full z-50 bg-surface-container-lowest shadow-[0_1px_8px_rgba(10,37,64,0.06)]"><div class="h-16 max-w-[1240px] mx-auto px-margin-mobile md:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md flex-1 max-w-lg"><a class="flex items-center gap-space-xs shrink-0" data-path="accueil" href="#"><img alt="logo-pro-lookup.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1X59l2FaENqllcUk2viDrU_G8YS-M5U7OyWzbM-4ZTsBMkOp8u8LT6MAr_Q_Pkdyi6wygQ00Anb9zbm456wNdqiRe_0Iie7VgrMdcGETvTdEFW9_I1eKomJcxgUK56X5XTp847xzGqWZ9m7mSdogGHN8dED5QfxBSoe8jpCv9dSUWxwn2LWSJqUhmGHw-zoOUFkWgiDWN-clgsO3YAD3TjTuR0EAcZMEQHefgFTFwjdNgit6nxqLprmSK5TfIwph4i_ixTO4jnu"/><span class="hidden lg:inline-block font-headline-sm text-headline-sm text-primary font-bold tracking-tight">PRO-LOOKUP</span></a><div class="relative w-full max-w-sm hidden sm:block"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">search</span><input class="w-full h-10 pl-9 pr-3 bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm rounded focus:outline-none focus:ring-2 focus:ring-secondary/30 transition-all" placeholder="Rechercher un collègue, publication, laboratoire..." type="text"/></div></div><nav class="flex items-center gap-space-md" data-active-classes="text-primary font-semibold"><a aria-current="page" class="relative flex flex-col items-center justify-center h-16 px-space-xs transition-colors text-primary font-semibold" data-path="accueil" href="#"><span class="font-label-md text-label-md">Accueil</span></a><a class="relative flex flex-col items-center justify-center h-16 px-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="mon-reseau" href="#"><span class="font-label-md text-label-md flex items-center gap-1">Mon Réseau<span class="h-4 min-w-[16px] px-1 bg-secondary text-on-secondary font-caption text-caption rounded-full flex items-center justify-center">3</span></span></a><a class="relative flex flex-col items-center justify-center h-16 px-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="messagerie" href="#"><span class="font-label-md text-label-md flex items-center gap-1">Messagerie<span class="h-4 min-w-[16px] px-1 bg-secondary text-on-secondary font-caption text-caption rounded-full flex items-center justify-center">2</span></span></a><a class="relative flex flex-col items-center justify-center h-16 px-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="notifications" href="#"><span class="font-label-md text-label-md flex items-center gap-1">Notifications<span class="h-4 min-w-[16px] px-1 bg-error text-on-error font-caption text-caption rounded-full flex items-center justify-center">5</span></span></a><div class="h-8 w-px bg-outline-variant/30 hidden md:block"></div><a class="flex items-center gap-space-xs pl-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="profil-chercheur" href="#"><div class="relative p-0.5 rounded-full ring-2 ring-secondary"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1Xk8KBODnE_zj-PZi7YL4cdq29nYN9gfyIKRLnWsiuX3keWlMcZbrHKO8BaDxL4MT-edjpbFzVD_7zk_rHX8FuAqN5DcGvgfo_dgXNHk8y6rjNoflC0nrcdIInriCQzpMHK2i6Se6IHt_unhi36mioIBcPxE5jIDez53vlAgdmlCZXvisriOSJStZ-RqAlgPaF7vmy8mcVTbyxKB9ub2nPzDb-YMeMX0r16t_WIyBunO60TdqXixP5c7g"/></div><div class="hidden xl:flex flex-col items-start text-left leading-none"><span class="font-label-md text-label-md font-semibold text-on-surface">Vous</span><span class="font-caption text-caption text-outline">Docteur / Chercheur</span></div></a></nav></div></header><main class="w-full pt-16 bg-surface"><div class="max-w-[1240px] mx-auto px-margin-mobile md:px-margin py-space-md"><div class="flex flex-col w-full">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- LEFT COLUMN: Identité Chercheur Dossier -->
+<aside class="lg:col-span-3 flex flex-col gap-space-md">
+<!-- Mini Profile Card -->
+<div class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden transition-all duration-200 hover:shadow-md">
+<div class="h-20 bg-gradient-to-r from-primary-container via-surface-tint to-secondary relative">
+<div class="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
+<div class="absolute bottom-2 right-3 flex items-center gap-1 text-[10px] font-mono text-surface-bright/80 bg-primary/40 px-2 py-0.5 rounded backdrop-blur-xs">
+<span>ORCID: 0000-0002-8194-092X</span>
+</div>
+</div>
+<div class="px-space-md pb-space-lg pt-0 relative flex flex-col items-center text-center">
+<div class="-mt-10 mb-space-sm relative">
+<div class="p-1 rounded-full bg-surface-container-lowest shadow-md ring-2 ring-tertiary-fixed-dim ring-offset-2">
+<img class="w-16 h-16 rounded-full object-cover" data-alt="Portrait studio sobre et académique du Dr. Marc Valérien, chercheur quadragénaire en lunettes fines, expression posée, costume décontracté sombre avec éclairage tamisé de bibliothèque universitaire prestigieuse en arrière-plan, palette bleu profond et nuances dorées." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6wdUZ4f0QakUlRTzNJMy9hPY8tugTcPUQbXWzy1QdTvVpMnqrRqUx61vDcCwR-AzwHGecDCkznftUw-fq4hnjVuExKFZj5F09EcEStpDtKtT7LovYqJA4pq0hMITzDHJ3tqg2bnbdxFdz3wfXt3eZMRQ6IIwJfP_ggHnVZPtZoq15rRJaFuuB3KDyYfZgch1i2G-eQAVGT04zfF67PTgrjBt8Jb1TIrtAUDZ1aczJXkWe4iJ_ti4"/>
+</div>
+<span class="absolute bottom-0 right-1 w-3.5 h-3.5 bg-secondary rounded-full shadow-sm ring-2 ring-surface-container-lowest"></span>
+</div>
+<div class="flex items-center gap-1.5 justify-center mb-1">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Dr. Marc Valérien</h2>
+<span class="material-symbols-outlined text-[16px] text-secondary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-tertiary-fixed-dim/15 text-tertiary-fixed-dim mb-space-xs">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-label-rank text-label-rank uppercase tracking-wider text-on-tertiary-fixed-variant">Docteur & Chercheur Sénior</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md line-clamp-2">
+            Laboratoire des Systèmes Énergétiques Complexes • Université Sorbonne Paris Nord
+          </p>
+<!-- Micro Metriques Academiques -->
+<div class="w-full grid grid-cols-3 gap-1 py-space-sm px-2 bg-surface-container-low rounded-lg text-center mb-space-md">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">24</span>
+<span class="font-caption text-caption text-outline">Publis</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-secondary font-bold">18</span>
+<span class="font-caption text-caption text-outline">h-index</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">1.4k</span>
+<span class="font-caption text-caption text-outline">Citations</span>
+</div>
+</div>
+<a class="w-full py-2 px-3 rounded bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-md text-label-md flex items-center justify-center gap-1.5 transition-colors" href="#">
+<span class="material-symbols-outlined text-[16px] text-outline">badge</span>
+<span>Accéder au dossier académique</span>
+</a>
+</div>
+</div>
+<!-- Quick Index & Pôles de veille -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-rank text-label-rank uppercase text-outline">Pôles d'intérêts pairs</span>
+<span class="material-symbols-outlined text-[16px] text-outline cursor-pointer hover:text-on-surface">tune</span>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-1 rounded bg-surface-container-low text-on-surface-variant font-caption text-caption hover:bg-secondary-container/30 hover:text-on-secondary-container cursor-pointer transition-colors">#MicroGrids</span>
+<span class="px-2 py-1 rounded bg-surface-container-low text-on-surface-variant font-caption text-caption hover:bg-secondary-container/30 hover:text-on-secondary-container cursor-pointer transition-colors">#Photovoltaïque</span>
+<span class="px-2 py-1 rounded bg-surface-container-low text-on-surface-variant font-caption text-caption hover:bg-secondary-container/30 hover:text-on-secondary-container cursor-pointer transition-colors">#SmartGrids_Africa</span>
+<span class="px-2 py-1 rounded bg-surface-container-low text-on-surface-variant font-caption text-caption hover:bg-secondary-container/30 hover:text-on-secondary-container cursor-pointer transition-colors">#TransitionThermique</span>
+</div>
+</div>
+</aside>
+<!-- CENTER COLUMN: Fil d'Actualité Académique & Publication active -->
+<main class="lg:col-span-6 flex flex-col gap-space-md">
+<!-- Quick Share Input Module -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex items-center gap-space-sm mb-space-sm">
+<img class="w-10 h-10 rounded-full object-cover ring-1 ring-tertiary-fixed-dim" data-alt="Vignette circulaire gros plan du Dr. Marc Valérien souriant avec discrétion, éclairage naturel doux." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpw6Zc9zbb4rz-5pqiAOZGytB7njmy7xVbfHypYA1Eut8AqhCEU0ZUkdQ3JWWINrs_Sl1CxVGb9ocRWqd69Q29PcKitQeKHzHG-ONZrBCJNukx5D3Kt8ejJMLJjaypXlX-UG0pPXIcLa4ldpMLVghpbsMwgj9dT1GNNvathlDLEv0oqP8bAhqKYkq4BTz2luFbzIVaMrBYG71vofz2Hyaq9-00ZWBQGsronzyyprm2iaWejZHDc9I"/>
+<button class="flex-1 text-left px-space-md py-2.5 bg-surface-container-low hover:bg-surface-container text-outline rounded text-body-sm font-body-sm transition-colors flex items-center justify-between" type="button">
+<span>Partager un preprint, une trouvaille ou une ouverture de thèse...</span>
+<span class="material-symbols-outlined text-[18px] text-outline-variant">edit_note</span>
+</button>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-1 text-outline">
+<button class="flex items-center gap-1.5 px-2.5 py-1.5 rounded hover:bg-surface-container-low text-on-surface-variant font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-[18px] text-secondary">menu_book</span>
+<span class="hidden sm:inline">Preprint DOI</span>
+</button>
+<button class="flex items-center gap-1.5 px-2.5 py-1.5 rounded hover:bg-surface-container-low text-on-surface-variant font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">insights</span>
+<span class="hidden sm:inline">Graphique & Données</span>
+</button>
+<button class="flex items-center gap-1.5 px-2.5 py-1.5 rounded hover:bg-surface-container-low text-on-surface-variant font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-[18px] text-primary-container">groups</span>
+<span class="hidden sm:inline">Colloque</span>
+</button>
+</div>
+<button class="px-4 py-1.5 rounded bg-primary text-on-primary font-label-md text-label-md hover:bg-secondary transition-colors">
+            Publier
+          </button>
+</div>
+</div>
+<!-- Feed Filter Tabs -->
+<div class="flex items-center justify-between px-space-xs text-on-surface-variant">
+<div class="flex items-center gap-space-sm font-label-md text-label-md">
+<button class="pb-1 text-primary font-semibold border-b-2 border-primary">Publications & Débats pairs</button>
+<button class="pb-1 text-outline hover:text-on-surface transition-colors">Prépublications récentes</button>
+<button class="pb-1 text-outline hover:text-on-surface transition-colors">Chaires partenaires</button>
+</div>
+<span class="text-caption font-caption text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+          Flux en temps réel
+        </span>
+</div>
+<!-- FEATURED PUBLICATION POST (With Hovered Popover) -->
+<article class="bg-surface-container-lowest rounded-lg shadow-sm p-space-lg relative">
+<!-- Post Header: Scholar Hierarchy -->
+<div class="flex items-start justify-between gap-space-sm mb-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="relative shrink-0">
+<!-- Dual-ring Gold for Professeur Titulaire -->
+<div class="p-0.5 rounded-full ring-2 ring-tertiary-fixed-dim ring-offset-2 bg-surface-container-lowest">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Portrait académique magistral du Pr. Augustin Kamga, homme camerounais distingué de 55 ans en veste de tweed élégante, regard intense et sage, assis près d'une pile de monographies scientifiques avec grand tableau couvert d'équations physiques estompé au fond." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGr-So2X-KS7k2d7XzniDmgL8WNHLqb0O0nyBpvM8GO3-kvqR8s_2tDrmwnlNlwU9yxfG11gQx8T4vjNLeXOUl51JvbDA7-j6dAAS2RxSH6NkkXnVrQQuy683I0-MPIsk_eqyREYbi9BcYhWLIn_8wtIGnpxI_LiqsdJOLPXcWEUfg2cMWU2fS8mfESdx-_6ntu27VK9we4f5incD42jliQTeMZ9dFu8S_yfr0mRx9pCbOScCfU3Q"/>
+</div>
+<span class="absolute -bottom-1 -right-1 bg-primary text-on-primary w-5 h-5 rounded-full flex items-center justify-center font-bold text-[10px]">
+                Pr
+              </span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<h3 class="font-headline-sm text-headline-sm text-primary font-semibold">Pr. Augustin Kamga</h3>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed-dim/15 text-tertiary-fixed-dim font-label-rank text-label-rank tracking-wide font-bold">
+                  Professeur Titulaire & Directeur de Chaire
+                </span>
+</div>
+<p class="font-body-sm text-body-sm text-outline truncate">
+                Chaire UNESCO Énergies Renouvelables • École Nationale Supérieure Polytechnique
+              </p>
+<div class="flex items-center gap-2 text-caption font-caption text-outline-variant mt-0.5">
+<span>Il y a 2h</span>
+<span>•</span>
+<span class="flex items-center gap-0.5 text-secondary">
+<span class="material-symbols-outlined text-[12px]">public</span>
+                  Indexé Scopus & Peer-Reviewed
+                </span>
+<span>•</span>
+<span class="font-mono text-[10px]">DOI: 10.1016/j.solener.2024.11.082</span>
+</div>
+</div>
+</div>
+<button class="text-outline hover:text-primary p-1 rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_horiz</span>
+</button>
+</div>
+<!-- Post Content -->
+<div class="mb-space-md">
+<h4 class="font-headline-md text-headline-md text-on-surface mb-2 font-semibold leading-tight">
+            Analyse de résilience des micro-réseaux solaires sous hygrométrie élevée en région équatoriale de l'Est
+          </h4>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-space-md">
+            Après 18 mois d'observation empirique in-situ sur nos bancs d'essai de Bertoua, nous constatons une atténuation prématurée de 11.4% de la photoconversion due aux condensats salins mixtes. Les algorithmes MPPT standards échouent à modéliser la dynamique non-linéaire induite par cette saturation hygrométrique. Nos premiers correctifs vectoriels révèlent une stabilisation robuste.
+          </p>
+<!-- Embedded Scientific Data Preview Card -->
+<div class="rounded-lg bg-surface-container-low p-space-md flex flex-col sm:flex-row gap-space-md items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">dataset</span>
+</div>
+<div>
+<span class="font-caption text-caption uppercase tracking-wider text-outline font-semibold">Jeu de données ouvert • Open Data v2.4</span>
+<h5 class="font-label-lg text-label-lg text-on-surface font-semibold">Dataset_Bertoua_MicroGrids_HygroMetrics.csv</h5>
+<span class="font-caption text-caption text-secondary">1.2 GB • 42 000 points d'acquisition télémétrique</span>
+</div>
+</div>
+<a class="px-3 py-1.5 rounded bg-surface-container-lowest hover:bg-surface-container text-primary font-label-md text-label-md flex items-center gap-1 shadow-sm shrink-0 transition-colors" href="#">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span>Consulter</span>
+</a>
+</div>
+</div>
+<!-- Social Proof Stats Row -->
+<div class="flex items-center justify-between py-2 text-caption font-caption text-outline">
+<div class="flex items-center gap-1.5">
+<div class="flex -space-x-1.5 items-center">
+<span class="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-white text-[10px] shadow-sm">
+<span class="material-symbols-outlined text-[11px]">thumb_up</span>
+</span>
+<span class="w-5 h-5 rounded-full bg-secondary flex items-center justify-center text-white text-[10px] shadow-sm">
+<span class="material-symbols-outlined text-[11px]">psychology</span>
+</span>
+<span class="w-5 h-5 rounded-full bg-tertiary-fixed-dim flex items-center justify-center text-on-tertiary-container text-[10px] shadow-sm">
+<span class="material-symbols-outlined text-[11px]">lightbulb</span>
+</span>
+</div>
+<span class="hover:underline cursor-pointer pl-1 text-on-surface-variant font-medium">Dr. F. Ndiaye, Pr. H. Weber et 87 autres pairs</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="hover:underline cursor-pointer">14 commentaires</span>
+<span>•</span>
+<span class="hover:underline cursor-pointer">8 partages académiques</span>
+<span>•</span>
+<span class="hover:underline cursor-pointer">22 citations</span>
+</div>
+</div>
+<!-- Horizontal Partition Separator -->
+<div class="h-px bg-surface-container-high w-full my-space-xs"></div>
+<!-- ACTIVE INTERACTION SECTION WITH FLOATING REACTION POPOVER -->
+<div class="relative pt-space-xs">
+<!-- FLOATING REACTION POPOVER (Positioned right above the 'J'aime' button) -->
+<div class="absolute -top-14 left-0 z-30 flex items-center gap-1.5 bg-surface-container-lowest px-3 py-1.5 rounded-full shadow-[0px_10px_24px_rgba(10,37,64,0.14)] animate-in fade-in slide-in-from-bottom-2 duration-200">
+<!-- 1. J'aime (Bleu Nuit Primary) -->
+<button class="group relative flex flex-col items-center p-1 rounded-full hover:bg-surface-container transition-transform hover:-translate-y-1 duration-150" title="J'aime">
+<div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[18px]">thumb_up</span>
+</div>
+<span class="absolute -top-7 opacity-0 group-hover:opacity-100 transition-opacity bg-primary text-white text-[10px] font-caption px-1.5 py-0.5 rounded shadow whitespace-nowrap pointer-events-none">
+                J'aime
+              </span>
+</button>
+<!-- 2. Bravo (Vert Émeraude Secondary) -->
+<button class="group relative flex flex-col items-center p-1 rounded-full hover:bg-surface-container transition-transform hover:-translate-y-1 duration-150" title="Bravo">
+<div class="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[20px]">sign_language</span>
+</div>
+<span class="absolute -top-7 opacity-0 group-hover:opacity-100 transition-opacity bg-primary text-white text-[10px] font-caption px-1.5 py-0.5 rounded shadow whitespace-nowrap pointer-events-none">
+                Bravo
+              </span>
+</button>
+<!-- 3. Soutien (Cœur Rouge Discret) -->
+<button class="group relative flex flex-col items-center p-1 rounded-full hover:bg-surface-container transition-transform hover:-translate-y-1 duration-150" title="Soutien">
+<div class="w-9 h-9 rounded-full bg-error-container text-error flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[19px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<span class="absolute -top-7 opacity-0 group-hover:opacity-100 transition-opacity bg-primary text-white text-[10px] font-caption px-1.5 py-0.5 rounded shadow whitespace-nowrap pointer-events-none">
+                Soutien
+              </span>
+</button>
+<!-- 4. Instructif (Ampoule Or Doux #D4A24C) -->
+<button class="group relative flex flex-col items-center p-1 rounded-full hover:bg-surface-container transition-transform hover:-translate-y-1 duration-150" title="Instructif">
+<div class="w-9 h-9 rounded-full bg-tertiary-fixed-dim flex items-center justify-center text-tertiary-container shadow-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+</div>
+<span class="absolute -top-7 opacity-0 group-hover:opacity-100 transition-opacity bg-primary text-white text-[10px] font-caption px-1.5 py-0.5 rounded shadow whitespace-nowrap pointer-events-none">
+                Instructif
+              </span>
+</button>
+<!-- 5. Intéressant (Idée / Cerveau Teal #00A9A5) -->
+<button class="group relative flex flex-col items-center p-1 rounded-full hover:bg-surface-container transition-transform hover:-translate-y-1 duration-150" title="Intéressant">
+<div class="w-9 h-9 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-container shadow-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<span class="absolute -top-7 opacity-0 group-hover:opacity-100 transition-opacity bg-primary text-white text-[10px] font-caption px-1.5 py-0.5 rounded shadow whitespace-nowrap pointer-events-none">
+                Intéressant
+              </span>
+</button>
+</div>
+<!-- Action Buttons Bar -->
+<div class="grid grid-cols-4 gap-1">
+<!-- Button 1: J'aime (Hovered / Active highlighted state) -->
+<button class="flex items-center justify-center gap-1.5 py-2 px-1 rounded bg-surface-container-low text-primary font-semibold font-label-md text-label-md transition-all">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">thumb_up</span>
+<span>J'aime</span>
+</button>
+<!-- Button 2: Commenter -->
+<button class="flex items-center justify-center gap-1.5 py-2 px-1 rounded hover:bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all">
+<span class="material-symbols-outlined text-[18px] text-outline">mode_comment</span>
+<span>Commenter (14)</span>
+</button>
+<!-- Button 3: Partager -->
+<button class="flex items-center justify-center gap-1.5 py-2 px-1 rounded hover:bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all">
+<span class="material-symbols-outlined text-[18px] text-outline">share</span>
+<span>Partager (8)</span>
+</button>
+<!-- Button 4: Citer DOI -->
+<button class="flex items-center justify-center gap-1.5 py-2 px-1 rounded hover:bg-secondary/10 text-secondary font-label-md text-label-md transition-all">
+<span class="material-symbols-outlined text-[18px]">format_quote</span>
+<span>Citer DOI</span>
+</button>
+</div>
+</div>
+<!-- Inline Preview of Top Peer Discussion -->
+<div class="mt-space-md pt-space-sm bg-surface-container-low/70 rounded-lg p-space-md flex flex-col gap-space-sm">
+<div class="flex items-start gap-space-sm">
+<img class="w-8 h-8 rounded-full object-cover ring-1 ring-secondary" data-alt="Portrait professionnel de la Dre Claire Renoir, ingénieure de recherche du CNRS, regard perçant, laboratoire d'optique en lumière bleue tamisée." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwMcnUG3JF_bOJU9fR8uXPckqt0DiRPzJBkOxa2260qkwhDkE9aVhTg58pEhHd6oTeZcqQ9dji6V1pRuUPR7h-IuAKcTtx13HZTIzq030aE8zFu46LGjF-FgWFBCc_m5W0zGtYzKk06MifgrRl3JvbkKsDYi6JNRuHM1l-44mb4xGgyjdw_0jGOS-6lhZgiKuWzMDPrUoOK-K5C7xajFlypNxeYmvXL_J7AVtGM2T8KoL0yM4i3wY"/>
+<div class="flex-1 bg-surface-container-lowest p-space-sm rounded-lg shadow-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md font-semibold text-primary">Dr. Claire Renoir</span>
+<span class="font-caption text-caption text-secondary font-medium">CNRS • Laboratoire PROMES</span>
+</div>
+<span class="font-caption text-caption text-outline">Il y a 45 min</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Résultats hautement corrélés à nos relevés en Guyane. Avez-vous calibré vos pyranomètres contre le viciage fongique des lentilles de Fresnel ? Nous avons observé un biais systématique de ~3% après 2000h d'exposition continue.
+              </p>
+</div>
+</div>
+</div>
+</article>
+<!-- Second Feed Article for Richness -->
+<article class="bg-surface-container-lowest rounded-lg shadow-sm p-space-lg">
+<div class="flex items-start justify-between gap-space-sm mb-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="p-0.5 rounded-full ring-2 ring-secondary bg-surface-container-lowest">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Photo d'identité d'un jeune docteur ingénieur en informatique industrielle, concentré devant un écran de code, ambiance technologique contemporaine sobre." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTVBib_QLHAmor2aoyccJPqk6-NdL-uf-b3Tep73Etc8l5_jND4ZaAhXXF03c54u6-tlJQ-5W8xnjG0QQZjHsOAW-OF_8RBoYzr2UWZogglG4EVYxGp4cb39nB3fj_dWF0OnpzMdB86SxZwktMMkLGUmkOE9BVa4PhqEY6Po7abNkmE3CxmS65Vvz1ql1TTg7dYod6SXhcZsOre8u26aioOu1zWJWzviWpC8Lc3gtcRYLuGW5sxx0"/>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-headline-sm text-primary">Dr. Yassine Belkacem</h4>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/50 text-on-secondary-container font-label-rank text-label-rank font-bold">
+                  Ingénieur R&D
+                </span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">CEA-Liten • Systèmes Hybrides Hydrogène-Solaire</p>
+</div>
+</div>
+<span class="font-caption text-caption text-outline">Il y a 5h</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-md">
+          Publication de notre rapport technique trimestriel sur le couplage électrolyseur PEM et stockage tampon inertiel. Relecture ouverte aux pairs jusqu'au 30 avril.
+        </p>
+<div class="grid grid-cols-4 gap-1 pt-space-xs text-on-surface-variant font-label-md text-label-md">
+<button class="flex items-center justify-center gap-1.5 py-1.5 rounded hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px] text-outline">thumb_up</span>
+<span>J'aime (31)</span>
+</button>
+<button class="flex items-center justify-center gap-1.5 py-1.5 rounded hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px] text-outline">mode_comment</span>
+<span>Commenter (5)</span>
+</button>
+<button class="flex items-center justify-center gap-1.5 py-1.5 rounded hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px] text-outline">share</span>
+<span>Partager</span>
+</button>
+<button class="flex items-center justify-center gap-1.5 py-1.5 rounded hover:bg-surface-container-low transition-colors text-secondary">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+<span>Archiver</span>
+</button>
+</div>
+</article>
+</main>
+<!-- RIGHT COLUMN: Peer Discovery by Rank & Academic Agenda -->
+<aside class="lg:col-span-3 flex flex-col gap-space-md">
+<!-- Suggestions de pairs par Rang Académique -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<h3 class="font-headline-sm text-headline-sm text-primary font-semibold">Pairs recommandés</h3>
+<span class="font-caption text-caption text-secondary hover:underline cursor-pointer">Voir tout (42)</span>
+</div>
+<div class="flex flex-col gap-space-md">
+<!-- Peer 1: Chaire / Professeur -->
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-xs">
+<div class="p-0.5 rounded-full ring-2 ring-tertiary-fixed-dim bg-surface-container-lowest shrink-0">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Portrait institutionnel d'une chercheuse émérite, cheveux poivre et sel, regard bienveillant et académique, bibliothèque d'archives en arrière-plan." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbitBQdF98KkCjEdCVEAsJpSbAqUtIBOKz8nyu2wC7fkVGHYUBF6rgf5FKeo1PgBQNfQqjbWFt9TPXHo3oNXNEPO_hSHRIL5J_FJaMxqaz1qSrBEKEASLia0LFUdRsTI7mBykfrGgh2R-MjlqgEOVQ7q4pmx6FzybfjClO3kGjezeYdxM4octRJGWfZIrGxCs8hBG1cUFIcF8NpW0RwDhMiZQyzKLzu-hQFifEQovCs0Aqb4Pdxbc"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1">
+<span class="font-label-md text-label-md font-semibold text-primary truncate">Pr. Éléonore Vasseur</span>
+</div>
+<span class="font-caption text-caption text-on-tertiary-fixed-variant bg-tertiary-fixed-dim/20 px-1.5 py-0.2 rounded-full self-start font-medium mb-0.5">
+                  Professeure Émérite
+                </span>
+<span class="font-caption text-caption text-outline truncate">Chaire Thermo-Fluides • CentraleSupélec</span>
+</div>
+</div>
+<button class="p-1.5 rounded bg-surface-container-low hover:bg-secondary hover:text-white text-secondary transition-colors shrink-0" title="Connecter">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+</button>
+</div>
+<!-- Peer 2: Docteur & Chercheur -->
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-xs">
+<div class="p-0.5 rounded-full ring-2 ring-secondary bg-surface-container-lowest shrink-0">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Portrait académique d'un chercheur en nanomatériaux, blouse blanche légère, lunettes de protection sur le front, laboratoire lumineux." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC--g7rB1xQqWn973gM3pvaDAnQ7yuRtqP_5841nwgI0s_2Ikl57JRqSwncrhhsbRPvXUgYLOInD1UFXSQ98rdSCd53ZncsueiiMoSPKh60HYVJfyOEnOYG6KZUF3StBoIWe2Pu1fJcrie_2WERcaE-4QiSI1FQzjxuFHzGjLK2_CCOLyet8XvbJ-_XwpyNVC_1IoZ9nWV6w6ds8iLOlDhgbcgfulxjkAwUfbvfej-FNTXioFOQ2zM"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1">
+<span class="font-label-md text-label-md font-semibold text-primary truncate">Dr. Aris Thorne</span>
+</div>
+<span class="font-caption text-caption text-on-secondary-container bg-secondary-container/40 px-1.5 py-0.2 rounded-full self-start font-medium mb-0.5">
+                  Chercheur Associé
+                </span>
+<span class="font-caption text-caption text-outline truncate">EPFL • Nanophotonique appliquée</span>
+</div>
+</div>
+<button class="p-1.5 rounded bg-surface-container-low hover:bg-secondary hover:text-white text-secondary transition-colors shrink-0" title="Connecter">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+</button>
+</div>
+<!-- Peer 3: Doctorant / Étudiant-Chercheur -->
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-xs">
+<div class="p-0.5 rounded-full ring-1 ring-outline-variant bg-surface-container-lowest shrink-0">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Portrait d'une jeune chercheuse doctorante en sciences des données énergétiques, souriante et déterminée devant un tableau blanc rempli de formules stochastiques." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARYEf5bZarozbB0-dOD9WLqLn_R2EEZUvl0tUq-p3Uygs-McTNSxxbFtCkiaABsbZh-HtRIl_-TyNTgPcvsicLlMw7R_vQIwA5_x4fHvqc8TI_mRR6rYMdviKPD1MvEyYsb8QCacVgipOvKttiALnPGlxAniqsXEu2h01wDX94bG_gfO_pgoCADVfn_BMLhuQj_ulyfHPFPHh7DGRoQ6V7MEwUUx4GPPvZRN4c4dq73vcsQCziBsc"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1">
+<span class="font-label-md text-label-md font-semibold text-primary truncate">Sybille Mengue</span>
+</div>
+<span class="font-caption text-caption text-outline-variant bg-surface-container-high px-1.5 py-0.2 rounded-full self-start font-medium mb-0.5">
+                  Doctorante D3
+                </span>
+<span class="font-caption text-caption text-outline truncate">INSA Lyon • Réseaux décentralisés</span>
+</div>
+</div>
+<button class="p-1.5 rounded bg-surface-container-low hover:bg-secondary hover:text-white text-secondary transition-colors shrink-0" title="Connecter">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Campus Conferences & Academic Colloquiums -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-primary font-semibold">Colloques & Séminaires</h3>
+<span class="material-symbols-outlined text-[18px] text-outline">event</span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div class="p-space-sm rounded bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center justify-between text-caption font-caption text-secondary font-semibold mb-1">
+<span>12 - 14 MAI 2025</span>
+<span class="px-1.5 py-0.5 rounded bg-secondary/10 text-secondary">Hybride</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface font-semibold leading-snug">
+              Symposium International sur la Résilience Énergétique Sahélienne
+            </h4>
+<span class="font-caption text-caption text-outline mt-1 block">Yaoundé • Palais des Congrès</span>
+</div>
+<div class="p-space-sm rounded bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center justify-between text-caption font-caption text-tertiary-fixed-dim font-semibold mb-1">
+<span>02 JUIN 2025</span>
+<span class="px-1.5 py-0.5 rounded bg-tertiary-fixed-dim/20 text-on-tertiary-fixed-variant">Chaire Invitation</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface font-semibold leading-snug">
+              Séminaire Doctoral : Modélisation Stochastique des Onduleurs
+            </h4>
+<span class="font-caption text-caption text-outline mt-1 block">Amphithéâtre Navier • Sorbonne Université</span>
+</div>
+</div>
+<a class="w-full mt-space-sm py-1.5 text-center text-secondary font-label-md text-label-md block hover:underline" href="#">
+          Consulter l'agenda académique complet →
+        </a>
+</div>
+<!-- Footer légal institutionnel minimal -->
+<div class="px-space-xs flex flex-wrap gap-x-3 gap-y-1 text-caption font-caption text-outline">
+<a class="hover:text-on-surface" href="#">Éthique & Déontologie</a>
+<a class="hover:text-on-surface" href="#">Licences CC BY 4.0</a>
+<a class="hover:text-on-surface" href="#">Dépôt Légal HAL</a>
+<a class="hover:text-on-surface" href="#">Chaires Partenaires</a>
+<span>© 2025 PRO-LOOKUP Academic Network</span>
+</div>
+</aside>
+</div>
+</div></div></main></body></html>

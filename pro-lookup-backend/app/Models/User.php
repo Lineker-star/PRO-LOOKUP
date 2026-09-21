@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
-use Database\Factories\UserFactory;
+use App\Models\Rank;
+use App\Models\Connection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -63,5 +66,25 @@ class User extends Authenticatable
     public function getFullNameAttribute(): string
     {
         return trim("{$this->first_name} {$this->last_name}");
+    }
+
+    public function rank(): BelongsTo
+    {
+        return $this->belongsTo(Rank::class);
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function sentConnections(): HasMany
+    {
+        return $this->hasMany(Connection::class, 'requester_id');
+    }
+
+    public function receivedConnections(): HasMany
+    {
+        return $this->hasMany(Connection::class, 'addressee_id');
     }
 }

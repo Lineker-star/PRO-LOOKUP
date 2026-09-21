@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "outline": "#74777e",
+          "surface-tint": "#49607e",
+          "inverse-surface": "#2a313d",
+          "tertiary": "#180d00",
+          "surface-container-low": "#f0f3ff",
+          "on-tertiary-fixed": "#281900",
+          "inverse-on-surface": "#ebf1ff",
+          "inverse-primary": "#b0c8eb",
+          "surface-bright": "#f9f9ff",
+          "error-container": "#ffdad6",
+          "surface-container-lowest": "#ffffff",
+          "on-secondary-fixed-variant": "#00504e",
+          "secondary-fixed": "#78f6f1",
+          "primary": "#000f22",
+          "on-surface": "#151c27",
+          "on-error": "#ffffff",
+          "surface-container": "#e7eefe",
+          "on-secondary": "#ffffff",
+          "on-secondary-fixed": "#00201f",
+          "on-primary-container": "#768dad",
+          "on-surface-variant": "#43474d",
+          "on-primary-fixed": "#001c37",
+          "secondary": "#006a67",
+          "background": "#f9f9ff",
+          "tertiary-container": "#332100",
+          "surface-variant": "#dce2f3",
+          "secondary-container": "#78f6f1",
+          "tertiary-fixed": "#ffdeac",
+          "on-background": "#151c27",
+          "primary-container": "#0a2540",
+          "on-tertiary-fixed-variant": "#604100",
+          "on-secondary-container": "#00706e",
+          "surface-container-highest": "#dce2f3",
+          "outline-variant": "#c4c6ce",
+          "on-tertiary": "#ffffff",
+          "surface-dim": "#d3daea",
+          "error": "#ba1a1a",
+          "secondary-fixed-dim": "#58d9d5",
+          "on-primary-fixed-variant": "#314865",
+          "on-error-container": "#93000a",
+          "primary-fixed-dim": "#b0c8eb",
+          "tertiary-fixed-dim": "#f3be65",
+          "surface": "#f9f9ff",
+          "on-primary": "#ffffff",
+          "on-tertiary-container": "#b28330",
+          "surface-container-high": "#e2e8f8",
+          "primary-fixed": "#d2e4ff"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-lg": "1.5rem",
+          "space-md": "1rem",
+          "space-xl": "2.5rem",
+          "margin": "2rem",
+          "space-xs": "0.25rem",
+          "gutter-mobile": "1rem",
+          "space-sm": "0.5rem",
+          "gutter": "1.5rem",
+          "margin-mobile": "1rem"
+        },
+        "fontFamily": {
+          "headline-sm": [
+            "Inter"
+          ],
+          "headline-lg-mobile": [
+            "Inter"
+          ],
+          "label-rank": [
+            "Inter"
+          ],
+          "body-lg": [
+            "Inter"
+          ],
+          "headline-lg": [
+            "Inter"
+          ],
+          "label-lg": [
+            "Inter"
+          ],
+          "body-md": [
+            "Inter"
+          ],
+          "headline-xl": [
+            "Inter"
+          ],
+          "headline-xl-mobile": [
+            "Inter"
+          ],
+          "caption": [
+            "Inter"
+          ],
+          "headline-md": [
+            "Inter"
+          ],
+          "label-md": [
+            "Inter"
+          ],
+          "body-sm": [
+            "Inter"
+          ]
+        },
+        "fontSize": {
+          "headline-sm": [
+            "16px",
+            {
+              "lineHeight": "24px",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-lg-mobile": [
+            "24px",
+            {
+              "lineHeight": "32px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "600"
+            }
+          ],
+          "label-rank": [
+            "11px",
+            {
+              "lineHeight": "14px",
+              "letterSpacing": "0.05em",
+              "fontWeight": "700"
+            }
+          ],
+          "body-lg": [
+            "16px",
+            {
+              "lineHeight": "26px",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-lg": [
+            "28px",
+            {
+              "lineHeight": "36px",
+              "letterSpacing": "-0.015em",
+              "fontWeight": "600"
+            }
+          ],
+          "label-lg": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "letterSpacing": "0.01em",
+              "fontWeight": "600"
+            }
+          ],
+          "body-md": [
+            "14px",
+            {
+              "lineHeight": "22px",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-xl": [
+            "40px",
+            {
+              "lineHeight": "48px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "headline-xl-mobile": [
+            "32px",
+            {
+              "lineHeight": "40px",
+              "letterSpacing": "-0.015em",
+              "fontWeight": "700"
+            }
+          ],
+          "caption": [
+            "11px",
+            {
+              "lineHeight": "14px",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-md": [
+            "20px",
+            {
+              "lineHeight": "28px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "600"
+            }
+          ],
+          "label-md": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "600"
+            }
+          ],
+          "body-sm": [
+            "12px",
+            {
+              "lineHeight": "18px",
+              "fontWeight": "400"
+            }
+          ]
+        }
+      },
+    },
+  }</script></head><body class="bg-background font-body-md text-on-surface"><header class="fixed top-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(10,37,64,0.06)]"><div class="h-16 max-w-[1240px] mx-auto px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-max"><a class="flex items-center gap-space-sm" data-path="accueil" href="#"><img alt="logo-pro-lookup.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1X59l2FaENqllcUk2viDrU_G8YS-M5U7OyWzbM-4ZTsBMkOp8u8LT6MAr_Q_Pkdyi6wygQ00Anb9zbm456wNdqiRe_0Iie7VgrMdcGETvTdEFW9_I1eKomJcxgUK56X5XTp847xzGqWZ9m7mSdogGHN8dED5QfxBSoe8jpCv9dSUWxwn2LWSJqUhmGHw-zoOUFkWgiDWN-clgsO3YAD3TjTuR0EAcZMEQHefgFTFwjdNgit6nxqLprmSK5TfIwph4i_ixTO4jnu"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary-container leading-none tracking-tight">PRO-LOOKUP</span><span class="font-caption text-caption text-on-surface-variant uppercase tracking-wider">Institut Universitaire ZTF</span></div></a></div><div class="hidden md:flex items-center flex-1 max-w-xs lg:max-w-md mx-space-sm"><div class="relative w-full flex items-center bg-surface-container-low rounded-lg px-space-sm py-1.5 focus-within:bg-surface-container-lowest focus-within:shadow-[0_0_0_2px_#006a67] transition-all"><span class="material-symbols-outlined text-on-surface-variant text-[18px] mr-2">search</span><input class="w-full bg-transparent font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none" placeholder="Rechercher un collègue, publication, laboratoire..." type="text"/></div></div><nav class="hidden lg:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-headline-sm"><a class="relative px-space-md py-2 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="accueil" href="#">Accueil</a><a class="relative px-space-md py-2 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center gap-1.5" data-path="mon-reseau" href="#">Mon Réseau<span class="px-1.5 py-0.5 rounded-full bg-secondary text-on-secondary font-label-rank text-label-rank leading-none">3</span></a><a aria-current="page" class="relative px-space-md py-2 rounded-lg transition-colors flex items-center gap-1.5 bg-primary-container text-on-primary font-headline-sm" data-path="messagerie" href="#">Messagerie<span class="px-1.5 py-0.5 rounded-full bg-secondary text-on-secondary font-label-rank text-label-rank leading-none">2</span></a><a class="relative px-space-md py-2 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center gap-1.5" data-path="notifications" href="#">Notifications<span class="px-1.5 py-0.5 rounded-full bg-error text-on-error font-label-rank text-label-rank leading-none">5</span></a></nav><div class="flex items-center gap-space-md min-w-max"><div class="flex items-center gap-space-sm pl-space-sm border-l border-outline-variant/40"><div class="relative"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-secondary ring-offset-1 ring-offset-surface-container-lowest" src="https://lh3.googleusercontent.com/aida/AEtjO1Xk8KBODnE_zj-PZi7YL4cdq29nYN9gfyIKRLnWsiuX3keWlMcZbrHKO8BaDxL4MT-edjpbFzVD_7zk_rHX8FuAqN5DcGvgfo_dgXNHk8y6rjNoflC0nrcdIInriCQzpMHK2i6Se6IHt_unhi36mioIBcPxE5jIDez53vlAgdmlCZXvisriOSJStZ-RqAlgPaF7vmy8mcVTbyxKB9ub2nPzDb-YMeMX0r16t_WIyBunO60TdqXixP5c7g"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-secondary rounded-full ring-2 ring-surface-container-lowest"></span></div><div class="flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface leading-tight">Vous</span><span class="font-label-rank text-label-rank text-on-tertiary-container bg-tertiary-fixed/30 px-1.5 py-0.5 rounded-full tracking-normal leading-tight">Docteur / Chercheur</span></div></div></div></div></header><main class="w-full pt-16 bg-background min-h-screen"><div class="flex flex-col w-full">
+<div class="max-w-[1240px] w-full mx-auto px-margin py-space-md">
+<!-- Header context strip -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm mb-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-label-rank text-label-rank uppercase tracking-widest text-on-surface-variant">Espace Échanges Académiques Sécurisés</span>
+<span class="text-outline-variant font-caption text-caption">•</span>
+<span class="font-caption text-caption text-on-surface-variant">Chiffrement Peer-to-Peer Actif</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="font-caption text-caption text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-[16px]">verified_user</span>
+          Accréditation Institutionnelle ZTF
+        </span>
+</div>
+</div>
+<!-- Main Dual-Pane Messaging Shell -->
+<div class="bg-surface-container-lowest rounded-xl shadow-md overflow-hidden flex flex-col lg:flex-row min-h-[760px] max-h-[820px]">
+<!-- LEFT PANE: Conversation Directory (360px) -->
+<aside class="w-full lg:w-[360px] flex-shrink-0 bg-surface-container-low flex flex-col">
+<!-- Left Header: Title, Action & Filter Tabs -->
+<div class="p-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<h1 class="font-headline-md text-headline-md text-primary-container tracking-tight">Messagerie</h1>
+<span class="bg-primary-container text-on-primary font-label-rank text-label-rank px-2 py-0.5 rounded-full">4</span>
+</div>
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary-container transition-colors flex items-center justify-center" id="new-conversation-btn" title="Nouvelle discussion académique">
+<span class="material-symbols-outlined text-[20px]">edit_square</span>
+</button>
+</div>
+<!-- Internal Search -->
+<div class="relative w-full flex items-center bg-surface-container rounded-lg px-space-sm py-1.5 focus-within:bg-surface-container-lowest shadow-sm transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] mr-2">search</span>
+<input class="w-full bg-transparent font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none" id="search-threads" placeholder="Rechercher messages, pairs, DOI..." type="text"/>
+</div>
+<!-- Filter Navigation Tabs -->
+<div class="flex items-center gap-space-xs pt-1">
+<button class="filter-tab active px-space-sm py-1 rounded-lg font-label-md text-label-md bg-primary-container text-on-primary transition-all">Toutes</button>
+<button class="filter-tab px-space-sm py-1 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-all flex items-center gap-1">
+              Non lues
+              <span class="w-2 h-2 rounded-full bg-secondary"></span>
+</button>
+<button class="filter-tab px-space-sm py-1 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-all">Archivées</button>
+</div>
+</div>
+<!-- Thread List -->
+<div class="flex-1 overflow-y-auto divide-y-0 space-y-1 p-space-xs" id="conversation-list">
+<!-- THREAD 1: Pr. Elisabeth Ngo M. (ACTIVE) -->
+<div class="thread-item cursor-pointer p-space-sm rounded-lg bg-surface-container-lowest shadow-sm relative transition-all" data-chat="ngo">
+<div class="absolute left-0 top-2 bottom-2 w-1 bg-secondary rounded-r"></div>
+<div class="flex items-start gap-space-sm">
+<div class="relative flex-shrink-0">
+<img class="w-12 h-12 rounded-full object-cover shadow-sm ring-2 ring-tertiary-fixed-dim" data-alt="Senior female African university chair professor with glasses and elegant academic attire looking attentively at the camera in front of research laboratory shelves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZioGuytHGQ2UdY4r2p1wfhND5i1fmFmNqz8P2BdGvAS9KDEtoYr1DyYpZ5PtPMHqRXufZ_hc2xFs47D8gw84jS424PYsyd-LMmUYcAUrZe1aiYUVyb-4pYRD4gSC4IK3LXk-tSLolxO7i8EWrveGjVVCDFu_t9Q6WaVaN2itEQX9_jUDT2gIK39EIt3X_R8U-Lfy-zcPA_Z582Q_9ByFPT7eCF-vfLFNzijnxGzXcCITtr7gELcw"/>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest" title="En ligne"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1 mb-0.5">
+<span class="font-headline-sm text-headline-sm text-primary-container truncate text-[14px] leading-snug">Pr. Elisabeth Ngo M.</span>
+<span class="font-caption text-caption text-secondary font-semibold flex-shrink-0">10:14</span>
+</div>
+<div class="flex items-center gap-1.5 mb-1">
+<span class="font-label-rank text-label-rank bg-tertiary-fixed/40 text-on-tertiary-container px-1.5 py-0.2 rounded uppercase">Chaire Économie Circulaire</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface truncate text-primary font-medium">
+                  Bonjour Docteur, le rapport intermédiaire...
+                </p>
+</div>
+</div>
+</div>
+<!-- THREAD 2: Dr. Claire Renoir -->
+<div class="thread-item cursor-pointer p-space-sm rounded-lg hover:bg-surface-container transition-all" data-chat="renoir">
+<div class="flex items-start gap-space-sm">
+<div class="relative flex-shrink-0">
+<img class="w-12 h-12 rounded-full object-cover shadow-sm ring-2 ring-secondary" data-alt="Portrait of a focused Caucasian female researcher in laboratory environment with analytical equipment in the soft background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0aq4lrKiMJLcLFs2-N8zbwpQOpeP_TaEUdUlEdxGB3GUEX50jb67X-svFutnmcH5mEV4UYCg-gKf4X6Wi9XyTxJfbAyTge2FmH6ZaVwZtQs6lAq2LPmfwvZut2utRPr6fP-Z9-JA8Cyn4wJ3QjFrUd6mBfxOS0IP7jT_P-KD2GeuGuPjDNua_cuvIPjv6cN7ZLyM0yCWnBy13XBApaOw7qvxe5V3OxLIDMn1cOmLLaRWtFpZ_BTk"/>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-surface-variant ring-2 ring-surface-container-lowest" title="Absent"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1 mb-0.5">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate text-[14px] leading-snug">Dr. Claire Renoir</span>
+<span class="font-caption text-caption text-on-surface-variant flex-shrink-0">Hier</span>
+</div>
+<div class="flex items-center gap-1.5 mb-1">
+<span class="font-label-rank text-label-rank bg-surface-variant text-on-surface-variant px-1.5 py-0.2 rounded uppercase">CNRS • Matériaux</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+                  Avez-vous eu le temps de regarder les données...
+                </p>
+</div>
+</div>
+</div>
+<!-- THREAD 3: Ing. Yassine Belkacem -->
+<div class="thread-item cursor-pointer p-space-sm rounded-lg hover:bg-surface-container transition-all" data-chat="belkacem">
+<div class="flex items-start gap-space-sm">
+<div class="relative flex-shrink-0">
+<img class="w-12 h-12 rounded-full object-cover shadow-sm ring-2 ring-secondary" data-alt="Middle eastern male systems engineer smiling confidently wearing tech industry shirt against industrial electrical engineering facility" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWnz41ryASc0l5oZ13v9HC1Hj3IjsSbf3kBEptH_sLM7w2n1bIuTYfHiJGZRIGYyTrJHuSFNiVEvGeOnW-yQ7-VWW3J6dwWnpkyW1hzC3AgVzWOtMdX2rH-4ZVYrm4ObVYvVCaXDhfOl3ZFcc2kRyZ2TI8DH4NeDayIHU-bMp967O61fzu6TrljxRhZqCLs-qzaSyqMyc1vrbgpm0rk4RJP726I_l48WSRRzGCHKt8Hcuw1HcR8sE"/>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest" title="En ligne"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1 mb-0.5">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate text-[14px] leading-snug">Ing. Yassine Belkacem</span>
+<span class="font-caption text-caption text-on-surface-variant flex-shrink-0">24 fév.</span>
+</div>
+<div class="flex items-center gap-1.5 mb-1">
+<span class="font-label-rank text-label-rank bg-surface-variant text-on-surface-variant px-1.5 py-0.2 rounded uppercase">Énergétique • Bertoua</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+                  Le protocole de test pour l'onduleur est validé.
+                </p>
+</div>
+</div>
+</div>
+<!-- THREAD 4: Secrétariat Académique ZTF -->
+<div class="thread-item cursor-pointer p-space-sm rounded-lg hover:bg-surface-container transition-all" data-chat="secretariat">
+<div class="flex items-start gap-space-sm">
+<div class="relative flex-shrink-0">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[24px]">account_balance</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1 mb-0.5">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate text-[14px] leading-snug">Secrétariat Académique ZTF</span>
+<span class="font-caption text-caption text-on-surface-variant flex-shrink-0">18 fév.</span>
+</div>
+<div class="flex items-center gap-1.5 mb-1">
+<span class="font-label-rank text-label-rank bg-surface-variant text-on-surface-variant px-1.5 py-0.2 rounded uppercase">Administration Centrale</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+                  Votre attestation de rang 2025 est disponible.
+                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Left Pane Footer Info -->
+<div class="p-space-sm bg-surface-container-high/60 flex items-center justify-between">
+<span class="font-caption text-caption text-on-surface-variant">Archivage automatique certifié</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">lock</span>
+</div>
+</aside>
+<!-- RIGHT PANE: Active Detailed Conversation -->
+<section class="flex-1 flex flex-col bg-surface-container-lowest overflow-hidden">
+<!-- Conversation Top Bar -->
+<div class="px-space-lg py-space-sm bg-surface-container-lowest shadow-sm flex items-center justify-between gap-space-md z-10">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="relative flex-shrink-0">
+<img class="w-14 h-14 rounded-full object-cover shadow-sm ring-2 ring-tertiary-fixed-dim" data-alt="Portrait of senior scholar Pr Elisabeth Ngo in office with bookshelves and scientific instruments in warm natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoP02WbkEiNKUgULiWhGpN4CpK-8RO2CV2GtSI1DnO2QyvGsWhq0SokmxxMh7EMneJVQ3IX9jpSqhavFeGpFHPBp_3eIPD9uzXdsJsepKSjeG_UYOMGFIIOKFhUMouFUWfkVpoeV1gbiPCL68wNojFuXAMH-th3V56SCRjN3IcNchic8mvx1RNvQXX5aJu92CTYnTQIe0AasZHsu7oAbG5ES68BM3KTZp6JrJAnUlJkaLZa0m5yUI"/>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex flex-wrap items-center gap-space-xs">
+<h2 class="font-headline-md text-headline-md text-primary-container leading-tight">Pr. Elisabeth Ngo M.</h2>
+<span class="font-label-rank text-label-rank bg-tertiary-fixed text-on-tertiary-container font-bold px-2 py-0.5 rounded-full shadow-xs">CHAIRE ÉCONOMIE CIRCULAIRE</span>
+</div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Directeur de recherche CNRS • Dpt. Matériaux &amp; Valorisation</span>
+<span class="text-outline-variant font-caption text-caption">•</span>
+<span class="font-caption text-caption text-secondary font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  En ligne sur PRO-LOOKUP
+                </span>
+</div>
+</div>
+</div>
+<!-- Top Bar Utility Controls -->
+<div class="flex items-center gap-space-xs flex-shrink-0">
+<button class="p-2 rounded-lg text-on-surface-variant hover:text-primary-container hover:bg-surface-container transition-colors" title="Dossier académique du pair">
+<span class="material-symbols-outlined text-[22px]">badge</span>
+</button>
+<button class="p-2 rounded-lg text-on-surface-variant hover:text-primary-container hover:bg-surface-container transition-colors" title="Lancer un appel vidéo académique sécurisé">
+<span class="material-symbols-outlined text-[22px]">video_call</span>
+</button>
+<button class="p-2 rounded-lg text-tertiary-fixed-dim hover:bg-surface-container transition-colors" title="Marquer d'une étoile">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<button class="p-2 rounded-lg text-on-surface-variant hover:text-primary-container hover:bg-surface-container transition-colors" title="Options de la discussion">
+<span class="material-symbols-outlined text-[22px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Academic Metadata Accordion / Callout Banner -->
+<div class="bg-surface-container-low px-space-lg py-2 flex items-center justify-between text-on-surface-variant text-body-sm">
+<div class="flex items-center gap-space-sm truncate">
+<span class="material-symbols-outlined text-secondary text-[18px]">folder_special</span>
+<span class="truncate font-caption text-caption">Projet rattaché : <strong class="text-primary-container">ZTF-BIO-2025 / Valorisation des biomasses périphériques Bertoua</strong></span>
+</div>
+<button class="font-label-md text-label-md text-secondary hover:underline flex-shrink-0 ml-2">Voir le jalon</button>
+</div>
+<!-- Message History Feed -->
+<div class="flex-1 overflow-y-auto p-space-lg space-y-space-lg bg-surface-container-lowest/50" id="messages-container">
+<!-- Date Separator -->
+<div class="flex items-center justify-center my-space-sm">
+<div class="bg-surface-container px-space-md py-0.5 rounded-full text-on-surface-variant font-caption text-caption shadow-xs">
+              Aujourd'hui, 27 Février 2025
+            </div>
+</div>
+<!-- Received Message: Pr. Elisabeth Ngo M. -->
+<div class="flex items-start gap-space-sm max-w-[85%]">
+<img class="w-8 h-8 rounded-full object-cover flex-shrink-0 mt-1 shadow-xs ring-1 ring-tertiary-fixed" data-alt="Avatar Pr Elisabeth Ngo thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDetiZH6nc-Xh9tlRBShk73KkVNpMdbhnzkfn7psENhpyuJ5J6qR1e-QH7gQSysNvEsqyzIo-bDcg6RX0SytjZNrE59Zixtbny4aywOwe2iyWGtfjM1DHTqy5y2za5n-SRxRq2aRlqfPl3h6E1VtVaMOGHCFPs3epmVMJJI1FhzXI2BMdDKv8nL9i649m9V2V4hWWdo8ijpfoE7eUybKt7LUpUXlznuWJ8cvVOHh-wEzrvNEJhzShc"/>
+<div class="flex flex-col items-start gap-1">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Pr. Elisabeth Ngo M. <span class="font-caption text-caption text-outline ml-1">10:11</span></span>
+<!-- Message Bubble -->
+<div class="bg-surface-container-lowest shadow-sm rounded-xl rounded-tl-none p-space-md text-on-surface">
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+                  Bonjour Docteur, j'ai relu avec attention votre dernière proposition concernant la thermo-compression des résidus lignocellulosiques. Vos résultats spectroscopiques à l'IRTF confirment nos hypothèses initiales de polymérisation à basse énergie.
+                </p>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed mt-2">
+                  Je joins la version annotée du rapport de synthèse consolidé avec les retours de la commission mixte ZTF-CNRS.
+                </p>
+<!-- PDF Attachment Card -->
+<div class="mt-space-md bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between gap-space-md shadow-xs hover:bg-surface-container transition-all">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-lg bg-error-container text-error flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">picture_as_pdf</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-primary-container truncate font-semibold">Rapport_Synthese_Biopolymere_Bertoua.pdf</span>
+<span class="font-caption text-caption text-on-surface-variant">1.4 Mo • Document annoté v2.3</span>
+</div>
+</div>
+<a class="flex items-center gap-1.5 px-space-sm py-1.5 rounded-lg bg-surface-container-lowest hover:bg-secondary text-primary hover:text-on-secondary font-label-md text-label-md shadow-xs transition-colors flex-shrink-0" download="" href="#">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Télécharger</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Sent Message: Current User (Docteur / Chercheur) -->
+<div class="flex items-start justify-end gap-space-sm ml-auto max-w-[85%]">
+<div class="flex flex-col items-end gap-1">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Vous <span class="font-caption text-caption text-outline ml-1">10:14</span></span>
+<!-- Bubble Midnight Blue #0A2540 -->
+<div class="bg-primary-container text-on-primary shadow-sm rounded-xl rounded-tr-none p-space-md">
+<p class="font-body-md text-body-md text-on-primary leading-relaxed">
+                  Merci infiniment, Madame la Présidente. Je télécharge le document immédiatement.
+                </p>
+<p class="font-body-md text-body-md text-on-primary leading-relaxed mt-2">
+                  Nous avons d'ores et déjà réétalonné le banc d'essai pour intégrer vos recommandations sur la viscosité dynamique. Si votre calendrier le permet, je pourrai vous présenter le modèle cinétique actualisé lors de la visioconférence de vendredi matin.
+                </p>
+</div>
+<!-- Read Receipt Status -->
+<div class="flex items-center gap-1 font-caption text-caption text-secondary font-medium">
+<span>Distribué &amp; Lu</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">done_all</span>
+</div>
+</div>
+<img class="w-8 h-8 rounded-full object-cover flex-shrink-0 mt-1 shadow-xs ring-1 ring-secondary" data-alt="Portrait of current male researcher user wearing glasses and dark blue blazer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXwTlThHRaBvVLFvS7dB7psU6daZHt4RCIYPHjVZO8-SHzWpRECdFYpuLzbC6ibl_778Xa-JXve5sqWCjksCQfGUhrCc_SMYSQ8CQRGmOLasU4wLJilo2yWfUaTYnJ1UK2xYu17d9sCsLmh35i0oeHVtNZeLLc26QyiaZLyvTJeYj_eMcPTF-Cid6QBxDgJigFnBVMj2LwM448svf6enixAhmr2fZIjIP3HArjg5ZU59l9BCKT5t0"/>
+</div>
+<!-- Received Message: Pr. Elisabeth Ngo M. (Typing simulation / latest reply) -->
+<div class="flex items-start gap-space-sm max-w-[85%]">
+<img class="w-8 h-8 rounded-full object-cover flex-shrink-0 mt-1 shadow-xs ring-1 ring-tertiary-fixed" data-alt="Avatar Pr Elisabeth Ngo thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw8f_zU_xksB2ss2jIqYog2YPNECkz-hdLeHgyWpcQdwnxtTzgzWm3Eh3J_177GC7X2gsKn-ZUqP5XcSP1bfuf15Ox6Sk6E2l2YET1bDAXv1RRBk_Jttd-wn8DBbsPNByOFQxMjYX52PxuLQqjGAeVDQEwZbfFnxjbD1kKcWcx9t23yl0SeO6q97OQLn5cBiBF2fAQQICs9qZtXqVh1ptxuTwfKUyQaYGLQ_0jcjIDM0xrt3weXiE"/>
+<div class="flex flex-col items-start gap-1">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Pr. Elisabeth Ngo M. <span class="font-caption text-caption text-outline ml-1">10:16</span></span>
+<div class="bg-surface-container-lowest shadow-sm rounded-xl rounded-tl-none p-space-md text-on-surface">
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+                  Parfait. Vendredi 11h00 me convient pour faire le point avant la transmission finale au conseil scientifique de Bertoua. Pensez à y inclure les graphes de calorimétrie différentielle (DSC).
+                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Compose Dock -->
+<div class="p-space-md bg-surface-container-low shadow-[0_-2px_10px_rgba(10,37,64,0.04)] flex flex-col gap-space-xs">
+<!-- Formatting toolbar -->
+<div class="flex items-center justify-between px-space-xs text-on-surface-variant">
+<div class="flex items-center gap-1">
+<button class="p-1 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Gras"><span class="material-symbols-outlined text-[18px]">format_bold</span></button>
+<button class="p-1 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Italique"><span class="material-symbols-outlined text-[18px]">format_italic</span></button>
+<button class="p-1 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Citation de recherche"><span class="material-symbols-outlined text-[18px]">format_quote</span></button>
+<button class="p-1 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Insérer formule LaTeX / Symbole"><span class="material-symbols-outlined text-[18px]">functions</span></button>
+<button class="p-1 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Lien DOI / URL"><span class="material-symbols-outlined text-[18px]">link</span></button>
+</div>
+<div class="flex items-center gap-space-xs font-caption text-caption text-on-surface-variant">
+<span>Mode rédaction académique</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+</div>
+<!-- Rich Text Entry Area -->
+<div class="bg-surface-container-lowest rounded-lg shadow-sm focus-within:shadow-md transition-shadow">
+<textarea class="w-full bg-transparent p-space-sm font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant focus:outline-none resize-none" id="message-input" placeholder="Rédigez votre réponse scientifique ici... (Maj + Entrée pour nouvelle ligne)" rows="3"></textarea>
+<!-- Attachment Trays and Action Buttons -->
+<div class="px-space-sm pb-space-sm flex flex-wrap items-center justify-between gap-space-sm pt-1">
+<!-- Quick Attachment Tags -->
+<div class="flex items-center gap-space-xs flex-wrap">
+<button class="flex items-center gap-1 px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors" title="Joindre un PDF ou rapport" type="button">
+<span class="material-symbols-outlined text-error text-[18px]">attach_file</span>
+<span>PDF / Manuscrit</span>
+</button>
+<button class="flex items-center gap-1 px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors" title="Schéma vectoriel ou micrographie" type="button">
+<span class="material-symbols-outlined text-secondary text-[18px]">image</span>
+<span>Schéma / Graphique</span>
+</button>
+<button class="flex items-center gap-1 px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors" title="Jeu de données CSV ou Excel certifié" type="button">
+<span class="material-symbols-outlined text-on-tertiary-container text-[18px]">table_chart</span>
+<span>Données DOI</span>
+</button>
+<button class="p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container" title="Émoticônes professionnelles" type="button">
+<span class="material-symbols-outlined text-[20px]">sentiment_satisfied</span>
+</button>
+</div>
+<!-- Send Button -->
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-2 px-space-md py-2 rounded-lg bg-secondary hover:bg-on-secondary-container text-on-secondary font-label-lg text-label-lg shadow-sm transition-all transform active:scale-95" id="send-button" type="button">
+<span>Envoyer</span>
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bottom Micro Disclaimers -->
+<div class="flex items-center justify-between px-1 font-caption text-caption text-on-surface-variant">
+<span>Tous les échanges et fichiers échangés sont soumis à la politique de confidentialité de l'Institut ZTF Bertoua.</span>
+<span>Entrée pour envoyer</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Quick Academic Context / Secondary Information Cards -->
+<div class="mt-space-md grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">policy</span>
+</div>
+<div>
+<span class="font-label-md text-label-md text-primary-container font-semibold block">Clause de Propriété Intellectuelle</span>
+<span class="font-caption text-caption text-on-surface-variant">Traçabilité horodatée conforme aux normes CAMES et universités partenaires.</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed/40 text-on-tertiary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">database</span>
+</div>
+<div>
+<span class="font-label-md text-label-md text-primary-container font-semibold block">Dépôt Institutionnel Automatique</span>
+<span class="font-caption text-caption text-on-surface-variant">Vos synthèses validées peuvent être indexées au répertoire de l'institut.</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 text-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">hub</span>
+</div>
+<div>
+<span class="font-label-md text-label-md text-primary-container font-semibold block">Réseau Certifié Bertoua</span>
+<span class="font-caption text-caption text-on-surface-variant">Chaire connectée avec 14 laboratoires en zone Afrique Centrale &amp; Europe.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interactions for thread switching and message transmission
+  (function() {
+    const threadItems = document.querySelectorAll('.thread-item');
+    const sendBtn = document.getElementById('send-button');
+    const inputArea = document.getElementById('message-input');
+    const messagesFeed = document.getElementById('messages-container');
+
+    // Thread item selection logic
+    threadItems.forEach(item => {
+      item.addEventListener('click', () => {
+        threadItems.forEach(t => {
+          t.classList.remove('bg-surface-container-lowest', 'shadow-sm');
+          t.classList.add('hover:bg-surface-container');
+          const leftBar = t.querySelector('.w-1');
+          if (leftBar) leftBar.remove();
+        });
+
+        item.classList.add('bg-surface-container-lowest', 'shadow-sm');
+        item.classList.remove('hover:bg-surface-container');
+        
+        // Add left blue-green indicator
+        const bar = document.createElement('div');
+        bar.className = 'absolute left-0 top-2 bottom-2 w-1 bg-secondary rounded-r';
+        item.prepend(bar);
+      });
+    });
+
+    // Send message simulation
+    function triggerSend() {
+      const text = inputArea.value.trim();
+      if (!text) return;
+
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const timeStr = `${hours}:${minutes}`;
+
+      const msgWrapper = document.createElement('div');
+      msgWrapper.className = 'flex items-start justify-end gap-space-sm ml-auto max-w-[85%] animate-fade-in';
+      
+      msgWrapper.innerHTML = `
+        <div class="flex flex-col items-end gap-1">
+          <span class="font-label-md text-label-md text-on-surface-variant font-medium">Vous <span class="font-caption text-caption text-outline ml-1">${timeStr}</span></span>
+          <div class="bg-primary-container text-on-primary shadow-sm rounded-xl rounded-tr-none p-space-md">
+            <p class="font-body-md text-body-md text-on-primary leading-relaxed">${text.replace(/\\n/g, '<br>')}</p>
+          </div>
+          <div class="flex items-center gap-1 font-caption text-caption text-secondary font-medium">
+            <span>Envoyé</span>
+            <span class="material-symbols-outlined text-[16px] text-secondary">done</span>
+          </div>
+        </div>
+        <img src="placeholder" data-alt="Portrait of current male researcher user avatar" class="w-8 h-8 rounded-full object-cover flex-shrink-0 mt-1 shadow-xs ring-1 ring-secondary" />
+      `;
+
+      messagesFeed.appendChild(msgWrapper);
+      inputArea.value = '';
+      messagesFeed.scrollTop = messagesFeed.scrollHeight;
+    }
+
+    if (sendBtn && inputArea) {
+      sendBtn.addEventListener('click', triggerSend);
+      inputArea.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          triggerSend();
+        }
+      });
+    }
+
+    // Filter tabs interaction
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        filterTabs.forEach(t => {
+          t.classList.remove('bg-primary-container', 'text-on-primary');
+          t.classList.add('text-on-surface-variant', 'hover:bg-surface-container-high');
+        });
+        tab.classList.remove('text-on-surface-variant', 'hover:bg-surface-container-high');
+        tab.classList.add('bg-primary-container', 'text-on-primary');
+      });
+    });
+  })();
+</script></main><footer class="w-full bg-surface-container-low shadow-[0_-1px_8px_rgba(10,37,64,0.03)] py-space-lg"><div class="max-w-[1240px] mx-auto px-margin flex flex-col md:flex-row items-center justify-between gap-space-sm text-on-surface-variant"><div class="flex items-center gap-space-xs font-caption text-caption"><span>© 2025 Institut Universitaire ZTF Bertoua. Espace Académique Certifié.</span></div><div class="flex items-center gap-space-md font-body-sm text-body-sm"><a class="hover:text-on-surface transition-colors" data-path="charte-academique" href="#">Charte Académique</a><a class="hover:text-on-surface transition-colors" data-path="annuaire-instituts" href="#">Annuaire des Laboratoires</a><a class="hover:text-on-surface transition-colors" data-path="assistance-recherche" href="#">Assistance &amp; DSI</a></div></div></footer></body></html>

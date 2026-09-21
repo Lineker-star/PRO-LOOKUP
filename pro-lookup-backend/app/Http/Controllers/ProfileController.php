@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Rank;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -13,8 +15,10 @@ class ProfileController extends Controller
     {
         $search = trim((string) $request->query('search', ''));
         $department = trim((string) $request->query('department', ''));
+        $rank = trim((string) $request->query('rank', ''));
 
-        $users = User::query()
+        $query = User::query()
+            ->with('rank')
             ->where('status', 'approved')
             ->when($search !== '', function ($query) use ($search) {
                 $query->where(function ($sub) use ($search) {
@@ -26,20 +30,56 @@ class ProfileController extends Controller
             ->when($department !== '', function ($query) use ($department) {
                 $query->where('department', 'like', '%'.$department.'%');
             })
-            ->orderBy('last_name')
-            ->get([
+            ->when($rank !== '', function ($query) use ($rank) {
+                $query->whereHas('rank', fn ($rankQuery) => $rankQuery
+                    ->where('slug', $rank)
+                    ->orWhere('id', $rank));
+            })
+            ->orderBy('last_name');
+
+        $columns = [
                 'id',
                 'first_name',
                 'last_name',
-                'email',
                 'department',
                 'bio',
                 'status',
                 'slug',
                 'avatar_path',
-            ]);
+                'rank_id',
+            ];
+
+        $users = $request->has('per_page')
+            ? $query->paginate((int) $request->query('per_page', 12), $columns)
+            : $query->get($columns);
 
         return response()->json($users);
+    }
+
+    public function show(string $slug)
+    {
+        $user = User::query()
+            ->with(['rank', 'posts' => fn ($query) => $query->latest()->withCount(['comments', 'likes'])])
+            ->where('slug', $slug)
+            ->where('status', 'approved')
+            ->firstOrFail();
+
+        return response()->json([
+            'id' => $user->id,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'department' => $user->department,
+            'bio' => $user->bio,
+            'slug' => $user->slug,
+            'avatar_path' => $user->avatar_path,
+            'rank' => $user->rank,
+            'posts' => $user->posts,
+        ]);
+    }
+
+    public function ranks()
+    {
+        return response()->json(Rank::query()->orderBy('order')->orderBy('name')->get());
     }
 
     public function me(Request $request)
@@ -121,6 +161,12 @@ class ProfileController extends Controller
         $user->approved_at = now();
         $user->rejection_reason = null;
         $user->save();
+
+        Notification::create([
+            'user_id' => $user->id,
+            'type' => 'profile_approved',
+            'data' => ['message' => 'Votre profil est maintenant visible dans l’annuaire.'],
+        ]);
 
         return response()->json([
             'message' => 'Profil approuvé avec succès.',

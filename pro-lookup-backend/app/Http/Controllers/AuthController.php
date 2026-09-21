@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use App\Models\Notification;
 
 class AuthController extends Controller
 {
@@ -19,6 +20,7 @@ class AuthController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'department' => ['nullable', 'string', 'max:255'],
             'bio' => ['nullable', 'string', 'max:1000'],
+            'rank_id' => ['nullable', 'integer', 'exists:ranks,id'],
         ]);
 
         if ($validator->fails()) {
@@ -32,12 +34,21 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'department' => $request->department,
             'bio' => $request->bio,
+            'rank_id' => $request->rank_id,
             'role' => 'member',
             'status' => 'pending',
             'slug' => $this->generateUniqueSlug($request->first_name, $request->last_name),
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
+
+        User::where('role', 'admin')->each(function (User $admin) use ($user): void {
+            Notification::create([
+                'user_id' => $admin->id,
+                'type' => 'registration_pending',
+                'data' => ['user_id' => $user->id, 'name' => $user->full_name],
+            ]);
+        });
 
         return response()->json([
             'user' => [
@@ -68,6 +79,12 @@ class AuthController extends Controller
         if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'email' => ['Les identifiants fournis sont incorrects.'],
+            ]);
+        }
+
+        if (in_array($user->status, ['rejected', 'suspended'], true)) {
+            throw ValidationException::withMessages([
+                'email' => ['Ce compte n’est pas autorisé à accéder à PRO-LOOKUP.'],
             ]);
         }
 
