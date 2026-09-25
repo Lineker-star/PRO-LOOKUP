@@ -28,6 +28,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    // Signal de mise à jour des pages publiques en cache côté Next.js (brief §9.2).
+    'frontend' => [
+        'revalidate_url' => env('FRONTEND_REVALIDATE_URL'),
+        'revalidate_secret' => env('FRONTEND_REVALIDATE_SECRET'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

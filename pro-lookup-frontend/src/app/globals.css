@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+/*
+ * Système visuel PRO-LOOKUP — palette du brief §13, style « Academic Prestige Modern ».
+ * Les couleurs sont exposées comme classes Tailwind : bg-navy, text-teal-text, border-line…
+ */
+@theme {
+  --color-navy: #0a2540;
+  --color-navy-deep: #06182b;
+  --color-navy-soft: #13375c;
+  --color-teal: #00a9a5;          /* fonds de boutons, focus, état actif — texte posé dessus en navy */
+  --color-teal-text: #007f7c;     /* liens et textes sarcelle */
+  --color-teal-soft: #e0f5f4;
+  --color-gold: #d4a24c;          /* badges de grade uniquement — texte posé dessus en navy */
+  --color-gold-soft: #f6ead3;
+  --color-canvas: #f7f9fb;
+  --color-card: #ffffff;
+  --color-ink: #1a1a1a;
+  --color-muted: #6b7280;
+  --color-line: #e2e8f0;
+  --color-mist: #eef2f7;
+  --color-success: #2f9e44;
+  --color-success-soft: #e6f4e9;
+  --color-warning: #b45309;
+  --color-warning-soft: #fdf1e3;
+  --color-danger: #d64545;
+  --color-danger-soft: #fbeaea;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-card: 0 1px 3px rgb(10 37 64 / 0.05), 0 1px 2px rgb(10 37 64 / 0.03);
+  --shadow-raised: 0 4px 12px rgb(10 37 64 / 0.08), 0 2px 4px rgb(10 37 64 / 0.04);
+  --shadow-float: 0 10px 24px rgb(10 37 64 / 0.12), 0 4px 8px rgb(10 37 64 / 0.05);
+  --shadow-modal: 0 20px 40px rgb(10 37 64 / 0.22);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/*
+ * Une grille sans colonnes explicites (ex. « grid lg:grid-cols-12 » sur mobile) a une seule
+ * colonne qui ne peut pas s'élargir au-delà de l'écran. Les classes grid-cols-* l'emportent.
+ */
+@layer base {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+}
+
+/* Chiffres tabulaires pour les compteurs et dates. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Icônes Material Symbols (chargées dans le layout). */
+.icon {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  user-select: none;
+}
+.icon-fill {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+/* Motif « réseau » discret des bandeaux sombres (maquettes). */
+.hero-mesh {
+  background-color: var(--color-navy);
+  background-image:
+    radial-gradient(circle at 85% 20%, rgb(0 169 165 / 0.22), transparent 42%),
+    radial-gradient(circle at 10% 90%, rgb(212 162 76 / 0.12), transparent 40%),
+    radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: auto, auto, 22px 22px;
+}
+
+/* Texte riche des publications (sortie nettoyée par Laravel). */
+.prose-post p { margin: 0 0 0.85em; }
+.prose-post p:last-child { margin-bottom: 0; }
+.prose-post ul { list-style: disc; padding-left: 1.4em; margin: 0 0 0.85em; }
+.prose-post ol { list-style: decimal; padding-left: 1.4em; margin: 0 0 0.85em; }
+.prose-post li { margin: 0.2em 0; }
+.prose-post a { color: var(--color-teal-text); text-decoration: underline; text-underline-offset: 2px; }
+.prose-post h2 { font-size: 1.25rem; font-weight: 700; margin: 1em 0 0.4em; color: var(--color-navy); }
+.prose-post h3 { font-size: 1.1rem; font-weight: 700; margin: 1em 0 0.4em; color: var(--color-navy); }
+.prose-post blockquote { border-left: 3px solid var(--color-teal); padding-left: 1em; color: var(--color-muted); margin: 0 0 0.85em; }
+.prose-post strong { font-weight: 650; }
+
+/* Éditeur Tiptap. */
+.tiptap { outline: none; min-height: 12rem; }
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: var(--color-muted);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Focus visible cohérent (accessibilité). */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 2px;
+}
+
+/* Impression (PDF du profil) : on ne garde que le document. */
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; }
+  @page { margin: 14mm; }
+}

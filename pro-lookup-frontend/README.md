@@ -1,16 +1,30 @@
-# React + Vite
+# PRO-LOOKUP — frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Site Next.js 16 (App Router, React 19, TypeScript, Tailwind CSS 4) de PRO-LOOKUP, la vitrine publique des enseignants de l'Université ZTF. Il ne communique qu'avec l'API Laravel (`/api/v1`).
 
-Currently, two official plugins are available:
+Lancement, variables d'environnement et déploiement : voir `../DEPLOYMENT.md`. Choix de conception : `../DECISIONS.md`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Organisation
 
-## React Compiler
+| Dossier | Contenu |
+|---|---|
+| `src/app/(public)` | Zone A, pages publiques rendues côté serveur : accueil, `/enseignants`, `/in/[slug]` (+ image d'aperçu), `/publications`, `/publications/[id]`, `/recherche`, connexion, inscription, mot de passe, pages légales |
+| `src/app/(print)/in/[slug]/pdf` | Version imprimable / PDF d'un profil (champs publics uniquement) |
+| `src/app/espace` | Zone B, espace enseignant (rendu dans le navigateur, `noindex`) |
+| `src/app/admin` | Zone C, administration (aucune modale, confirmations intégrées aux pages) |
+| `src/app/api/revalidate` | Signal de mise à jour envoyé par Laravel pour vider le cache des pages publiques |
+| `src/proxy.ts` | Redirections selon l'état de connexion, le statut et le rôle (confort uniquement : la sécurité est dans l'API) |
+| `src/lib/api/server.ts` | Appels à l'API publique depuis le serveur (cache 5 min, étiquettes de revalidation) |
+| `src/lib/api/client.ts` | Client HTTP du navigateur (jeton Sanctum) |
+| `src/lib/types.ts` | Types TypeScript reflétant exactement les réponses de l'API |
+| `src/components` | Composants d'interface (`ui/`), du site public (`public/`), de l'espace (`space/`) et de l'administration (`admin/`) |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Commandes
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run dev      # développement sur http://localhost:3000
+npm run build    # build de production
+npm run start    # serveur de production
+npm run lint     # ESLint
+npx tsc --noEmit # vérification des types
+```

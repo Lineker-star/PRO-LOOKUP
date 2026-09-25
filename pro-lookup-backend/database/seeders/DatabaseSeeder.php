@@ -3,41 +3,31 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Rank;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
+/**
+ * Données de démarrage. Rejouable sans erreur (updateOrCreate partout).
+ * Compte administrateur de démonstration : admin@iuztf.cm / Password123!
+ */
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        $ranks = [
-            ['name' => 'Professeur', 'slug' => 'professeur', 'order' => 1, 'badge_color' => '#D4A24C'],
-            ['name' => 'Docteur', 'slug' => 'docteur', 'order' => 2, 'badge_color' => '#D4A24C'],
-            ['name' => 'Ingénieur', 'slug' => 'ingenieur', 'order' => 3, 'badge_color' => '#00A9A5'],
-            ['name' => 'Chercheur', 'slug' => 'chercheur', 'order' => 4, 'badge_color' => '#00A9A5'],
-            ['name' => 'Étudiant', 'slug' => 'etudiant', 'order' => 5, 'badge_color' => '#E2E8F0'],
-            ['name' => 'Personnel administratif', 'slug' => 'personnel-administratif', 'order' => 6, 'badge_color' => '#E2E8F0'],
-        ];
+        $this->call(ReferenceSeeder::class);
 
-        foreach ($ranks as $rank) {
-            Rank::updateOrCreate(['slug' => $rank['slug']], $rank);
-        }
-
-        User::factory()->create([
+        $admin = User::updateOrCreate(['email' => 'admin@iuztf.cm'], [
             'first_name' => 'Administrateur',
-            'last_name' => 'ZTF',
-            'email' => 'admin@iuztf.cm',
-            'password' => bcrypt('Password123!'),
-            'role' => 'admin',
-            'status' => 'approved',
-            'slug' => 'administrateur-ztf',
-            'rank_id' => Rank::where('slug', 'professeur')->value('id'),
+            'last_name' => 'PRO-LOOKUP',
+            'password' => Hash::make('Password123!'),
         ]);
+        // Rôle et statut hors $fillable : affectés explicitement.
+        $admin->role = User::ROLE_ADMIN;
+        $admin->status = 'approved';
+        $admin->slug = null; // un administrateur n'a pas de profil public
+        $admin->email_verified_at ??= now();
+        $admin->save();
+
+        $this->call(PersonnelSeeder::class);
     }
 }
