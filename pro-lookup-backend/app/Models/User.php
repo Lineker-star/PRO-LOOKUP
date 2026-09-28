@@ -28,14 +28,17 @@ class User extends Authenticatable
     public const ROLE_ADMIN = 'admin';
 
     /**
-     * Attributs modifiables en masse. Le rôle et le statut n'y figurent pas :
+     * Attributs modifiables en masse. Le rôle, le statut et `teaches` n'y figurent pas :
      * ils ne sont jamais pris directement dans une requête (protection contre
      * l'auto-attribution du rôle administrateur).
+     *
+     * `school` (école supérieure) et `department` (département / filière) sont du texte libre ;
+     * `faculty_id` relie l'école à la liste gérée par l'administration quand le nom correspond.
      */
     protected $fillable = [
         'first_name', 'last_name', 'email', 'password',
         'avatar_path', 'banner_path', 'bio', 'title', 'expertise', 'expertise_tags',
-        'department', 'faculty_id', 'department_id', 'rank_id',
+        'school', 'department', 'faculty_id', 'department_id', 'rank_id',
         'matricule', 'phone', 'office', 'links',
         'show_email', 'show_phone', 'show_office', 'public_sections', 'search_indexable',
     ];
@@ -59,7 +62,26 @@ class User extends Authenticatable
             'show_phone' => 'boolean',
             'show_office' => 'boolean',
             'search_indexable' => 'boolean',
+            'teaches' => 'boolean',
+            'cv_size' => 'integer',
+            'cv_updated_at' => 'datetime',
         ];
+    }
+
+    /** Le fichier du CV (disque privé) disparaît avec le compte. */
+    protected static function booted(): void
+    {
+        static::deleting(function (User $user) {
+            if ($user->cv_path) {
+                Storage::disk('local')->delete($user->cv_path);
+            }
+        });
+    }
+
+    /** CV déposé ET section « CV » visible (le profil lui-même doit en plus être public). */
+    public function hasPublicCv(): bool
+    {
+        return (bool) $this->cv_path && $this->sectionIsPublic(ProfileSection::Cv);
     }
 
     // ---------------------------------------------------------------- Accesseurs
@@ -102,17 +124,29 @@ class User extends Authenticatable
 
     // ---------------------------------------------------------------- Portées
 
-    /** Enseignants dont le profil est public : approuvés, hors administrateurs. */
+    /**
+     * Profils publics : comptes approuvés qui enseignent. Un administrateur qui est aussi
+     * enseignant (teaches = true) y figure, sans que son rôle soit jamais exposé.
+     */
     public function scopePublicTeachers(Builder $query): Builder
     {
-        return $query->where('role', self::ROLE_TEACHER)
+        return $query->whereIn('role', [self::ROLE_TEACHER, self::ROLE_ADMIN])
             ->where('status', UserStatus::Approved->value)
+            ->where('teaches', true)
             ->whereNotNull('slug');
     }
 
-    public function scopeTeachers(Builder $query): Builder
+    /**
+     * Filtre « école supérieure » : compte rattaché à l'école de la liste,
+     * ou dont l'école saisie librement contient son nom.
+     */
+    public function scopeInSchool(Builder $query, Faculty $school): Builder
     {
-        return $query->where('role', self::ROLE_TEACHER);
+        $operator = $query->getConnection()->getDriverName() === 'pgsql' ? 'ilike' : 'like';
+
+        return $query->where(fn (Builder $q) => $q
+            ->where('faculty_id', $school->id)
+            ->orWhere('school', $operator, '%'.$school->name.'%'));
     }
 
     // ---------------------------------------------------------------- Relations

@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import Link from "next/link";
 import { useState } from "react";
 import { FileDrop } from "@/components/auth/RegisterForm";
 import { useAuth } from "@/components/providers/AuthProvider";
@@ -36,7 +37,7 @@ export default function PendingPage() {
 
 function Pending({ me }: { me: Me }) {
   const steps = [
-    { title: "Demande envoyée", text: `Reçue le ${formatDateTime(me.registration?.submitted_at)}`, state: "done" as const },
+    { title: "Inscription envoyée", text: `Reçue le ${formatDateTime(me.registration?.submitted_at)}`, state: "done" as const },
     { title: "Vérification par l’administration", text: "Contrôle du rattachement, du matricule et du justificatif.", state: "current" as const },
     { title: "Publication du profil", text: "Adresse /in/… attribuée, profil visible dans l’annuaire, publications autorisées.", state: "todo" as const },
   ];
@@ -50,10 +51,10 @@ function Pending({ me }: { me: Me }) {
           </span>
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-warning">En attente de validation</p>
-            <h1 className="mt-1 text-xl font-extrabold text-navy sm:text-2xl">Votre demande est en cours de vérification</h1>
+            <h1 className="mt-1 text-xl font-extrabold text-navy sm:text-2xl">Votre inscription est en cours de vérification</h1>
             <p className="mt-2 text-sm leading-relaxed text-muted">
               Votre profil n’est pas encore visible publiquement : il n’apparaît ni dans l’annuaire ni dans la recherche. Vous recevrez un email dès
-              que l’administration aura traité votre demande.
+              que l’administration aura traité votre inscription.
             </p>
           </div>
         </div>
@@ -61,7 +62,7 @@ function Pending({ me }: { me: Me }) {
 
       <Card className="p-6">
         <div className="flex items-center justify-between">
-          <h2 className="font-bold text-navy">Progression de votre demande</h2>
+          <h2 className="font-bold text-navy">Progression de votre inscription</h2>
           <span className="rounded-md bg-mist px-2 py-1 text-xs font-bold text-navy">Étape 2 sur 3</span>
         </div>
         <ol className="mt-5 grid gap-3 md:grid-cols-3">
@@ -97,13 +98,13 @@ function Pending({ me }: { me: Me }) {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card className="p-6">
-          <h2 className="font-bold text-navy">Votre demande</h2>
+          <h2 className="font-bold text-navy">Votre inscription</h2>
           <dl className="mt-4 space-y-3 text-sm">
             {[
               ["Nom", me.full_name],
               ["Email", me.email],
-              ["Faculté", me.faculty?.name],
-              ["Département", me.department?.name],
+              ["École supérieure", me.school],
+              ["Département / Filière", me.department],
               ["Grade", me.grade?.name],
               ["Matricule", me.registration?.matricule],
               ["Justificatif", me.registration?.document_name],
@@ -147,13 +148,14 @@ function Rejected({ me }: { me: Me }) {
 
   return (
     <div className="space-y-6">
-      <SpaceHeading eyebrow="Demande d’accès" title="Votre demande n’a pas été acceptée" />
+      <SpaceHeading eyebrow="Inscription" title="Votre inscription n’a pas été acceptée" />
       <Alert tone="danger" title="Motif indiqué par l’administration">
         {me.registration?.reason ?? "Aucun motif précisé."}
       </Alert>
       <Card className="p-6">
-        <h2 className="font-bold text-navy">Déposer une nouvelle demande</h2>
-        <p className="mt-1 text-sm text-muted">Corrigez les éléments signalés puis envoyez à nouveau votre matricule et un justificatif.</p>
+        <h2 className="font-bold text-navy">Renouveler mon inscription</h2>
+        <p className="mt-1 text-sm text-muted">Corrigez les éléments signalés (au besoin votre école supérieure, votre département / filière ou votre grade depuis{" "}
+          <Link href="/espace/profil" className="font-semibold text-teal-text underline">Mon profil</Link>), puis envoyez à nouveau votre matricule et un justificatif.</p>
         <form
           className="mt-5 space-y-5"
           onSubmit={async (e) => {
@@ -181,7 +183,7 @@ function Rejected({ me }: { me: Me }) {
           <Field label="Nouveau justificatif" htmlFor="re-document" required hint="PDF ou image, 5 Mo maximum.">
             <FileDrop id="re-document" accept=".pdf,.jpg,.jpeg,.png" file={document} onChange={setDocument} icon="upload_file" label="Déposer le justificatif" />
           </Field>
-          <Button type="submit" variant="accent" icon="send" loading={sending}>Envoyer une nouvelle demande</Button>
+          <Button type="submit" variant="accent" icon="send" loading={sending}>Renouveler mon inscription</Button>
         </form>
       </Card>
     </div>

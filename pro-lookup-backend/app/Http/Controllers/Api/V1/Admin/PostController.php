@@ -22,7 +22,7 @@ class PostController extends Controller
 
     private function present(Post $post): array
     {
-        return PostResource::forAudience($post->loadMissing(['category', 'media', 'user.rank', 'user.faculty', 'user.departmentRef']), 'admin')->resolve();
+        return PostResource::forAudience($post->loadMissing(['category', 'media', 'user.rank']), 'admin')->resolve();
     }
 
     public function index(Request $request): JsonResponse
@@ -40,7 +40,7 @@ class PostController extends Controller
                 $term = '%'.mb_strtolower($search).'%';
                 $sub->whereRaw('LOWER(COALESCE(title, \'\')) LIKE ?', [$term])->orWhereRaw('LOWER(content) LIKE ?', [$term]);
             }))
-            ->with(['category', 'media', 'user.rank', 'user.faculty', 'user.departmentRef'])
+            ->with(['category', 'media', 'user.rank'])
             ->latest('published_at')
             ->paginate(20);
 

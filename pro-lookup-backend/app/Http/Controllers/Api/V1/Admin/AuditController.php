@@ -19,6 +19,8 @@ class AuditController extends Controller
         'user.reactivated' => 'Compte réactivé',
         'user.slug_reset' => 'URL de profil réinitialisée',
         'user.deleted' => 'Compte supprimé',
+        'user.promoted' => 'Nommé administrateur',
+        'user.demoted' => 'Rôle d’administrateur retiré',
         'post.hidden' => 'Publication masquée',
         'post.restored' => 'Publication rétablie',
         'post.deleted' => 'Publication supprimée',
@@ -28,8 +30,8 @@ class AuditController extends Controller
     public static function present(AdminAuditLog $log): array
     {
         [$type, $verb] = array_pad(explode('.', $log->action, 2), 2, '');
-        $referenceLabels = ['created' => 'ajouté(e)', 'renamed' => 'renommé(e)', 'activated' => 'activé(e)', 'deactivated' => 'désactivé(e)'];
-        $referenceNames = ['grades' => 'Grade', 'categories' => 'Catégorie', 'faculties' => 'Faculté', 'departments' => 'Département'];
+        $referenceLabels = ['created' => 'ajouté(e)', 'renamed' => 'renommé(e)', 'deleted' => 'supprimé(e)', 'activated' => 'activé(e)', 'deactivated' => 'désactivé(e)'];
+        $referenceNames = ['grades' => 'Grade', 'categories' => 'Catégorie', 'schools' => 'École supérieure', 'faculties' => 'École supérieure', 'departments' => 'Département / Filière'];
 
         return [
             'id' => $log->id,

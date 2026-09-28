@@ -59,18 +59,74 @@ class TeacherSpaceTest extends TestCase
         $this->assertDatabaseHas('posts', ['id' => $post->id]);
     }
 
-    public function test_profile_update_cannot_change_role_status_or_grade(): void
+    public function test_profile_update_cannot_change_role_status_or_raw_grade(): void
     {
         $teacher = User::factory()->create(['rank_id' => $this->grade->id]);
 
         $this->actingAs($teacher)->putJson('/api/v1/me/profile', [
-            'bio' => 'Nouvelle bio', 'role' => 'admin', 'status' => 'approved', 'rank_id' => 999,
+            'bio' => 'Nouvelle bio', 'role' => 'admin', 'status' => 'approved', 'rank_id' => 999, 'teaches' => false,
         ])->assertOk();
 
         $teacher->refresh();
         $this->assertSame('Nouvelle bio', $teacher->bio);
         $this->assertSame('member', $teacher->role);
         $this->assertSame($this->grade->id, $teacher->rank_id);
+        $this->assertTrue($teacher->teaches);
+    }
+
+    public function test_teacher_updates_own_grade_school_and_department(): void
+    {
+        $teacher = User::factory()->create(['slug' => 'prof-y', 'school' => 'Ancienne école', 'faculty_id' => null]);
+        $other = \App\Models\Rank::create(['name' => 'Assistant', 'slug' => 'assistant', 'order' => 2, 'is_active' => true]);
+
+        $this->actingAs($teacher)->putJson('/api/v1/me/profile', ['grade_id' => 999])
+            ->assertUnprocessable()->assertJsonValidationErrors('grade_id');
+        $this->actingAs($teacher)->putJson('/api/v1/me/profile', ['school' => ''])
+            ->assertUnprocessable()->assertJsonValidationErrors('school');
+
+        $this->actingAs($teacher)->putJson('/api/v1/me/profile', [
+            'grade_id' => $other->id, 'school' => 'ÉCOLE SUPÉRIEURE DES SCIENCES ET TECHNOLOGIES', 'department' => 'Génie logiciel',
+        ])->assertOk();
+
+        $teacher->refresh();
+        $this->assertSame($other->id, $teacher->rank_id);
+        $this->assertSame($this->school->id, $teacher->faculty_id);
+        $this->getJson('/api/v1/public/teachers/prof-y')
+            ->assertJsonPath('data.grade.name', 'Assistant')
+            ->assertJsonPath('data.department', 'Génie logiciel');
+    }
+
+    public function test_admin_who_teaches_has_a_public_profile_without_role(): void
+    {
+        $admin = User::factory()->admin()->create(['first_name' => 'Ada', 'last_name' => 'Nkolo']);
+        $teacher = User::factory()->create();
+
+        $this->getJson('/api/v1/public/teachers')->assertJsonCount(1, 'data');
+
+        // Un enseignant ne peut pas se retirer de l'annuaire.
+        $this->actingAs($teacher)->putJson('/api/v1/me/public-profile', ['teaches' => false])->assertForbidden();
+
+        $this->actingAs($admin)->getJson('/api/v1/me/public-profile')->assertJsonPath('data.can_toggle_teaches', true);
+        $this->actingAs($admin)->putJson('/api/v1/me/public-profile', ['teaches' => true])->assertOk();
+        $this->actingAs($admin)->putJson('/api/v1/me/profile', ['bio' => 'Mathématicienne', 'school' => $this->school->name, 'department' => 'Mathématiques'])->assertOk();
+
+        $admin->refresh();
+        $this->assertSame('ada-nkolo', $admin->slug);
+
+        $list = $this->getJson('/api/v1/public/teachers')->assertJsonCount(2, 'data');
+        $profile = $this->getJson('/api/v1/public/teachers/ada-nkolo')->assertOk()->assertJsonPath('data.bio', 'Mathématicienne');
+        foreach ([$list->json(), $profile->json(), $this->getJson('/api/v1/public/search?q=Ada')->json()] as $payload) {
+            $this->assertStringNotContainsStringIgnoringCase('admin', json_encode($payload));
+        }
+
+        // Il peut publier comme tout enseignant approuvé.
+        $this->actingAs($admin)->postJson('/api/v1/me/posts', [
+            'content' => 'Séminaire', 'category_id' => $this->category->id, 'status' => 'published',
+        ])->assertCreated();
+
+        $this->actingAs($admin)->putJson('/api/v1/me/public-profile', ['teaches' => false])->assertOk();
+        $this->getJson('/api/v1/public/teachers/ada-nkolo')->assertNotFound();
+        $this->getJson('/api/v1/public/posts')->assertJsonCount(0, 'data');
     }
 
     public function test_slug_rules_history_and_change_limit(): void

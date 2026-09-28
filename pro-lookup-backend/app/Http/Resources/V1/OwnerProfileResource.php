@@ -35,6 +35,9 @@ class OwnerProfileResource extends JsonResource
             'email' => $user->email,
             'role' => $user->isAdmin() ? 'admin' : 'teacher',
             'status' => $user->status,
+            // Un administrateur peut aussi être enseignant avec un profil public (jamais marqué « admin »).
+            'teaches' => (bool) $user->teaches,
+            'school_id' => $user->faculty_id,
             ...Refs::teacherCard($user),
             'banner_url' => $user->bannerUrl(),
             'bio' => $user->bio,
@@ -43,6 +46,11 @@ class OwnerProfileResource extends JsonResource
             'phone' => $user->phone,
             'office' => $user->office,
             'links' => Refs::links($user->links),
+            'cv' => $user->cv_path ? [
+                'name' => $user->cv_name,
+                'size' => $user->cv_size,
+                'updated_at' => $user->cv_updated_at?->toIso8601String(),
+            ] : null,
             'items' => Refs::items($user, onlyPublic: false),
             'visibility' => [
                 'sections' => $user->sectionVisibility(),

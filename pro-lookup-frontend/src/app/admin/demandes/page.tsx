@@ -89,7 +89,7 @@ export default function RequestsPage() {
                     </td>
                     <td className="px-5 py-4">
                       {r.user?.grade && <GradeBadge name={r.user.grade.name} size="sm" />}
-                      <p className="mt-1 text-xs text-muted">{[r.user?.faculty?.name, r.user?.department?.name].filter(Boolean).join(" · ")}</p>
+                      <p className="mt-1 text-xs text-muted">{[r.user?.school, r.user?.department].filter(Boolean).join(" · ")}</p>
                     </td>
                     <td className="px-5 py-4">
                       <p className="font-mono text-xs font-semibold text-navy">{r.matricule}</p>

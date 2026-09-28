@@ -51,7 +51,7 @@ export function ForgotPasswordForm() {
           <Icon name="arrow_back" size={18} /> Retour à la connexion
         </Link>
         <Link href="/inscription" className="font-semibold text-teal-text hover:underline">
-          Demander un accès
+          S’inscrire
         </Link>
       </div>
     </form>

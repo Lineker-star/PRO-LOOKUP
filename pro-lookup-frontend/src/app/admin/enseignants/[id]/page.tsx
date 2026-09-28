@@ -5,25 +5,28 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { AdminHeading } from "@/components/admin/AdminShell";
 import { ReasonAction } from "@/components/admin/AdminUi";
+import { useAuth } from "@/components/providers/AuthProvider";
 import { Avatar } from "@/components/ui/Avatar";
 import { GradeBadge, StatusBadge } from "@/components/ui/Badge";
-import { Button, ButtonLink } from "@/components/ui/Button";
-import { Field, Input, Select } from "@/components/ui/Field";
+import { ButtonLink } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Field";
 import { Alert, Card, EmptyState, Spinner } from "@/components/ui/Feedback";
 import { Icon } from "@/components/ui/Icon";
-import { api, ApiError } from "@/lib/api/client";
-import { profileUrl, PUBLIC_API_URL } from "@/lib/config";
+import { api } from "@/lib/api/client";
+import { profileUrl } from "@/lib/config";
 import { ACCOUNT_STATUS, formatDateTime } from "@/lib/format";
-import type { AdminUserDetail, FacultyWithDepartments, Ref } from "@/lib/types";
+import type { AdminUserDetail } from "@/lib/types";
 
 /**
- * Fiche enseignant (brief §8) : modifier le grade et le rattachement, réinitialiser l'URL,
- * suspendre, réactiver, supprimer, historique. Toutes les confirmations sont dans la page.
+ * Fiche d'un compte (brief §8) : consultation, suspension, réactivation, suppression, historique,
+ * nomination ou retrait du rôle d'administrateur. L'administration ne modifie JAMAIS les
+ * informations ni le profil d'un enseignant : seul l'enseignant le fait, depuis son espace.
  */
 export default function TeacherAdminDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { me } = useAuth();
   const [message, setMessage] = useState<{ tone: "success" | "danger"; text: string } | null>(null);
 
   const detail = useQuery({
@@ -31,21 +34,18 @@ export default function TeacherAdminDetailPage() {
     queryFn: async () => (await api<{ data: AdminUserDetail }>(`/admin/users/${id}`)).data,
     retry: false,
   });
-  const refs = useQuery({
-    queryKey: ["public-refs"],
-    queryFn: async () => {
-      const [g, f] = await Promise.all([fetch(`${PUBLIC_API_URL}/public/grades`).then((r) => r.json()), fetch(`${PUBLIC_API_URL}/public/faculties`).then((r) => r.json())]);
-      return { grades: g.data as Ref[], faculties: f.data as FacultyWithDepartments[] };
-    },
-    staleTime: 600_000,
-  });
 
   if (detail.isPending) return <Spinner />;
-  if (!detail.data) return <EmptyState icon="person_off" title="Enseignant introuvable" action={<ButtonLink href="/admin/enseignants">Retour à la liste</ButtonLink>} />;
+  if (!detail.data) return <EmptyState icon="person_off" title="Compte introuvable" action={<ButtonLink href="/admin/enseignants">Retour à la liste</ButtonLink>} />;
 
   const u = detail.data;
-  const act = async (path: string, body?: Record<string, unknown>, method: "POST" | "PUT" | "DELETE" = "POST") => {
-    const res = await api<{ message: string; data?: AdminUserDetail }>(path, { method, body });
+  const isAdmin = u.role === "admin";
+  const isSelf = me?.id === u.id;
+  const publicProfile = u.status === "approved" && u.slug && (!isAdmin || u.teaches);
+
+  // Une erreur est affichée par ReasonAction, dans l'encart de confirmation.
+  const act = async (path: string, body?: Record<string, unknown>) => {
+    const res = await api<{ message: string; data?: AdminUserDetail }>(path, { method: "POST", body });
     if (res.data) queryClient.setQueryData(["admin", "user", id], res.data);
     await queryClient.invalidateQueries({ queryKey: ["admin", "users"] });
     await queryClient.invalidateQueries({ queryKey: ["admin", "dashboard"] });
@@ -56,14 +56,10 @@ export default function TeacherAdminDetailPage() {
   return (
     <div className="space-y-6">
       <AdminHeading
-        crumbs={[{ href: "/admin/enseignants", label: "Enseignants" }, { label: u.full_name }]}
+        crumbs={[{ href: "/admin/enseignants", label: "Comptes" }, { label: u.full_name }]}
         title={u.full_name}
         lead={u.email}
-        actions={
-          u.status === "approved" && u.slug ? (
-            <ButtonLink href={profileUrl(u.slug)} variant="outline" icon="visibility" external>Voir le profil public</ButtonLink>
-          ) : undefined
-        }
+        actions={publicProfile ? <ButtonLink href={profileUrl(u.slug!)} variant="outline" icon="visibility" external>Voir le profil public</ButtonLink> : undefined}
       />
 
       {message && <Alert tone={message.tone}>{message.text}</Alert>}
@@ -80,6 +76,11 @@ export default function TeacherAdminDetailPage() {
                 <div className="flex flex-wrap items-center gap-2">
                   <h2 className="text-xl font-extrabold text-navy">{u.full_name}</h2>
                   <StatusBadge tone={ACCOUNT_STATUS[u.status].tone}>{ACCOUNT_STATUS[u.status].label}</StatusBadge>
+                  {isAdmin && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-navy px-2.5 py-0.5 text-xs font-semibold text-white">
+                      <Icon name="admin_panel_settings" size={14} /> Administrateur{isSelf ? " (vous)" : ""}
+                    </span>
+                  )}
                 </div>
                 <p className="text-sm text-muted">{u.title ?? "—"}</p>
                 {u.grade && <GradeBadge name={u.grade.name} size="sm" className="mt-2" />}
@@ -87,11 +88,11 @@ export default function TeacherAdminDetailPage() {
             </div>
             <dl className="mt-6 grid gap-3 text-sm sm:grid-cols-3">
               {[
-                ["URL du profil", u.slug ? `/in/${u.slug}` : "— (attribuée à l’approbation)"],
+                ["École supérieure", u.school ?? "—"],
+                ["Département / Filière", u.department ?? "—"],
                 ["Matricule", u.matricule ?? "—"],
+                ["URL du profil", publicProfile ? `/in/${u.slug}` : isAdmin ? "— (profil enseignant non publié)" : "— (attribuée à l’approbation)"],
                 ["Publications", `${u.published_posts_count} publiée(s) / ${u.posts_count}`],
-                ["Faculté", u.faculty?.name ?? "—"],
-                ["Département", u.department?.name ?? "—"],
                 ["Inscrit le", formatDateTime(u.created_at)],
               ].map(([label, value]) => (
                 <div key={label} className="rounded-xl bg-canvas p-3">
@@ -100,9 +101,11 @@ export default function TeacherAdminDetailPage() {
                 </div>
               ))}
             </dl>
+            <p className="mt-4 flex items-start gap-2 rounded-lg bg-mist px-3 py-2 text-xs text-navy">
+              <Icon name="lock" size={16} className="mt-px shrink-0" />
+              Les informations et le profil d’un enseignant ne sont modifiables que par lui-même, depuis son espace.
+            </p>
           </Card>
-
-          <EditCard user={u} refs={refs.data} onSave={(body) => act(`/admin/users/${u.id}`, body, "PUT")} />
 
           <Card>
             <h2 className="flex items-center gap-2 border-b border-line px-5 py-4 font-bold text-navy"><Icon name="history" size={20} className="text-teal-text" /> Historique</h2>
@@ -134,10 +137,46 @@ export default function TeacherAdminDetailPage() {
             <h2 className="flex items-center gap-2 font-bold text-navy"><Icon name="admin_panel_settings" size={20} className="text-teal-text" /> Actions</h2>
 
             {u.status === "pending" && u.registration && (
-              <ButtonLink href={`/admin/demandes/${u.registration.id}`} variant="accent" icon="folder_open" full>Examiner la demande</ButtonLink>
+              <ButtonLink href={`/admin/demandes/${u.registration.id}`} variant="accent" icon="folder_open" full>Examiner l’inscription</ButtonLink>
             )}
 
-            {u.status === "approved" && (
+            {/* Rôle d'administrateur */}
+            {!isAdmin && u.status === "approved" && (
+              <ReasonAction
+                label="Nommer administrateur"
+                icon="shield_person"
+                tone="primary"
+                requireReason={false}
+                reasonLabel="Note (facultative, journalisée)"
+                confirmLabel="Confirmer la nomination"
+                description="Ce compte pourra valider les inscriptions, gérer les comptes, les référentiels et la modération. Son profil public d’enseignant reste inchangé et ne mentionnera jamais ce rôle."
+                onConfirm={(reason) => act(`/admin/users/${u.id}/promote`, { reason: reason || null })}
+              />
+            )}
+            {isAdmin && !isSelf && (
+              u.admins_count > 1 ? (
+                <ReasonAction
+                  label="Retirer le rôle d’administrateur"
+                  icon="remove_moderator"
+                  tone="primary"
+                  requireReason={false}
+                  reasonLabel="Note (facultative, journalisée)"
+                  confirmLabel="Retirer le rôle"
+                  description="Le compte redevient un compte enseignant, avec un profil public. Ses sessions ouvertes sont fermées."
+                  onConfirm={(reason) => act(`/admin/users/${u.id}/demote`, { reason: reason || null })}
+                />
+              ) : (
+                <p className="rounded-lg bg-canvas p-3 text-xs text-muted">C’est le dernier administrateur : son rôle ne peut pas être retiré.</p>
+              )
+            )}
+            {isAdmin && isSelf && (
+              <p className="rounded-lg bg-canvas p-3 text-xs text-muted">
+                Vous ne pouvez pas retirer vos propres droits. Pour gérer votre profil d’enseignant, rendez-vous dans{" "}
+                <a href="/espace/profil" className="font-semibold text-teal-text underline">votre espace</a>.
+              </p>
+            )}
+
+            {!isAdmin && u.status === "approved" && (
               <ReasonAction
                 label="Suspendre le compte"
                 icon="block"
@@ -160,88 +199,22 @@ export default function TeacherAdminDetailPage() {
               />
             )}
 
-            {u.slug && (
-              <ReasonAction
-                label="Réinitialiser l’URL du profil"
-                icon="link_off"
-                tone="primary"
-                confirmLabel="Réinitialiser"
-                reasonLabel="Motif (journalisé)"
-                description={<>L’adresse revient à « prénom-nom ». L’ancienne <span className="font-mono">/in/{u.slug}</span> redirigera vers la nouvelle.</>}
-                onConfirm={(reason) => act(`/admin/users/${u.id}/reset-slug`, { reason })}
+            {isAdmin ? (
+              <p className="rounded-lg bg-canvas p-3 text-xs text-muted">Un administrateur ne peut être ni suspendu ni supprimé : retirez-lui d’abord ce rôle.</p>
+            ) : (
+              <DeleteAction
+                email={u.email}
+                onConfirm={async (reason, confirm_email) => {
+                  await api(`/admin/users/${u.id}`, { method: "DELETE", body: { reason, confirm_email } });
+                  await queryClient.invalidateQueries({ queryKey: ["admin"] });
+                  router.push("/admin/enseignants");
+                }}
               />
             )}
-
-            <DeleteAction
-              email={u.email}
-              onConfirm={async (reason, confirm_email) => {
-                await api(`/admin/users/${u.id}`, { method: "DELETE", body: { reason, confirm_email } });
-                await queryClient.invalidateQueries({ queryKey: ["admin"] });
-                router.push("/admin/enseignants");
-              }}
-            />
           </Card>
         </div>
       </div>
     </div>
-  );
-}
-
-function EditCard({ user, refs, onSave }: { user: AdminUserDetail; refs?: { grades: Ref[]; faculties: FacultyWithDepartments[] }; onSave: (body: Record<string, unknown>) => Promise<void> }) {
-  const [v, setV] = useState({
-    grade_id: String(user.grade?.id ?? ""),
-    faculty_id: String(user.faculty?.id ?? ""),
-    department_id: String(user.department?.id ?? ""),
-    title: user.title ?? "",
-  });
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const departments = refs?.faculties.find((f) => String(f.id) === v.faculty_id)?.departments ?? [];
-
-  return (
-    <Card className="p-6">
-      <h2 className="flex items-center gap-2 font-bold text-navy"><Icon name="edit" size={20} className="text-teal-text" /> Grade et rattachement</h2>
-      <form
-        className="mt-4 grid gap-4 sm:grid-cols-2"
-        onSubmit={async (e) => {
-          e.preventDefault();
-          setSaving(true);
-          setError(null);
-          try {
-            await onSave({ grade_id: Number(v.grade_id), faculty_id: Number(v.faculty_id), department_id: Number(v.department_id), title: v.title || null });
-          } catch (err) {
-            setError(err instanceof ApiError ? err.message : "Enregistrement impossible.");
-          } finally {
-            setSaving(false);
-          }
-        }}
-      >
-        {error && <Alert tone="danger" className="sm:col-span-2">{error}</Alert>}
-        <Field label="Grade" htmlFor="a-grade">
-          <Select id="a-grade" value={v.grade_id} onChange={(e) => setV({ ...v, grade_id: e.target.value })}>
-            {refs?.grades.map((g) => <option key={g.id} value={g.id}>{g.name}</option>)}
-          </Select>
-        </Field>
-        <Field label="Titre professionnel" htmlFor="a-title">
-          <Input id="a-title" value={v.title} onChange={(e) => setV({ ...v, title: e.target.value })} />
-        </Field>
-        <Field label="Faculté" htmlFor="a-faculty">
-          <Select id="a-faculty" value={v.faculty_id} onChange={(e) => setV({ ...v, faculty_id: e.target.value, department_id: "" })}>
-            <option value="">Choisir…</option>
-            {refs?.faculties.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}
-          </Select>
-        </Field>
-        <Field label="Département" htmlFor="a-dept">
-          <Select id="a-dept" value={v.department_id} onChange={(e) => setV({ ...v, department_id: e.target.value })}>
-            <option value="">Choisir…</option>
-            {departments.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
-          </Select>
-        </Field>
-        <div className="sm:col-span-2">
-          <Button type="submit" variant="primary" icon="save" loading={saving} disabled={!v.grade_id || !v.department_id}>Enregistrer</Button>
-        </div>
-      </form>
-    </Card>
   );
 }
 

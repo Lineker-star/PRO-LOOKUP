@@ -5,11 +5,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { useAuth } from "@/components/providers/AuthProvider";
-import { Avatar } from "@/components/ui/Avatar";
+import { AvatarUploader } from "@/components/space/AvatarUploader";
 import { GradeBadge, StatusBadge } from "@/components/ui/Badge";
 import { Spinner } from "@/components/ui/Feedback";
 import { Icon } from "@/components/ui/Icon";
 import { ACCOUNT_STATUS } from "@/lib/format";
+import { hasTeacherProfile } from "@/lib/roles";
 
 /** Navigation latérale de l'espace enseignant, adaptée au statut du compte. */
 export function SpaceShell({ children }: { children: ReactNode }) {
@@ -21,17 +22,18 @@ export function SpaceShell({ children }: { children: ReactNode }) {
   }
 
   const approved = me.status === "approved";
+  const teaching = hasTeacherProfile(me);
   const nav = approved
     ? [
         { href: "/espace", label: "Tableau de bord", icon: "space_dashboard", exact: true },
         { href: "/espace/profil", label: "Modifier mon profil", icon: "edit_square" },
-        { href: "/espace/publications", label: "Mes publications", icon: "article" },
+        ...(teaching ? [{ href: "/espace/publications", label: "Mes publications", icon: "article" }] : []),
         { href: "/espace/profil-public", label: "Mon profil public et mon URL", icon: "public" },
         { href: "/espace/parametres", label: "Paramètres du compte", icon: "settings" },
       ]
     : [
-        { href: "/espace/en-attente", label: "État de ma demande", icon: "hourglass_top" },
-        ...(me.status === "pending" ? [{ href: "/espace/profil", label: "Mon profil (brouillon)", icon: "edit_square" }] : []),
+        { href: "/espace/en-attente", label: "État de mon inscription", icon: "hourglass_top" },
+        ...(me.status === "pending" || me.status === "rejected" ? [{ href: "/espace/profil", label: "Mon profil (brouillon)", icon: "edit_square" }] : []),
       ];
 
   return (
@@ -41,7 +43,12 @@ export function SpaceShell({ children }: { children: ReactNode }) {
           <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-card">
             <div className="hero-mesh h-16" aria-hidden />
             <div className="-mt-8 px-5 pb-5 text-center">
-              <Avatar src={me.avatar_url} name={me.full_name} size="lg" className="mx-auto" />
+              {/* Photo modifiable d'un clic, depuis n'importe quelle page de l'espace. */}
+              <div className="flex justify-center">
+                <div className="rounded-full bg-white p-1">
+                  <AvatarUploader me={me} size="lg" />
+                </div>
+              </div>
               <p className="mt-3 font-bold text-navy">{me.full_name}</p>
               {me.title && <p className="text-xs text-muted">{me.title}</p>}
               <div className="mt-3 flex flex-wrap justify-center gap-2">
@@ -52,8 +59,18 @@ export function SpaceShell({ children }: { children: ReactNode }) {
           </div>
 
           <nav className="rounded-2xl border border-line bg-white p-2 shadow-card" aria-label="Espace enseignant">
+            {me.role === "admin" && (
+              <Link
+                href="/admin"
+                className="mb-1 flex items-center gap-3 rounded-xl border-b border-line px-3 py-2.5 text-sm font-semibold text-navy hover:bg-mist"
+              >
+                <Icon name="admin_panel_settings" size={20} className="text-teal-text" />
+                Retour à l’administration
+              </Link>
+            )}
             {nav.map((item) => {
-              const active = "exact" in item && item.exact ? pathname === item.href : pathname.startsWith(item.href);
+              // « /espace/profil » ne doit pas s'allumer sur « /espace/profil-public ».
+              const active = "exact" in item && item.exact ? pathname === item.href : pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
                 <Link
                   key={item.href}
@@ -69,7 +86,7 @@ export function SpaceShell({ children }: { children: ReactNode }) {
                 </Link>
               );
             })}
-            {approved && me.slug && (
+            {approved && teaching && me.slug && (
               <Link
                 href={`/in/${me.slug}`}
                 className="mt-1 flex items-center gap-3 rounded-xl border-t border-line px-3 py-2.5 text-sm font-semibold text-teal-text hover:bg-mist"

@@ -7,19 +7,21 @@ import { PrintToolbar } from "@/components/public/PrintToolbar";
 import { ItemTimeline } from "@/components/public/ProfileSections";
 import { Avatar } from "@/components/ui/Avatar";
 import { getTeacher } from "@/lib/api/server";
-import { profileUrl } from "@/lib/config";
-import { formatDate, ITEM_SECTIONS, LINK_LABELS, orcidUrl } from "@/lib/format";
+import { cvDownloadUrl, profileUrl } from "@/lib/config";
+import { formatDate, LINK_LABELS, orcidUrl } from "@/lib/format";
+import { fmt } from "@/lib/i18n";
+import { getI18n } from "@/lib/i18n-server";
 import type { ProfileItem } from "@/lib/types";
 
-export const metadata: Metadata = { title: "Profil (PDF)", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "PDF", robots: { index: false, follow: false } };
 
 /**
- * Version imprimable du profil (mise en page CV). Elle est construite à partir de l'API
- * PUBLIQUE : seules les sections et coordonnées rendues publiques y figurent (brief §6.5).
+ * Version imprimable du profil (mise en page CV), dans la langue du visiteur. Elle est construite
+ * à partir de l'API PUBLIQUE : seules les sections et coordonnées rendues publiques y figurent (brief §6.5).
  */
 export default async function ProfilePdfPage(props: PageProps<"/in/[slug]/pdf">) {
   const { slug } = await props.params;
-  const result = await getTeacher(slug);
+  const [result, { t: d, locale }] = await Promise.all([getTeacher(slug), getI18n()]);
   if (result.kind === "moved") permanentRedirect(`/in/${result.slug}/pdf`);
   if (result.kind === "missing") notFound();
 
@@ -34,21 +36,19 @@ export default async function ProfilePdfPage(props: PageProps<"/in/[slug]/pdf">)
       <PrintToolbar backHref={`/in/${t.slug}`} />
 
       <article className="mx-auto my-8 max-w-4xl bg-white p-10 shadow-raised print:my-0 print:max-w-none print:p-0 print:shadow-none">
-        <header className="flex items-start justify-between gap-6 border-b-4 border-navy pb-6">
+        <header className="flex flex-wrap items-start justify-between gap-6 border-b-4 border-navy pb-6">
           <div className="flex items-center gap-5">
             <Avatar src={t.avatar_url} name={t.full_name} size="lg" />
             <div>
               <h1 className="text-3xl font-extrabold text-navy">{t.full_name}</h1>
               {t.title && <p className="text-base text-ink/80">{t.title}</p>}
-              <p className="mt-1 text-sm text-muted">
-                {[t.grade?.name, t.department ? `Département ${t.department.name}` : null, t.faculty?.name].filter(Boolean).join(" · ")}
-              </p>
+              <p className="mt-1 text-sm text-muted">{[t.grade?.name, t.department, t.school].filter(Boolean).join(" · ")}</p>
             </div>
           </div>
           <div className="flex items-center gap-2 text-right">
             <div>
               <p className="text-lg font-extrabold text-navy">PRO-LOOKUP</p>
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted">Université ZTF — Bertoua</p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted">{d.home_eyebrow}</p>
             </div>
             <Image src="/logo/pro-lookup-symbole.png" alt="" width={48} height={48} />
           </div>
@@ -57,48 +57,53 @@ export default async function ProfilePdfPage(props: PageProps<"/in/[slug]/pdf">)
         <div className="mt-8 grid gap-8 md:grid-cols-3 print:grid-cols-3">
           <div className="space-y-8 md:col-span-2 print:col-span-2">
             {t.bio && (
-              <PdfSection title="À propos">
+              <PdfSection title={d.section_about}>
                 <p className="whitespace-pre-line text-sm leading-relaxed">{t.bio}</p>
               </PdfSection>
             )}
             {t.items.experience.length > 0 && (
-              <PdfSection title={ITEM_SECTIONS.experience.label}>
+              <PdfSection title={d.section_experience}>
                 <ItemTimeline items={t.items.experience} />
               </PdfSection>
             )}
             {t.items.education.length > 0 && (
-              <PdfSection title={ITEM_SECTIONS.education.label}>
+              <PdfSection title={d.section_education}>
                 <ItemTimeline items={t.items.education} />
               </PdfSection>
             )}
             {t.items.course.length > 0 && (
-              <PdfSection title={ITEM_SECTIONS.course.label}>
+              <PdfSection title={d.section_courses}>
                 <PlainList items={t.items.course} />
               </PdfSection>
             )}
             {research.length > 0 && (
-              <PdfSection title="Recherche">
+              <PdfSection title={d.section_research}>
                 <PlainList items={research} />
               </PdfSection>
             )}
             {t.items.award.length > 0 && (
-              <PdfSection title={ITEM_SECTIONS.award.label}>
+              <PdfSection title={d.section_awards}>
                 <PlainList items={t.items.award} />
               </PdfSection>
             )}
           </div>
 
           <aside className="space-y-8">
-            <PdfSection title="Coordonnées">
+            <PdfSection title={d.contacts}>
               <ul className="space-y-1.5 text-sm">
                 {t.contacts.email && <li>{t.contacts.email}</li>}
                 {t.contacts.phone && <li>{t.contacts.phone}</li>}
                 {t.contacts.office && <li>{t.contacts.office}</li>}
                 <li className="break-all text-teal-text">{url.replace(/^https?:\/\//, "")}</li>
+                {t.cv && (
+                  <li className="break-all">
+                    <strong>{d.cv_title} :</strong> {cvDownloadUrl(t.slug)}
+                  </li>
+                )}
               </ul>
             </PdfSection>
             {t.expertise_tags.length > 0 && (
-              <PdfSection title="Expertise">
+              <PdfSection title={d.section_expertise}>
                 <ul className="space-y-1 text-sm">
                   {t.expertise_tags.map((tag) => (
                     <li key={tag}>• {tag}</li>
@@ -107,7 +112,7 @@ export default async function ProfilePdfPage(props: PageProps<"/in/[slug]/pdf">)
               </PdfSection>
             )}
             {t.items.language.length > 0 && (
-              <PdfSection title="Langues">
+              <PdfSection title={d.section_languages}>
                 <ul className="space-y-1 text-sm">
                   {t.items.language.map((l) => (
                     <li key={l.id}>
@@ -119,11 +124,11 @@ export default async function ProfilePdfPage(props: PageProps<"/in/[slug]/pdf">)
               </PdfSection>
             )}
             {links.length > 0 && (
-              <PdfSection title="Liens">
+              <PdfSection title={d.section_links}>
                 <ul className="space-y-1 text-sm">
                   {links.map(([key, value]) => (
                     <li key={key} className="break-all">
-                      <strong>{LINK_LABELS[key]?.label ?? key} :</strong> {key === "orcid" ? orcidUrl(value) : value}
+                      <strong>{key === "website" ? d.personal_website : (LINK_LABELS[key]?.label ?? key)} :</strong> {key === "orcid" ? orcidUrl(value) : value}
                     </li>
                   ))}
                 </ul>
@@ -134,11 +139,11 @@ export default async function ProfilePdfPage(props: PageProps<"/in/[slug]/pdf">)
 
         <footer className="mt-10 flex items-center justify-between gap-6 border-t border-line pt-6">
           <div className="text-xs text-muted">
-            <p className="font-semibold text-navy">Profil public PRO-LOOKUP — Université ZTF</p>
+            <p className="font-semibold text-navy">{d.pdf_footer}</p>
             <p className="break-all">{url}</p>
-            <p>Document généré le {formatDate(new Date().toISOString())}</p>
+            <p>{fmt(d.generated_on, { date: formatDate(new Date().toISOString(), locale) })}</p>
           </div>
-          <img src={qr} alt={`QR code vers ${url}`} className="size-24" />
+          <img src={qr} alt={fmt(d.qr_alt, { url })} className="size-24" />
         </footer>
       </article>
     </div>

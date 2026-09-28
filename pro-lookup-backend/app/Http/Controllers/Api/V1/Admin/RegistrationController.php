@@ -6,6 +6,7 @@ use App\Enums\UserStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\OwnerProfileResource;
 use App\Http\Resources\V1\Refs;
+use App\Models\Faculty;
 use App\Models\RegistrationRequest;
 use App\Services\AuditLogger;
 use App\Services\FrontendRevalidator;
@@ -51,19 +52,21 @@ class RegistrationController extends Controller
     {
         $status = $request->query('status', 'pending');
         $search = trim((string) $request->query('q', ''));
+        $school = $request->filled('school') ? Faculty::find($request->query('school')) : null;
 
         $requests = RegistrationRequest::query()
             ->when(in_array($status, ['pending', 'approved', 'rejected'], true), fn ($q) => $q->where('status', $status))
-            ->when($request->filled('faculty'), fn ($q) => $q->whereHas('user', fn ($u) => $u->where('faculty_id', $request->query('faculty'))))
+            ->when($school, fn ($q) => $q->whereHas('user', fn ($u) => $u->inSchool($school)))
             ->when($request->filled('grade'), fn ($q) => $q->whereHas('user', fn ($u) => $u->where('rank_id', $request->query('grade'))))
             ->when($search !== '', fn ($q) => $q->where(function ($sub) use ($search) {
                 $term = '%'.mb_strtolower($search).'%';
                 $sub->whereRaw('LOWER(matricule) LIKE ?', [$term])
+                    ->orWhereHas('user', fn ($u) => $u->whereRaw('LOWER(COALESCE(school, \'\')) LIKE ?', [$term]))
                     ->orWhereHas('user', fn ($u) => $u->whereRaw('LOWER(first_name) LIKE ?', [$term])
                         ->orWhereRaw('LOWER(last_name) LIKE ?', [$term])
                         ->orWhereRaw('LOWER(email) LIKE ?', [$term]));
             }))
-            ->with(['user.rank', 'user.faculty', 'user.departmentRef'])
+            ->with(['user.rank'])
             ->orderBy('created_at', $status === 'pending' ? 'asc' : 'desc')
             ->paginate(20);
 
@@ -80,7 +83,7 @@ class RegistrationController extends Controller
 
     public function show(RegistrationRequest $registration): JsonResponse
     {
-        $registration->load(['user.rank', 'user.faculty', 'user.departmentRef', 'user.profileItems', 'processor']);
+        $registration->load(['user.rank', 'user.profileItems', 'processor']);
 
         return response()->json(['data' => [
             ...self::summary($registration),

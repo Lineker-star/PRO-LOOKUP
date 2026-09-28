@@ -12,6 +12,8 @@ import { Icon } from "@/components/ui/Icon";
 import { Pagination } from "@/components/ui/Pagination";
 import { getTeacher, getTeacherPosts } from "@/lib/api/server";
 import { profileUrl } from "@/lib/config";
+import { fmt } from "@/lib/i18n";
+import { getDict, getI18n } from "@/lib/i18n-server";
 
 /** Récupère le profil ou applique les règles d'URL : 301 pour un ancien identifiant, 404 sinon. */
 async function loadTeacher(slug: string) {
@@ -24,13 +26,13 @@ async function loadTeacher(slug: string) {
 /** Balises d'aperçu de lien (WhatsApp, Facebook, LinkedIn…) générées côté serveur (brief §6.5). */
 export async function generateMetadata(props: PageProps<"/in/[slug]">): Promise<Metadata> {
   const { slug } = await props.params;
-  const result = await getTeacher(slug);
-  if (result.kind !== "found") return { title: "Profil indisponible", robots: { index: false } };
+  const [result, dict] = await Promise.all([getTeacher(slug), getDict()]);
+  if (result.kind !== "found") return { title: dict.profile_unavailable, robots: { index: false } };
 
   const t = result.teacher;
-  const headline = [t.grade?.name, t.department?.name].filter(Boolean).join(", ");
-  const title = `${t.full_name}${headline ? ` — ${headline}` : ""} · Université ZTF`;
-  const description = (t.bio ?? t.title ?? `${t.full_name}, enseignant à l’Université ZTF.`).slice(0, 200);
+  const headline = [t.grade?.name, t.department].filter(Boolean).join(", ");
+  const title = `${t.full_name}${headline ? ` — ${headline}` : ""} · ${dict.university}`;
+  const description = (t.bio ?? t.title ?? fmt(dict.teacher_at, { name: t.full_name })).slice(0, 200);
   const url = profileUrl(t.slug);
 
   return {
@@ -46,7 +48,7 @@ export async function generateMetadata(props: PageProps<"/in/[slug]">): Promise<
 export default async function TeacherProfilePage(props: PageProps<"/in/[slug]">) {
   const { slug } = await props.params;
   const sp = await props.searchParams;
-  const teacher = await loadTeacher(slug);
+  const [teacher, { t, p, locale }] = await Promise.all([loadTeacher(slug), getI18n()]);
   const url = profileUrl(teacher.slug);
   const tab = sp.onglet === "publications" ? "publications" : "profil";
   const page = Math.max(1, Number(sp.page) || 1);
@@ -66,14 +68,14 @@ export default async function TeacherProfilePage(props: PageProps<"/in/[slug]">)
         )}
 
         <div className="relative mx-auto max-w-7xl px-4 pb-10 pt-6 sm:px-6 lg:px-8">
-          <nav aria-label="Fil d’Ariane" className="flex flex-wrap items-center gap-1.5 text-xs text-white/70">
+          <nav aria-label={t.breadcrumb} className="flex flex-wrap items-center gap-1.5 text-xs text-white/70">
             <Link href="/enseignants" className="inline-flex items-center gap-1 hover:text-white">
-              <Icon name="groups" size={16} /> Annuaire
+              <Icon name="groups" size={16} /> {t.directory_short}
             </Link>
-            {teacher.faculty && (
+            {teacher.school && (
               <>
                 <Icon name="chevron_right" size={16} />
-                <Link href={`/enseignants?faculty=${teacher.faculty.slug}`} className="hover:text-white">{teacher.faculty.name}</Link>
+                <span>{teacher.school}</span>
               </>
             )}
             <Icon name="chevron_right" size={16} />
@@ -84,7 +86,7 @@ export default async function TeacherProfilePage(props: PageProps<"/in/[slug]">)
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end">
               <div className="relative w-fit">
                 <Avatar src={teacher.avatar_url} name={teacher.full_name} size="xl" className="ring-4 ring-offset-4 ring-offset-navy" />
-                <span className="absolute bottom-1 right-1 flex size-8 items-center justify-center rounded-full border-2 border-navy bg-teal text-navy" title="Profil vérifié">
+                <span className="absolute bottom-1 right-1 flex size-8 items-center justify-center rounded-full border-2 border-navy bg-teal text-navy" title={t.verified_profile}>
                   <Icon name="check" size={18} />
                 </span>
               </div>
@@ -92,12 +94,26 @@ export default async function TeacherProfilePage(props: PageProps<"/in/[slug]">)
                 {teacher.grade && <GradeBadge name={teacher.grade.name} />}
                 <h1 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">{teacher.full_name}</h1>
                 {teacher.title && <p className="mt-1 text-base text-white/85">{teacher.title}</p>}
-                <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-white/70">
-                  <Icon name="account_balance" size={16} />
-                  {[teacher.faculty?.name, teacher.department ? `Département ${teacher.department.name}` : null, "Université ZTF"]
-                    .filter(Boolean)
-                    .join(" · ")}
-                </p>
+                <ul className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-white/70">
+                  {teacher.school && (
+                    <li className="inline-flex items-center gap-1.5">
+                      <Icon name="account_balance" size={16} />
+                      <span className="sr-only">{t.school} : </span>
+                      {teacher.school}
+                    </li>
+                  )}
+                  {teacher.department && (
+                    <li className="inline-flex items-center gap-1.5">
+                      <Icon name="apartment" size={16} />
+                      <span className="sr-only">{t.department} : </span>
+                      {teacher.department}
+                    </li>
+                  )}
+                  <li className="inline-flex items-center gap-1.5">
+                    <Icon name="location_city" size={16} />
+                    {t.university}
+                  </li>
+                </ul>
               </div>
             </div>
             <ProfileActions teacher={teacher} url={url} />
@@ -107,10 +123,10 @@ export default async function TeacherProfilePage(props: PageProps<"/in/[slug]">)
 
       {/* ------------------------------------------------------------ Onglets */}
       <div className="sticky top-16 z-30 border-b border-line bg-white lg:top-[72px]">
-        <nav className="mx-auto flex max-w-7xl gap-1 px-4 sm:px-6 lg:px-8" aria-label="Sections du profil">
+        <nav className="mx-auto flex max-w-7xl gap-1 px-4 sm:px-6 lg:px-8" aria-label={t.profile_sections}>
           {[
-            { id: "profil", label: "Profil", icon: "person", href: `/in/${teacher.slug}` },
-            { id: "publications", label: "Publications", icon: "feed", href: `/in/${teacher.slug}?onglet=publications`, count: teacher.posts_count },
+            { id: "profil", label: t.tab_profile, icon: "person", href: `/in/${teacher.slug}` },
+            { id: "publications", label: t.tab_posts, icon: "feed", href: `/in/${teacher.slug}?onglet=publications`, count: teacher.posts_count },
           ].map((item) => (
             <Link
               key={item.id}
@@ -133,7 +149,7 @@ export default async function TeacherProfilePage(props: PageProps<"/in/[slug]">)
       <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-8">
           {tab === "profil" ? (
-            <ProfileMainSections teacher={teacher} />
+            <ProfileMainSections teacher={teacher} t={t} />
           ) : posts && posts.data.length > 0 ? (
             <div className="space-y-5">
               {posts.data.map((post) => (
@@ -142,20 +158,20 @@ export default async function TeacherProfilePage(props: PageProps<"/in/[slug]">)
               <Pagination
                 page={posts.meta.current_page}
                 lastPage={posts.meta.last_page}
-                total={posts.meta.total}
+                summary={p(t.posts_count, posts.meta.total)}
                 basePath={`/in/${teacher.slug}`}
                 params={{ onglet: "publications" }}
-                label="publications"
+                labels={t}
               />
             </div>
           ) : (
-            <EmptyState icon="feed" title="Aucune publication pour le moment">
-              {teacher.full_name} n’a encore rien publié sur PRO-LOOKUP.
+            <EmptyState icon="feed" title={t.no_posts_title}>
+              {fmt(t.no_posts_text, { name: teacher.full_name })}
             </EmptyState>
           )}
         </div>
         <aside className="lg:col-span-4">
-          <ProfileSideSections teacher={teacher} url={url} />
+          <ProfileSideSections teacher={teacher} url={url} t={t} locale={locale} />
         </aside>
       </div>
     </>

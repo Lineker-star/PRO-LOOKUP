@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\PostResource;
 use App\Http\Resources\V1\PublicTeacherResource;
 use App\Http\Resources\V1\TeacherCardResource;
-use App\Models\Department;
 use App\Models\Faculty;
 use App\Models\Post;
 use App\Models\PostCategory;
@@ -18,6 +17,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * API publique (zone A) : aucune authentification.
@@ -26,7 +27,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 class PublicController extends Controller
 {
     /** Relations nécessaires à l'affichage d'une carte enseignant. */
-    private const CARD_RELATIONS = ['rank', 'faculty', 'departmentRef'];
+    private const CARD_RELATIONS = ['rank'];
 
     /** Recherche insensible à la casse, compatible PostgreSQL (ILIKE) et SQLite (tests). */
     private function like(Builder $query, string $column, string $term, string $boolean = 'and'): Builder
@@ -43,7 +44,21 @@ class PublicController extends Controller
 
     // ------------------------------------------------------------------ Enseignants
 
-    /** Annuaire : recherche, filtres (faculté, département, grade, expertise), tri alphabétique. */
+    /**
+     * Filtres « école supérieure » (identifiant de la liste) et « département / filière »
+     * (texte libre) communs à l'annuaire et au fil des publications.
+     */
+    private function applyAffiliationFilters(Builder $users, Request $request): Builder
+    {
+        $school = $request->filled('school') ? Faculty::where('slug', $request->query('school'))->first() : null;
+        $department = trim((string) $request->query('department', ''));
+
+        return $users
+            ->when($request->filled('school'), fn (Builder $q) => $school ? $q->inSchool($school) : $q->whereRaw('1 = 0'))
+            ->when($department !== '', fn (Builder $q) => $this->like($q, 'department', $department));
+    }
+
+    /** Annuaire : recherche (facultative), filtres (école, département / filière, grade, expertise), tri alphabétique. */
     public function teachers(Request $request)
     {
         $search = trim((string) $request->query('q', ''));
@@ -60,14 +75,13 @@ class PublicController extends Controller
                         $this->like($w, 'last_name', $word, 'or');
                         $this->like($w, 'title', $word, 'or');
                         $this->like($w, 'expertise', $word, 'or');
+                        $this->like($w, 'school', $word, 'or');
+                        $this->like($w, 'department', $word, 'or');
                     });
                 }
             }))
             ->when($expertise !== '', fn (Builder $q) => $this->like($q, 'expertise', $expertise))
-            ->when($request->filled('faculty'), fn (Builder $q) => $q->whereHas('faculty', fn ($f) => $f
-                ->where('slug', $request->query('faculty'))))
-            ->when($request->filled('department'), fn (Builder $q) => $q->whereHas('departmentRef', fn ($d) => $d
-                ->where('slug', $request->query('department'))))
+            ->tap(fn (Builder $q) => $this->applyAffiliationFilters($q, $request))
             ->when($request->filled('grade'), fn (Builder $q) => $q->whereHas('rank', fn ($r) => $r
                 ->where('slug', $request->query('grade'))))
             ->orderBy($request->query('sort') === 'first_name' ? 'first_name' : 'last_name')
@@ -102,6 +116,22 @@ class PublicController extends Controller
         return $this->profileNotFound();
     }
 
+    /**
+     * Téléchargement du CV d'un enseignant : uniquement si le profil est public et la section
+     * « CV » visible. Sinon, la même réponse 404 neutre que pour un profil indisponible.
+     */
+    public function teacherCv(string $slug)
+    {
+        $user = User::query()->publicTeachers()->where('slug', $slug)->first();
+        abort_unless($user && $user->hasPublicCv() && Storage::disk('local')->exists($user->cv_path), 404, 'Ce CV n’est pas disponible.');
+
+        return Storage::disk('local')->download($user->cv_path, MeController::cvFileName($user), [
+            'Content-Type' => 'application/pdf',
+            'X-Content-Type-Options' => 'nosniff',
+            'Cache-Control' => 'public, max-age=300',
+        ]);
+    }
+
     public function teacherPosts(Request $request, string $slug)
     {
         $teacher = User::query()->publicTeachers()->where('slug', $slug)->first();
@@ -124,7 +154,7 @@ class PublicController extends Controller
 
     // ------------------------------------------------------------------ Publications
 
-    /** Fil public : filtres catégorie, faculté, département, enseignant ; recherche par mot-clé. */
+    /** Fil public : filtres catégorie, école supérieure, département / filière, enseignant ; recherche par mot-clé. */
     public function posts(Request $request): AnonymousResourceCollection
     {
         $search = trim((string) $request->query('q', ''));
@@ -139,10 +169,8 @@ class PublicController extends Controller
                 ->where('slug', $request->query('category'))))
             ->when($request->filled('teacher'), fn (Builder $q) => $q->whereHas('user', fn ($u) => $u
                 ->where('slug', $request->query('teacher'))))
-            ->when($request->filled('faculty'), fn (Builder $q) => $q->whereHas('user.faculty', fn ($f) => $f
-                ->where('slug', $request->query('faculty'))))
-            ->when($request->filled('department'), fn (Builder $q) => $q->whereHas('user.departmentRef', fn ($d) => $d
-                ->where('slug', $request->query('department'))))
+            ->when($request->filled('school') || $request->filled('department'), fn (Builder $q) => $q
+                ->whereHas('user', fn (Builder $u) => $this->applyAffiliationFilters($u, $request)))
             ->latest('published_at')
             ->paginate($this->perPage($request, 10));
 
@@ -189,7 +217,13 @@ class PublicController extends Controller
             $this->like($sub, 'last_name', $q, 'or');
             $this->like($sub, 'title', $q, 'or');
             $this->like($sub, 'expertise', $q, 'or');
-            $sub->orWhereRaw('LOWER(first_name || \' \' || last_name) LIKE ?', ['%'.mb_strtolower($q).'%']);
+            $this->like($sub, 'school', $q, 'or');
+            $this->like($sub, 'department', $q, 'or');
+            // Recherche « prénom nom » complet ; la concaténation s'écrit différemment selon la base.
+            $fullName = $sub->getConnection()->getDriverName() === 'mysql'
+                ? "CONCAT(first_name, ' ', last_name)"
+                : "first_name || ' ' || last_name";
+            $sub->orWhereRaw("LOWER({$fullName}) LIKE ?", ['%'.mb_strtolower($q).'%']);
         });
         $postQuery = Post::query()->publiclyVisible()->where(function (Builder $sub) use ($q) {
             $this->like($sub, 'title', $q);
@@ -217,29 +251,43 @@ class PublicController extends Controller
         return response()->json(['data' => [
             'teachers' => User::query()->publicTeachers()->count(),
             'posts' => Post::query()->publiclyVisible()->count(),
-            'faculties' => Faculty::where('is_active', true)->count(),
-            'departments' => Department::where('is_active', true)->count(),
+            'schools' => Faculty::where('is_active', true)->count(),
+            // Départements / filières distincts saisis par les enseignants publics.
+            'departments' => User::query()->publicTeachers()->whereNotNull('department')->where('department', '!=', '')
+                ->distinct()->count(DB::raw('LOWER(department)')),
         ]]);
     }
 
     // ------------------------------------------------------------------ Référentiels
 
-    public function faculties(): JsonResponse
+    /** Écoles supérieures de la liste gérée par l'administration, avec leur nombre d'enseignants publics. */
+    public function schools(): JsonResponse
     {
-        $faculties = Faculty::where('is_active', true)
-            ->with(['departments' => fn ($q) => $q->where('is_active', true)])
-            ->orderBy('position')->orderBy('name')
-            ->get()
+        $schools = Faculty::where('is_active', true)->orderBy('position')->orderBy('name')->get()
             ->map(fn (Faculty $f) => [
                 'id' => $f->id,
                 'name' => $f->name,
                 'slug' => $f->slug,
-                'departments' => $f->departments->map(fn ($d) => [
-                    'id' => $d->id, 'name' => $d->name, 'slug' => $d->slug, 'faculty_id' => $d->faculty_id,
-                ])->values(),
+                'teachers_count' => User::query()->publicTeachers()->inSchool($f)->count(),
             ]);
 
-        return response()->json(['data' => $faculties]);
+        return response()->json(['data' => $schools]);
+    }
+
+    /**
+     * Suggestions pour les champs libres « École supérieure » et « Département / Filière » :
+     * la liste officielle et les valeurs déjà saisies par les enseignants publics.
+     */
+    public function suggestions(): JsonResponse
+    {
+        $public = User::query()->publicTeachers();
+        $unique = fn ($values) => $values->map(fn ($v) => trim((string) $v))->filter()
+            ->unique(fn ($v) => mb_strtolower($v))->sort(fn ($a, $b) => strcoll($a, $b))->values();
+
+        return response()->json(['data' => [
+            'schools' => $unique(Faculty::where('is_active', true)->pluck('name')->merge((clone $public)->pluck('school'))),
+            'departments' => $unique((clone $public)->pluck('department')),
+        ]]);
     }
 
     public function grades(): JsonResponse

@@ -18,9 +18,9 @@ class Emails
     public static function registrationReceived(User $user): void
     {
         $user->notify(new PlatformNotification(
-            'Demande d’accès reçue',
+            'Inscription reçue',
             [
-                'Votre demande d’accès à PRO-LOOKUP a bien été enregistrée.',
+                'Votre inscription à PRO-LOOKUP a bien été enregistrée.',
                 'Elle est en attente de validation par l’administration de l’Université ZTF. Vous recevrez un email dès qu’elle aura été traitée.',
                 'En attendant, vous pouvez vous connecter pour compléter votre profil en brouillon.',
             ],
@@ -33,7 +33,7 @@ class Emails
     {
         User::where('role', User::ROLE_ADMIN)->each(fn (User $admin) => $admin->notify(new PlatformNotification(
             'Nouvelle demande d’inscription',
-            ["{$teacher->full_name} ({$teacher->email}) a déposé une demande d’accès enseignant."],
+            ["{$teacher->full_name} ({$teacher->email}) s’est inscrit(e) comme enseignant(e) : sa demande attend votre validation."],
             'Examiner la demande',
             self::front('/admin/demandes'),
         )));
@@ -56,9 +56,9 @@ class Emails
     public static function rejected(User $user, string $reason): void
     {
         $user->notify(new PlatformNotification(
-            'Votre demande d’accès n’a pas été acceptée',
+            'Votre inscription n’a pas été acceptée',
             [
-                'Après examen, votre demande d’accès à PRO-LOOKUP n’a pas été acceptée.',
+                'Après examen, votre inscription à PRO-LOOKUP n’a pas été acceptée.',
                 'Motif : '.$reason,
                 'Vous pouvez déposer une nouvelle demande en corrigeant les éléments indiqués.',
             ],
@@ -104,6 +104,32 @@ class Emails
             ],
             'Définir mon mot de passe',
             $url,
+        ));
+    }
+
+    public static function promoted(User $user): void
+    {
+        $user->notify(new PlatformNotification(
+            'Vous êtes administrateur de PRO-LOOKUP',
+            [
+                'Vous avez été nommé(e) administrateur de PRO-LOOKUP : vous pouvez désormais valider les inscriptions, gérer les comptes et modérer les contenus.',
+                'Votre profil public d’enseignant reste inchangé : votre rôle d’administrateur n’y apparaît pas.',
+            ],
+            'Ouvrir l’administration',
+            self::front('/admin'),
+        ));
+    }
+
+    public static function demoted(User $user): void
+    {
+        $user->notify(new PlatformNotification(
+            'Vos droits d’administrateur ont été retirés',
+            [
+                'Vous n’êtes plus administrateur de PRO-LOOKUP. Votre compte enseignant et votre profil public restent actifs.',
+                'Reconnectez-vous pour accéder à votre espace.',
+            ],
+            'Se connecter',
+            self::front('/connexion'),
         ));
     }
 

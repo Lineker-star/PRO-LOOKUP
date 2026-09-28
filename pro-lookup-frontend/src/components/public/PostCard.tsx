@@ -1,11 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { PostMediaView } from "@/components/public/PostMediaView";
 import { ShareMenu } from "@/components/public/ShareMenu";
+import { useLang } from "@/components/providers/LangProvider";
 import { Avatar } from "@/components/ui/Avatar";
 import { GradeBadge, Tag } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
 import { postUrl } from "@/lib/config";
-import { formatDate, timeAgo } from "@/lib/format";
+import { affiliation, formatDate, timeAgo } from "@/lib/format";
+import { fmt } from "@/lib/i18n";
 import type { Post } from "@/lib/types";
 
 /**
@@ -13,6 +17,7 @@ import type { Post } from "@/lib/types";
  * commentaires : brief §7.1). Le texte est tronqué, le détail est sur sa propre page.
  */
 export function PostCard({ post, showAuthor = true }: { post: Post; showAuthor?: boolean }) {
+  const { t, locale } = useLang();
   const author = post.author;
 
   return (
@@ -27,23 +32,21 @@ export function PostCard({ post, showAuthor = true }: { post: Post; showAuthor?:
                   <span className="truncate font-semibold text-navy group-hover:underline">{author.full_name}</span>
                   {author.grade && <GradeBadge name={author.grade.name} size="sm" />}
                 </span>
-                <span className="block truncate text-xs text-muted">
-                  {[author.department?.name, "Université ZTF"].filter(Boolean).join(" · ")}
-                </span>
+                <span className="block truncate text-xs text-muted">{affiliation(author) || t.university}</span>
               </span>
             </Link>
           ) : (
             <span />
           )}
-          <ShareMenu url={postUrl(post.id)} title={post.title ?? "Publication PRO-LOOKUP"} report={{ type: "post", id: post.id }} compact />
+          <ShareMenu url={postUrl(post.id)} title={post.title ?? t.post_fallback_title} report={{ type: "post", id: post.id }} compact />
         </div>
 
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
           {post.category && <Tag className="bg-teal-soft text-teal-text">{post.category.name}</Tag>}
-          <time dateTime={post.published_at ?? undefined} title={formatDate(post.published_at)}>
-            {timeAgo(post.published_at)}
+          <time dateTime={post.published_at ?? undefined} title={formatDate(post.published_at, locale)} suppressHydrationWarning>
+            {timeAgo(post.published_at, locale, t.just_now)}
           </time>
-          {post.edited_at && <span>· modifiée le {formatDate(post.edited_at)}</span>}
+          {post.edited_at && <span>· {fmt(t.edited_on, { date: formatDate(post.edited_at, locale) })}</span>}
         </div>
 
         <Link href={`/publications/${post.id}`} className="block">
@@ -57,7 +60,7 @@ export function PostCard({ post, showAuthor = true }: { post: Post; showAuthor?:
       <div className="flex items-center justify-between border-t border-line px-5 py-3 sm:px-6">
         <Link href={`/publications/${post.id}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-text hover:underline">
           <Icon name="menu_book" size={18} />
-          Lire la publication
+          {t.read_post}
         </Link>
       </div>
     </article>

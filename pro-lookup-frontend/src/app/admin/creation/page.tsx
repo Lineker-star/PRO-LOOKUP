@@ -10,9 +10,9 @@ import { Alert, Card } from "@/components/ui/Feedback";
 import { Icon } from "@/components/ui/Icon";
 import { api, ApiError } from "@/lib/api/client";
 import { profileUrl, PUBLIC_API_URL } from "@/lib/config";
-import type { AdminUserDetail, FacultyWithDepartments, Ref } from "@/lib/types";
+import type { AdminUserDetail, Ref, Suggestions } from "@/lib/types";
 
-const empty = { first_name: "", last_name: "", email: "", grade_id: "", faculty_id: "", department_id: "", title: "", expertise: "", matricule: "", reason: "" };
+const empty = { first_name: "", last_name: "", email: "", grade_id: "", school: "", department: "", title: "", expertise: "", matricule: "", reason: "" };
 
 /**
  * Création directe d'un compte enseignant, pleine page (brief §5.2, §8) :
@@ -27,14 +27,13 @@ export default function DirectCreationPage() {
   const [confirm, setConfirm] = useState(false);
 
   const refs = useQuery({
-    queryKey: ["public-refs"],
+    queryKey: ["creation-refs"],
     queryFn: async () => {
-      const [g, f] = await Promise.all([fetch(`${PUBLIC_API_URL}/public/grades`).then((r) => r.json()), fetch(`${PUBLIC_API_URL}/public/faculties`).then((r) => r.json())]);
-      return { grades: g.data as Ref[], faculties: f.data as FacultyWithDepartments[] };
+      const [g, s] = await Promise.all([fetch(`${PUBLIC_API_URL}/public/grades`).then((r) => r.json()), fetch(`${PUBLIC_API_URL}/public/suggestions`).then((r) => r.json())]);
+      return { grades: g.data as Ref[], suggestions: s.data as Suggestions };
     },
     staleTime: 600_000,
   });
-  const departments = refs.data?.faculties.find((f) => String(f.id) === v.faculty_id)?.departments ?? [];
   const set = (key: keyof typeof empty) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => setV({ ...v, [key]: e.target.value });
 
   if (created) {
@@ -76,7 +75,7 @@ export default function DirectCreationPage() {
           try {
             const res = await api<{ message: string; data: AdminUserDetail }>("/admin/users", {
               method: "POST",
-              body: { ...v, grade_id: Number(v.grade_id), faculty_id: Number(v.faculty_id), department_id: Number(v.department_id) },
+              body: { ...v, school: v.school.trim(), department: v.department.trim(), grade_id: Number(v.grade_id) },
             });
             await queryClient.invalidateQueries({ queryKey: ["admin"] });
             setCreated({ message: res.message, user: res.data });
@@ -104,20 +103,20 @@ export default function DirectCreationPage() {
           </Card>
 
           <Card className="p-6">
-            <h2 className="flex items-center gap-2 font-bold text-navy"><span className="flex size-7 items-center justify-center rounded-lg bg-navy text-xs text-white">2</span> Rattachement et grade</h2>
+            <h2 className="flex items-center gap-2 font-bold text-navy"><span className="flex size-7 items-center justify-center rounded-lg bg-navy text-xs text-white">2</span> École supérieure, département / filière et grade</h2>
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              <Field label="Faculté" htmlFor="d-faculty" required>
-                <Select id="d-faculty" value={v.faculty_id} onChange={(e) => setV({ ...v, faculty_id: e.target.value, department_id: "" })} required>
-                  <option value="">Choisir…</option>
-                  {refs.data?.faculties.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}
-                </Select>
+              <Field label="École supérieure" htmlFor="d-school" required error={error?.field("school")} hint="Saisie libre (suggestions pendant la saisie).">
+                <Input id="d-school" list="d-school-list" icon="account_balance" value={v.school} onChange={set("school")} required maxLength={150} />
               </Field>
-              <Field label="Département" htmlFor="d-dept" required error={error?.field("department_id")}>
-                <Select id="d-dept" value={v.department_id} onChange={set("department_id")} disabled={!v.faculty_id} required>
-                  <option value="">Choisir…</option>
-                  {departments.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
-                </Select>
+              <datalist id="d-school-list">
+                {refs.data?.suggestions.schools.map((s) => <option key={s} value={s} />)}
+              </datalist>
+              <Field label="Département / Filière" htmlFor="d-dept" required error={error?.field("department")}>
+                <Input id="d-dept" list="d-dept-list" icon="apartment" value={v.department} onChange={set("department")} required maxLength={150} />
               </Field>
+              <datalist id="d-dept-list">
+                {refs.data?.suggestions.departments.map((d) => <option key={d} value={d} />)}
+              </datalist>
               <Field label="Grade" htmlFor="d-grade" required>
                 <Select id="d-grade" value={v.grade_id} onChange={set("grade_id")} required>
                   <option value="">Choisir…</option>
@@ -145,6 +144,7 @@ export default function DirectCreationPage() {
                 ["link", "Adresse /in/prénom-nom créée"],
                 ["mail", "Email pour définir le mot de passe"],
                 ["history", "Action inscrite au journal d’audit"],
+                ["lock", "Ensuite, seul l’enseignant modifie son profil"],
               ].map(([icon, text]) => (
                 <li key={text} className="flex items-center gap-2 text-ink"><Icon name={icon} size={18} className="text-teal-text" /> {text}</li>
               ))}
@@ -161,7 +161,7 @@ export default function DirectCreationPage() {
               <Button type="submit" variant="accent" icon="how_to_reg" full className="mt-6">Créer et approuver le compte</Button>
             )}
             <p className="mt-4 text-xs text-muted">
-              Pour une demande déjà déposée par l’enseignant, utilisez plutôt les <Link href="/admin/demandes" className="font-semibold text-teal-text underline">demandes en attente</Link>.
+              Pour un enseignant qui s’est déjà inscrit, utilisez plutôt les <Link href="/admin/demandes" className="font-semibold text-teal-text underline">inscriptions en attente</Link>.
             </p>
           </Card>
         </div>

@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useLang } from "@/components/providers/LangProvider";
 import { Button } from "@/components/ui/Button";
 import { Field, Input, Select, Textarea } from "@/components/ui/Field";
 import { Alert } from "@/components/ui/Feedback";
 import { PUBLIC_API_URL } from "@/lib/config";
 import { REPORT_REASONS } from "@/lib/format";
+import type { Dict } from "@/lib/i18n";
 
 /**
  * Signalement d'une publication ou d'un profil par un visiteur (brief §7.6) :
@@ -15,6 +17,7 @@ import { REPORT_REASONS } from "@/lib/format";
 export type ReportTarget = { type: "post"; id: number } | { type: "profile"; slug: string };
 
 export function ReportForm({ target, onDone }: { target: ReportTarget; onDone: () => void }) {
+  const { t } = useLang();
   const [reason, setReason] = useState("");
   const [comment, setComment] = useState("");
   const [email, setEmail] = useState("");
@@ -25,11 +28,11 @@ export function ReportForm({ target, onDone }: { target: ReportTarget; onDone: (
   if (state === "sent") {
     return (
       <div className="space-y-4">
-        <Alert tone="success" title="Signalement transmis">
-          {message || "Merci. L’administration de l’université va examiner ce contenu."}
+        <Alert tone="success" title={t.report_sent}>
+          {t.report_thanks}
         </Alert>
         <div className="flex justify-end">
-          <Button onClick={onDone}>Fermer</Button>
+          <Button onClick={onDone}>{t.close}</Button>
         </div>
       </div>
     );
@@ -54,38 +57,36 @@ export function ReportForm({ target, onDone }: { target: ReportTarget; onDone: (
               website,
             }),
           });
-          const data = await res.json().catch(() => ({}));
           if (!res.ok) {
             setState("error");
-            setMessage(res.status === 429 ? "Trop de signalements envoyés. Réessayez plus tard." : (data.message ?? "Envoi impossible."));
+            setMessage(res.status === 429 ? t.report_too_many : t.report_failed);
             return;
           }
-          setMessage(data.message);
           setState("sent");
         } catch {
           setState("error");
-          setMessage("Le serveur est injoignable.");
+          setMessage(t.server_unreachable);
         }
       }}
     >
       {state === "error" && <Alert tone="danger">{message}</Alert>}
 
-      <Field label="Motif du signalement" htmlFor="report-reason" required>
+      <Field label={t.report_reason} htmlFor="report-reason" required>
         <Select id="report-reason" value={reason} onChange={(e) => setReason(e.target.value)} required>
-          <option value="">Choisir un motif…</option>
-          {Object.entries(REPORT_REASONS).map(([value, label]) => (
+          <option value="">{t.choose_reason}</option>
+          {Object.keys(REPORT_REASONS).map((value) => (
             <option key={value} value={value}>
-              {label}
+              {t[`reason_${value}` as keyof Dict] as string}
             </option>
           ))}
         </Select>
       </Field>
 
-      <Field label="Commentaire" htmlFor="report-comment" hint="Facultatif — précisez ce qui pose problème.">
+      <Field label={t.comment} htmlFor="report-comment" hint={t.comment_hint}>
         <Textarea id="report-comment" value={comment} onChange={(e) => setComment(e.target.value)} maxLength={1000} rows={3} />
       </Field>
 
-      <Field label="Votre email" htmlFor="report-email" hint="Facultatif — pour être recontacté si nécessaire.">
+      <Field label={t.your_email} htmlFor="report-email" hint={t.email_hint}>
         <Input id="report-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} icon="mail" />
       </Field>
 
@@ -97,10 +98,10 @@ export function ReportForm({ target, onDone }: { target: ReportTarget; onDone: (
 
       <div className="flex justify-end gap-2 pt-2">
         <Button variant="ghost" onClick={onDone}>
-          Annuler
+          {t.cancel}
         </Button>
         <Button type="submit" variant="primary" icon="flag" loading={state === "sending"} disabled={!reason}>
-          Envoyer le signalement
+          {t.send_report}
         </Button>
       </div>
     </form>

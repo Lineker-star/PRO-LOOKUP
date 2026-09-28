@@ -6,6 +6,7 @@ use App\Enums\UserStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\RegisterRequest;
 use App\Http\Resources\V1\OwnerProfileResource;
+use App\Models\Faculty;
 use App\Models\RegistrationRequest;
 use App\Models\User;
 use App\Services\ImageStore;
@@ -36,8 +37,10 @@ class AuthController extends Controller
                 'last_name' => $data['last_name'],
                 'email' => strtolower($data['email']),
                 'password' => $data['password'],
-                'faculty_id' => $data['faculty_id'],
-                'department_id' => $data['department_id'],
+                // École supérieure et département / filière : texte libre saisi par l'enseignant.
+                'school' => $data['school'],
+                'faculty_id' => Faculty::idForName($data['school']),
+                'department' => $data['department'],
                 'rank_id' => $data['grade_id'],
                 'title' => $data['title'] ?? null,
                 'expertise' => $data['expertise'] ?? null,
@@ -46,7 +49,6 @@ class AuthController extends Controller
             // Rôle et statut fixés côté serveur, jamais lus dans la requête.
             $user->role = User::ROLE_TEACHER;
             $user->status = UserStatus::Pending->value;
-            $user->department = optional($user->departmentRef()->first())->name;
 
             if ($request->hasFile('photo')) {
                 $user->avatar_path = $images->store($request->file('photo'), 'avatars', 800);
@@ -70,9 +72,9 @@ class AuthController extends Controller
         Emails::newRegistrationForAdmins($user);
 
         return response()->json([
-            'message' => 'Demande envoyée — en attente de validation par l’administration.',
+            'message' => 'Inscription envoyée — en attente de validation par l’administration.',
             'token' => $user->createToken('auth_token')->plainTextToken,
-            'user' => (new OwnerProfileResource($user->fresh(['rank', 'faculty', 'departmentRef', 'registrationRequest'])))->resolve(),
+            'user' => (new OwnerProfileResource($user->fresh(['rank', 'registrationRequest'])))->resolve(),
         ], 201);
     }
 
@@ -101,7 +103,7 @@ class AuthController extends Controller
         return response()->json([
             'token' => $token->plainTextToken,
             'expires_at' => $expiresAt->toIso8601String(),
-            'user' => (new OwnerProfileResource($user->load(['rank', 'faculty', 'departmentRef', 'registrationRequest', 'profileItems'])))->resolve(),
+            'user' => (new OwnerProfileResource($user->load(['rank', 'registrationRequest', 'profileItems'])))->resolve(),
         ]);
     }
 

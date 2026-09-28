@@ -3,7 +3,6 @@
 namespace App\Http\Resources\V1;
 
 use App\Enums\ProfileSection;
-use App\Models\Department;
 use App\Models\Faculty;
 use App\Models\PostCategory;
 use App\Models\Rank;
@@ -18,19 +17,10 @@ final class Refs
         return $rank ? ['id' => $rank->id, 'name' => $rank->name, 'slug' => $rank->slug] : null;
     }
 
-    public static function faculty(?Faculty $faculty): ?array
+    /** École supérieure de la liste gérée par l'administration. */
+    public static function school(?Faculty $school): ?array
     {
-        return $faculty ? ['id' => $faculty->id, 'name' => $faculty->name, 'slug' => $faculty->slug] : null;
-    }
-
-    public static function department(?Department $department): ?array
-    {
-        return $department ? [
-            'id' => $department->id,
-            'name' => $department->name,
-            'slug' => $department->slug,
-            'faculty_id' => $department->faculty_id,
-        ] : null;
+        return $school ? ['id' => $school->id, 'name' => $school->name, 'slug' => $school->slug] : null;
     }
 
     public static function category(?PostCategory $category): ?array
@@ -38,7 +28,11 @@ final class Refs
         return $category ? ['id' => $category->id, 'name' => $category->name, 'slug' => $category->slug] : null;
     }
 
-    /** Carte d'un enseignant : uniquement les champs de l'en-tête, toujours publics. */
+    /**
+     * Carte d'un enseignant : uniquement les champs de l'en-tête, toujours publics.
+     * Le rôle (enseignant / administrateur) n'y figure JAMAIS.
+     * `school` et `department` sont les textes saisis par l'enseignant.
+     */
     public static function teacherCard(User $user): array
     {
         return [
@@ -50,8 +44,8 @@ final class Refs
             'expertise' => $user->expertise,
             'avatar_url' => $user->avatarUrl(),
             'grade' => self::grade($user->rank),
-            'faculty' => self::faculty($user->faculty),
-            'department' => self::department($user->departmentRef),
+            'school' => $user->school,
+            'department' => $user->department,
         ];
     }
 

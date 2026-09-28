@@ -7,6 +7,7 @@ import { NextResponse, type NextRequest } from "next/server";
  *  - visiteur sur une route B ou C            → /connexion
  *  - enseignant non approuvé sur une route B  → /espace/en-attente
  *  - non-administrateur sur /admin            → page 403
+ *  - administrateur sur /espace               → autorisé (il peut aussi enseigner et gérer son profil)
  *  - compte déjà connecté sur /connexion      → son espace
  */
 export function proxy(request: NextRequest) {
@@ -25,8 +26,8 @@ export function proxy(request: NextRequest) {
     return NextResponse.rewrite(new URL("/acces-refuse", request.url), { status: 403 });
   }
 
+  // Un administrateur peut aussi être enseignant : il accède à son espace (profil, publications).
   if (pathname.startsWith("/espace") && token) {
-    if (role === "admin") return NextResponse.redirect(new URL("/admin", request.url));
     if (status && status !== "approved" && !pathname.startsWith("/espace/en-attente") && pathname !== "/espace/profil") {
       return NextResponse.redirect(new URL("/espace/en-attente", request.url));
     }

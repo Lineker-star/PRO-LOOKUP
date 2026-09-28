@@ -5,9 +5,9 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Feedback";
 import { Icon } from "@/components/ui/Icon";
 import { Select } from "@/components/ui/Field";
-import { getFaculties, getGrades, getPosts, getStats, getTeachers } from "@/lib/api/server";
+import { getGrades, getPosts, getSchools, getStats, getTeachers } from "@/lib/api/server";
 import { SITE_URL } from "@/lib/config";
-import { getDict } from "@/lib/i18n-server";
+import { getI18n } from "@/lib/i18n-server";
 
 export const metadata = {
   alternates: { canonical: SITE_URL },
@@ -15,10 +15,10 @@ export const metadata = {
 
 /** Accueil public (zone A) — maquette « accueil public desktop ZTF ». */
 export default async function HomePage() {
-  const [t, stats, faculties, grades, teachersPage, postsPage] = await Promise.all([
-    getDict(),
+  const [{ t, p }, stats, schools, grades, teachersPage, postsPage] = await Promise.all([
+    getI18n(),
     getStats(),
-    getFaculties(),
+    getSchools(),
     getGrades(),
     getTeachers({ per_page: 24 }),
     getPosts({ per_page: 3 }),
@@ -32,8 +32,14 @@ export default async function HomePage() {
   const figures = [
     { value: stats.teachers, label: t.stats_teachers, icon: "groups" },
     { value: stats.posts, label: t.stats_posts, icon: "feed" },
-    { value: stats.faculties, label: t.stats_faculties, icon: "account_balance" },
+    { value: stats.schools, label: t.stats_schools, icon: "account_balance" },
     { value: stats.departments, label: t.stats_departments, icon: "apartment" },
+  ];
+
+  const steps = [
+    { icon: "app_registration", title: t.how_step1_title, text: t.how_step1_text },
+    { icon: "fact_check", title: t.how_step2_title, text: t.how_step2_text },
+    { icon: "public", title: t.how_step3_title, text: t.how_step3_text },
   ];
 
   return (
@@ -60,10 +66,10 @@ export default async function HomePage() {
 
           <div className="lg:col-span-5">
             <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-semibold text-white">Chiffres clés</p>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="text-sm font-semibold text-white">{t.key_figures}</p>
                 <span className="inline-flex items-center gap-1 rounded-full bg-gold px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-navy">
-                  <Icon name="verified" size={14} /> Profils vérifiés
+                  <Icon name="verified" size={14} /> {t.verified_profiles}
                 </span>
               </div>
               <dl className="mt-5 grid grid-cols-2 gap-3">
@@ -77,57 +83,58 @@ export default async function HomePage() {
               </dl>
               <p className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-white/60">
                 <Icon name="verified_user" size={16} className="shrink-0 text-teal" />
-                Chaque profil est validé par l’administration de l’Université ZTF avant d’être publié.
+                {t.verified_note}
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ---------------------------------------------------------------- Recherche */}
+      {/* ---------------------------------------------------------------- Recherche (texte facultatif) */}
       <section className="relative z-10 mx-auto -mt-16 max-w-6xl px-4 sm:px-6 lg:px-8">
         <form action="/enseignants" className="rounded-2xl border border-line bg-white p-5 shadow-float sm:p-6">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
             <h2 className="flex items-center gap-2 text-base font-bold text-navy">
               <Icon name="manage_search" size={22} className="text-teal-text" />
-              Rechercher dans l’annuaire des enseignants
+              {t.home_search_title}
             </h2>
-            <span className="text-xs text-muted">Consultation libre, sans compte</span>
+            <span className="text-xs text-muted">{t.home_search_free}</span>
           </div>
           <div className="grid gap-3 md:grid-cols-12">
-            <div className="md:col-span-5">
+            <div className="md:col-span-4">
               <label htmlFor="home-q" className="mb-1 block text-xs font-semibold text-muted">
-                Nom, prénom ou domaine d’expertise
+                {t.search_field_label} <span className="font-normal">({t.optional})</span>
               </label>
               <div className="relative">
                 <Icon name="search" size={18} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
                 <input
                   id="home-q"
                   name="q"
-                  placeholder="Ex. Ndongo, intelligence artificielle, génie civil…"
+                  placeholder={t.home_search_placeholder}
+                  aria-describedby="home-q-hint"
                   className="h-11 w-full rounded-lg border border-line bg-white pl-10 pr-3 text-sm placeholder:text-muted focus:border-teal focus:outline-none focus:ring-3 focus:ring-teal/20"
                 />
               </div>
             </div>
             <div className="md:col-span-3">
-              <label htmlFor="home-faculty" className="mb-1 block text-xs font-semibold text-muted">
-                Faculté
+              <label htmlFor="home-school" className="mb-1 block text-xs font-semibold text-muted">
+                {t.school}
               </label>
-              <Select id="home-faculty" name="faculty" defaultValue="">
-                <option value="">Toutes les facultés</option>
-                {faculties.map((f) => (
-                  <option key={f.id} value={f.slug}>
-                    {f.name}
+              <Select id="home-school" name="school" defaultValue="">
+                <option value="">{t.all_schools}</option>
+                {schools.map((s) => (
+                  <option key={s.id} value={s.slug}>
+                    {s.name}
                   </option>
                 ))}
               </Select>
             </div>
             <div className="md:col-span-3">
               <label htmlFor="home-grade" className="mb-1 block text-xs font-semibold text-muted">
-                Grade
+                {t.grade}
               </label>
               <Select id="home-grade" name="grade" defaultValue="">
-                <option value="">Tous les grades</option>
+                <option value="">{t.all_grades}</option>
                 {grades.map((g) => (
                   <option key={g.id} value={g.slug}>
                     {g.name}
@@ -135,39 +142,40 @@ export default async function HomePage() {
                 ))}
               </Select>
             </div>
-            <div className="flex items-end md:col-span-1">
-              <button type="submit" className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-navy text-white hover:bg-navy-soft" aria-label="Lancer la recherche">
-                <Icon name="arrow_forward" size={22} />
+            <div className="flex items-end md:col-span-2">
+              <button type="submit" className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-navy px-4 text-sm font-semibold text-white hover:bg-navy-soft">
+                <Icon name="search" size={20} />
+                {t.search_submit}
               </button>
             </div>
           </div>
+          <p id="home-q-hint" className="mt-3 flex items-start gap-2 text-xs text-muted">
+            <Icon name="info" size={16} className="shrink-0 text-teal-text" />
+            {t.search_optional_hint}
+          </p>
         </form>
       </section>
 
-      {/* ---------------------------------------------------------------- Facultés */}
-      {faculties.length > 0 && (
+      {/* ---------------------------------------------------------------- Écoles supérieures */}
+      {schools.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
-          <SectionHeading eyebrow="Organisation de l’université" title="Facultés et départements" />
+          <SectionHeading eyebrow={t.schools_eyebrow} title={t.schools_title} />
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {faculties.map((faculty, i) => (
+            {schools.map((school, i) => (
               <Link
-                key={faculty.id}
-                href={`/enseignants?faculty=${faculty.slug}`}
+                key={school.id}
+                href={`/enseignants?school=${school.slug}`}
                 className="group flex flex-col rounded-2xl border border-line bg-white p-5 shadow-card transition hover:-translate-y-0.5 hover:border-teal hover:shadow-raised"
               >
                 <span className="flex items-center justify-between">
                   <span className="flex size-11 items-center justify-center rounded-xl bg-mist text-navy group-hover:bg-teal-soft group-hover:text-teal-text">
                     <Icon name={["science", "engineering", "trending_up", "menu_book"][i % 4]} size={24} />
                   </span>
-                  <span className="tnum text-xs font-bold text-muted">0{i + 1}</span>
+                  <span className="tnum text-xs font-bold text-muted">{String(i + 1).padStart(2, "0")}</span>
                 </span>
-                <span className="mt-4 text-base font-bold leading-snug text-navy">{faculty.name}</span>
-                <span className="mt-2 text-xs text-muted">
-                  {faculty.departments.slice(0, 3).map((d) => d.name).join(" · ")}
-                  {faculty.departments.length > 3 ? " …" : ""}
-                </span>
+                <span className="mt-4 text-base font-bold leading-snug text-navy">{school.name}</span>
                 <span className="mt-auto inline-flex items-center gap-1 pt-4 text-sm font-semibold text-teal-text">
-                  {faculty.departments.length} département{faculty.departments.length > 1 ? "s" : ""}
+                  {p(t.teachers_count, school.teachers_count)}
                   <Icon name="chevron_right" size={18} />
                 </span>
               </Link>
@@ -179,7 +187,7 @@ export default async function HomePage() {
       {/* ---------------------------------------------------------------- Enseignants mis en avant */}
       {featured.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
-          <SectionHeading eyebrow="Corps enseignant" title={t.featured} href="/enseignants" linkLabel={t.see_all} />
+          <SectionHeading eyebrow={t.featured_eyebrow} title={t.featured} href="/enseignants" linkLabel={t.see_all} />
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {featured.map((teacher) => (
               <TeacherCard key={teacher.slug} teacher={teacher} />
@@ -190,7 +198,7 @@ export default async function HomePage() {
 
       {/* ---------------------------------------------------------------- Dernières publications */}
       <section className="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
-        <SectionHeading eyebrow="Production des enseignants" title={t.latest_posts} href="/publications" linkLabel={t.see_all} />
+        <SectionHeading eyebrow={t.latest_eyebrow} title={t.latest_posts} href="/publications" linkLabel={t.see_all} />
         {postsPage.data.length > 0 ? (
           <div className="mt-8 grid gap-5 lg:grid-cols-3">
             {postsPage.data.map((post) => (
@@ -198,9 +206,7 @@ export default async function HomePage() {
             ))}
           </div>
         ) : (
-          <p className="mt-8 rounded-2xl border border-dashed border-line bg-white p-10 text-center text-sm text-muted">
-            Aucune publication pour le moment.
-          </p>
+          <p className="mt-8 rounded-2xl border border-dashed border-line bg-white p-10 text-center text-sm text-muted">{t.no_posts_yet}</p>
         )}
       </section>
 
@@ -209,23 +215,16 @@ export default async function HomePage() {
         <div className="rounded-3xl border border-line bg-white p-6 shadow-card sm:p-10">
           <div className="grid gap-10 lg:grid-cols-12">
             <div className="lg:col-span-4">
-              <Eyebrow>Une vitrine fiable</Eyebrow>
-              <h2 className="mt-3 text-2xl font-bold tracking-tight text-navy sm:text-3xl">Comment un enseignant rejoint PRO-LOOKUP ?</h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                Seul le personnel enseignant de l’Université ZTF peut créer un compte. Chaque demande est vérifiée par l’administration avant la
-                publication du profil.
-              </p>
+              <Eyebrow>{t.how_eyebrow}</Eyebrow>
+              <h2 className="mt-3 text-2xl font-bold tracking-tight text-navy sm:text-3xl">{t.how_title}</h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{t.how_text}</p>
               <ButtonLink href="/inscription" variant="primary" icon="how_to_reg" className="mt-6">
-                {t.request_access}
+                {t.register}
               </ButtonLink>
             </div>
             <ol className="grid gap-4 sm:grid-cols-3 lg:col-span-8">
-              {[
-                { icon: "app_registration", title: "Demande d’accès", text: "L’enseignant renseigne son rattachement, son grade, son matricule et joint un justificatif." },
-                { icon: "fact_check", title: "Vérification", text: "L’administration contrôle la demande et l’approuve ou la refuse avec un motif." },
-                { icon: "public", title: "Profil public", text: "Le profil est publié à une adresse unique, partageable par lien, QR code ou PDF." },
-              ].map((step, i) => (
-                <li key={step.title} className="relative rounded-2xl border border-line bg-canvas p-5">
+              {steps.map((step, i) => (
+                <li key={step.icon} className="relative rounded-2xl border border-line bg-canvas p-5">
                   <span className="tnum absolute right-4 top-4 text-3xl font-extrabold text-line">0{i + 1}</span>
                   <span className="flex size-11 items-center justify-center rounded-xl bg-navy text-white">
                     <Icon name={step.icon} size={22} />
@@ -248,7 +247,7 @@ export default async function HomePage() {
           </div>
           <div className="flex flex-wrap gap-3">
             <ButtonLink href="/inscription" variant="accent" size="lg" icon="how_to_reg">
-              {t.request_access}
+              {t.register}
             </ButtonLink>
             <ButtonLink href="/connexion" variant="light" size="lg" icon="login" className="bg-white/10 text-white hover:bg-white/20">
               {t.login}

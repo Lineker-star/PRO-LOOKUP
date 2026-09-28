@@ -45,7 +45,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
       title: "Enseignants",
       items: [
         { href: "/admin/demandes", label: "Demandes en attente", icon: "pending_actions", count: stats?.pending_requests },
-        { href: "/admin/enseignants", label: "Enseignants", icon: "groups" },
+        { href: "/admin/enseignants", label: "Enseignants et administrateurs", icon: "groups" },
         { href: "/admin/creation", label: "Création directe", icon: "person_add" },
       ],
     },
@@ -59,7 +59,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
     {
       title: "Paramétrage",
       items: [
-        { href: "/admin/referentiels", label: "Grades, catégories, facultés", icon: "tune" },
+        { href: "/admin/referentiels", label: "Grades, catégories, écoles", icon: "tune" },
         { href: "/admin/journal", label: "Journal d’audit", icon: "history" },
       ],
     },
@@ -103,6 +103,9 @@ export function AdminShell({ children }: { children: ReactNode }) {
         ))}
       </nav>
       <div className="border-t border-line p-3">
+        <Link href="/espace" className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold text-navy hover:bg-mist">
+          <Icon name="school" size={18} /> Mon espace enseignant
+        </Link>
         <Link href="/" className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold text-teal-text hover:bg-mist">
           <Icon name="open_in_new" size={18} /> Voir le site public
         </Link>

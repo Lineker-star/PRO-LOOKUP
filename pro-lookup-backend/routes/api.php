@@ -32,11 +32,13 @@ Route::prefix('v1')->group(function () {
         Route::get('/teachers', [PublicController::class, 'teachers']);
         Route::get('/teachers/{slug}', [PublicController::class, 'teacher']);
         Route::get('/teachers/{slug}/posts', [PublicController::class, 'teacherPosts']);
+        Route::get('/teachers/{slug}/cv', [PublicController::class, 'teacherCv'])->middleware('throttle:60,1');
         Route::get('/posts', [PublicController::class, 'posts']);
         Route::get('/posts/{id}', [PublicController::class, 'post'])->whereNumber('id');
         Route::get('/search', [PublicController::class, 'search']);
         Route::get('/stats', [PublicController::class, 'stats']);
-        Route::get('/faculties', [PublicController::class, 'faculties']);
+        Route::get('/schools', [PublicController::class, 'schools']);
+        Route::get('/suggestions', [PublicController::class, 'suggestions']);
         Route::get('/grades', [PublicController::class, 'grades']);
         Route::get('/categories', [PublicController::class, 'categories']);
         Route::get('/sitemap', [PublicController::class, 'sitemap']);
@@ -59,6 +61,9 @@ Route::prefix('v1')->group(function () {
         Route::put('/profile', [MeController::class, 'update']);
         Route::post('/images/{kind}', [MeController::class, 'uploadImage']);
         Route::delete('/images/{kind}', [MeController::class, 'deleteImage']);
+        Route::get('/cv', [MeController::class, 'downloadCv']);
+        Route::post('/cv', [MeController::class, 'uploadCv']);
+        Route::delete('/cv', [MeController::class, 'deleteCv']);
         Route::post('/profile-items', [MeController::class, 'storeItem']);
         Route::put('/profile-items/{item}', [MeController::class, 'updateItem']);
         Route::delete('/profile-items/{item}', [MeController::class, 'destroyItem']);
@@ -99,10 +104,11 @@ Route::prefix('v1')->group(function () {
         Route::get('/users', [UserController::class, 'index']);
         Route::post('/users', [UserController::class, 'store']);
         Route::get('/users/{id}', [UserController::class, 'show'])->whereNumber('id');
-        Route::put('/users/{id}', [UserController::class, 'update'])->whereNumber('id');
+        // Pas de modification des informations ou du profil d'un enseignant par l'administration.
         Route::post('/users/{id}/suspend', [UserController::class, 'suspend'])->whereNumber('id');
         Route::post('/users/{id}/reactivate', [UserController::class, 'reactivate'])->whereNumber('id');
-        Route::post('/users/{id}/reset-slug', [UserController::class, 'resetSlug'])->whereNumber('id');
+        Route::post('/users/{id}/promote', [UserController::class, 'promote'])->whereNumber('id');
+        Route::post('/users/{id}/demote', [UserController::class, 'demote'])->whereNumber('id');
         Route::delete('/users/{id}', [UserController::class, 'destroy'])->whereNumber('id');
 
         Route::get('/posts', [AdminPostController::class, 'index']);
@@ -116,8 +122,9 @@ Route::prefix('v1')->group(function () {
         Route::post('/reports/{report}/resolve', [ReportController::class, 'resolve']);
 
         Route::get('/references', [ReferenceController::class, 'index']);
-        Route::post('/references/{type}', [ReferenceController::class, 'store'])->whereIn('type', ['grades', 'categories', 'faculties', 'departments']);
-        Route::put('/references/{type}/{id}', [ReferenceController::class, 'update'])->whereIn('type', ['grades', 'categories', 'faculties', 'departments'])->whereNumber('id');
+        Route::post('/references/{type}', [ReferenceController::class, 'store'])->whereIn('type', ['grades', 'categories', 'schools']);
+        Route::put('/references/{type}/{id}', [ReferenceController::class, 'update'])->whereIn('type', ['grades', 'categories', 'schools'])->whereNumber('id');
+        Route::delete('/references/{type}/{id}', [ReferenceController::class, 'destroy'])->whereIn('type', ['grades', 'categories', 'schools'])->whereNumber('id');
 
         Route::get('/audit-log', [AuditController::class, 'index']);
     });

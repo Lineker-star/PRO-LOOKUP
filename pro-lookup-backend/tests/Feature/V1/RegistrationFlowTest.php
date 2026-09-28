@@ -32,8 +32,9 @@ class RegistrationFlowTest extends TestCase
             'email' => 'emilie@example.cm',
             'password' => 'Password123!',
             'password_confirmation' => 'Password123!',
-            'faculty_id' => $this->faculty->id,
-            'department_id' => $this->dept->id,
+            // École et département / filière saisis librement.
+            'school' => '  école supérieure des sciences et technologies ',
+            'department' => 'Génie logiciel',
             'grade_id' => $this->grade->id,
             'matricule' => 'ENS-9999',
             'document' => UploadedFile::fake()->create('attestation.pdf', 200, 'application/pdf'),
@@ -56,17 +57,30 @@ class RegistrationFlowTest extends TestCase
         $this->assertSame('member', $user->role);
         $this->assertSame('pending', $user->status);
         $this->assertNull($user->slug, 'Aucune URL publique avant approbation');
+        $this->assertSame('école supérieure des sciences et technologies', $user->school);
+        $this->assertSame($this->school->id, $user->faculty_id, 'Rattachée à la liste quand le nom correspond');
+        $this->assertSame('Génie logiciel', $user->department);
 
         $request = RegistrationRequest::where('user_id', $user->id)->firstOrFail();
         Storage::disk('local')->assertExists($request->document_path);
         Storage::disk('public')->assertMissing($request->document_path);
     }
 
-    public function test_registration_requires_document_and_terms(): void
+    public function test_registration_requires_document_terms_school_and_department(): void
     {
-        $this->post('/api/v1/auth/register', $this->payload(['document' => null, 'accept_terms' => null]), ['Accept' => 'application/json'])
+        $this->post('/api/v1/auth/register', $this->payload(['document' => null, 'accept_terms' => null, 'school' => ' ', 'department' => null]), ['Accept' => 'application/json'])
             ->assertUnprocessable()
-            ->assertJsonValidationErrors(['document', 'accept_terms']);
+            ->assertJsonValidationErrors(['document', 'accept_terms', 'school', 'department']);
+    }
+
+    public function test_a_school_outside_the_list_is_accepted(): void
+    {
+        $this->post('/api/v1/auth/register', $this->payload(['school' => 'Institut des Beaux-Arts']), ['Accept' => 'application/json'])
+            ->assertCreated();
+
+        $user = User::where('email', 'emilie@example.cm')->firstOrFail();
+        $this->assertSame('Institut des Beaux-Arts', $user->school);
+        $this->assertNull($user->faculty_id);
     }
 
     public function test_pending_teacher_can_log_in_but_cannot_publish(): void

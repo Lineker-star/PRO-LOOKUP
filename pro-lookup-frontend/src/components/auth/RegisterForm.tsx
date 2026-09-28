@@ -4,7 +4,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, type FieldPath } from "react-hook-form";
 import { z } from "zod";
 import { useAuth } from "@/components/providers/AuthProvider";
@@ -15,7 +15,7 @@ import { Alert } from "@/components/ui/Feedback";
 import { Icon } from "@/components/ui/Icon";
 import { api, ApiError } from "@/lib/api/client";
 import { fileSize, initials } from "@/lib/format";
-import type { FacultyWithDepartments, Me, Ref } from "@/lib/types";
+import type { Me, Ref, Suggestions } from "@/lib/types";
 
 const MAX_DOC = 5 * 1024 * 1024;
 const MAX_PHOTO = 4 * 1024 * 1024;
@@ -32,8 +32,8 @@ const schema = z
       .regex(/[A-Za-z]/, "Le mot de passe doit contenir au moins une lettre.")
       .regex(/\d/, "Le mot de passe doit contenir au moins un chiffre."),
     password_confirmation: z.string(),
-    faculty_id: z.string().min(1, "Choisissez votre faculté."),
-    department_id: z.string().min(1, "Choisissez votre département."),
+    school: z.string().trim().min(1, "Indiquez l’école supérieure où vous enseignez.").max(150),
+    department: z.string().trim().min(1, "Indiquez votre département ou votre filière.").max(150),
     grade_id: z.string().min(1, "Choisissez votre grade."),
     matricule: z.string().trim().min(1, "Le matricule enseignant est obligatoire.").max(50),
     document: z
@@ -45,7 +45,7 @@ const schema = z
       .refine((f) => !f || f.size <= MAX_PHOTO, "La photo ne doit pas dépasser 4 Mo."),
     title: z.string().max(150).optional(),
     expertise: z.string().max(150).optional(),
-    accept_terms: z.boolean().refine((v) => v, "Vous devez accepter les conditions pour envoyer votre demande."),
+    accept_terms: z.boolean().refine((v) => v, "Vous devez accepter les conditions pour vous inscrire."),
   })
   .refine((v) => v.password === v.password_confirmation, { path: ["password_confirmation"], message: "Les deux mots de passe ne correspondent pas." });
 
@@ -53,12 +53,12 @@ type Values = z.infer<typeof schema>;
 
 const STEPS: { title: string; icon: string; fields: FieldPath<Values>[] }[] = [
   { title: "Compte", icon: "badge", fields: ["first_name", "last_name", "email", "password", "password_confirmation"] },
-  { title: "Rattachement", icon: "account_balance", fields: ["faculty_id", "department_id", "grade_id", "matricule", "document"] },
+  { title: "Rattachement", icon: "account_balance", fields: ["school", "department", "grade_id", "matricule", "document"] },
   { title: "Profil de base", icon: "person", fields: ["photo", "title", "expertise"] },
   { title: "Récapitulatif", icon: "fact_check", fields: ["accept_terms"] },
 ];
 
-export function RegisterForm({ faculties, grades }: { faculties: FacultyWithDepartments[]; grades: Ref[] }) {
+export function RegisterForm({ suggestions, grades }: { suggestions: Suggestions; grades: Ref[] }) {
   const { startSession } = useAuth();
   const [step, setStep] = useState(0);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -73,8 +73,8 @@ export function RegisterForm({ faculties, grades }: { faculties: FacultyWithDepa
       email: "",
       password: "",
       password_confirmation: "",
-      faculty_id: "",
-      department_id: "",
+      school: "",
+      department: "",
       grade_id: "",
       matricule: "",
       document: null,
@@ -87,9 +87,6 @@ export function RegisterForm({ faculties, grades }: { faculties: FacultyWithDepa
   const { register, watch, setValue, trigger, formState, handleSubmit, setError } = form;
   const values = watch();
 
-  const departments = useMemo(() => faculties.find((f) => String(f.id) === values.faculty_id)?.departments ?? [], [faculties, values.faculty_id]);
-  const facultyName = faculties.find((f) => String(f.id) === values.faculty_id)?.name;
-  const departmentName = departments.find((d) => String(d.id) === values.department_id)?.name;
   const gradeName = grades.find((g) => String(g.id) === values.grade_id)?.name;
 
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
@@ -144,14 +141,14 @@ export function RegisterForm({ faculties, grades }: { faculties: FacultyWithDepa
             <span className="mx-auto flex size-16 items-center justify-center rounded-full bg-success-soft text-success">
               <Icon name="task_alt" size={36} />
             </span>
-            <h1 className="mt-6 text-2xl font-extrabold text-navy">Demande envoyée</h1>
+            <h1 className="mt-6 text-2xl font-extrabold text-navy">Inscription envoyée</h1>
             <p className="mt-2 text-base font-semibold text-warning">En attente de validation par l’administration</p>
             <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted">
               Un email de confirmation vient de vous être envoyé à <strong className="text-ink">{values.email}</strong>. Votre profil ne sera visible
               publiquement qu’après son approbation. En attendant, vous pouvez compléter votre profil en brouillon.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <ButtonLink href="/espace/en-attente" icon="hourglass_top">Suivre ma demande</ButtonLink>
+              <ButtonLink href="/espace/en-attente" icon="hourglass_top">Suivre mon inscription</ButtonLink>
               <ButtonLink href="/espace/profil" variant="outline" icon="edit">Compléter mon profil</ButtonLink>
             </div>
           </div>
@@ -170,10 +167,10 @@ export function RegisterForm({ faculties, grades }: { faculties: FacultyWithDepa
           <span className="inline-flex items-center gap-1.5 rounded-md bg-gold-soft px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-navy">
             <Icon name="how_to_reg" size={14} /> Réservé au personnel enseignant
           </span>
-          <h1 className="mt-3 text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">Demander un accès à PRO-LOOKUP</h1>
+          <h1 className="mt-3 text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">S’inscrire sur PRO-LOOKUP</h1>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            Seuls les enseignants de l’Université ZTF peuvent créer un compte. Votre demande sera vérifiée par l’administration avant la publication
-            de votre profil.
+            Seuls les enseignants de l’Université ZTF peuvent créer un compte. Votre inscription sera vérifiée par l’administration avant la
+            publication de votre profil.
           </p>
         </div>
         <p className="text-sm text-muted">
@@ -242,22 +239,24 @@ export function RegisterForm({ faculties, grades }: { faculties: FacultyWithDepa
             <fieldset className="space-y-5">
               <legend className="text-lg font-bold text-navy">Votre rattachement à l’université</legend>
               <div className="grid gap-5 sm:grid-cols-2">
-                <Field label="Faculté" htmlFor="r-faculty" required error={err("faculty_id")}>
-                  <Select
-                    id="r-faculty"
-                    invalid={!!err("faculty_id")}
-                    {...register("faculty_id", { onChange: () => setValue("department_id", "") })}
-                  >
-                    <option value="">Choisir…</option>
-                    {faculties.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}
-                  </Select>
+                <Field
+                  label="École supérieure"
+                  htmlFor="r-school"
+                  required
+                  error={err("school")}
+                  hint="Saisissez le nom de l’école où vous enseignez (des suggestions s’affichent pendant la saisie)."
+                >
+                  <Input id="r-school" list="r-school-list" icon="account_balance" autoComplete="organization" invalid={!!err("school")} {...register("school")} />
                 </Field>
-                <Field label="Département" htmlFor="r-department" required error={err("department_id")}>
-                  <Select id="r-department" invalid={!!err("department_id")} disabled={!values.faculty_id} {...register("department_id")}>
-                    <option value="">{values.faculty_id ? "Choisir…" : "Choisissez d’abord une faculté"}</option>
-                    {departments.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
-                  </Select>
+                <datalist id="r-school-list">
+                  {suggestions.schools.map((s) => <option key={s} value={s} />)}
+                </datalist>
+                <Field label="Département / Filière" htmlFor="r-department" required error={err("department")} hint="Ex. « Informatique », « Génie civil ».">
+                  <Input id="r-department" list="r-department-list" icon="apartment" invalid={!!err("department")} {...register("department")} />
                 </Field>
+                <datalist id="r-department-list">
+                  {suggestions.departments.map((d) => <option key={d} value={d} />)}
+                </datalist>
                 <Field label="Grade" htmlFor="r-grade" required error={err("grade_id")}>
                   <Select id="r-grade" invalid={!!err("grade_id")} {...register("grade_id")}>
                     <option value="">Choisir…</option>
@@ -327,20 +326,20 @@ export function RegisterForm({ faculties, grades }: { faculties: FacultyWithDepa
 
           {step === 3 && (
             <div className="space-y-5">
-              <h2 className="text-lg font-bold text-navy">Vérifiez votre demande</h2>
+              <h2 className="text-lg font-bold text-navy">Vérifiez votre inscription</h2>
               <dl className="grid gap-3 sm:grid-cols-2">
                 <Summary label="Nom" value={`${values.first_name} ${values.last_name}`} onEdit={() => setStep(0)} />
                 <Summary label="Email" value={values.email} onEdit={() => setStep(0)} />
-                <Summary label="Faculté" value={facultyName} onEdit={() => setStep(1)} />
-                <Summary label="Département" value={departmentName} onEdit={() => setStep(1)} />
+                <Summary label="École supérieure" value={values.school.trim()} onEdit={() => setStep(1)} />
+                <Summary label="Département / Filière" value={values.department.trim()} onEdit={() => setStep(1)} />
                 <Summary label="Grade" value={gradeName} onEdit={() => setStep(1)} />
                 <Summary label="Matricule" value={values.matricule} onEdit={() => setStep(1)} />
                 <Summary label="Justificatif" value={values.document ? `${values.document.name} (${fileSize(values.document.size)})` : undefined} onEdit={() => setStep(1)} />
                 <Summary label="Titre professionnel" value={values.title || "—"} onEdit={() => setStep(2)} />
               </dl>
               <Alert tone="info" title="Ce qui se passe ensuite">
-                Votre compte est créé « en attente ». L’administration vérifie votre demande ; vous recevez un email dès qu’elle est traitée. Rien de
-                votre profil n’est public avant l’approbation.
+                Votre compte est créé « en attente ». L’administration vérifie votre inscription ; vous recevez un email dès qu’elle est traitée.
+                Rien de votre profil n’est public avant l’approbation.
               </Alert>
               <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-line p-4 text-sm">
                 <input type="checkbox" className="mt-0.5 size-4 accent-navy" {...register("accept_terms")} />
@@ -364,7 +363,7 @@ export function RegisterForm({ faculties, grades }: { faculties: FacultyWithDepa
             {step < STEPS.length - 1 ? (
               <Button variant="primary" iconRight="arrow_forward" onClick={next}>Continuer</Button>
             ) : (
-              <Button type="submit" variant="accent" icon="send" loading={formState.isSubmitting}>Envoyer ma demande</Button>
+              <Button type="submit" variant="accent" icon="how_to_reg" loading={formState.isSubmitting}>S’inscrire</Button>
             )}
           </div>
         </form>
@@ -388,7 +387,8 @@ export function RegisterForm({ faculties, grades }: { faculties: FacultyWithDepa
                 </div>
               </div>
               <div className="mt-4">{gradeName ? <GradeBadge name={gradeName} size="sm" /> : <span className="text-xs text-white/50">Grade</span>}</div>
-              <p className="mt-3 text-xs text-white/70">{departmentName ? `Département ${departmentName}` : "Département"} · Université ZTF</p>
+              <p className="mt-3 text-xs text-white/70">{values.department.trim() || "Département / Filière"}</p>
+              <p className="mt-1 text-xs text-white/70">{values.school.trim() || "École supérieure"} · Université ZTF</p>
             </div>
             <div className="flex items-center justify-between border-t border-white/10 px-5 py-3 text-xs">
               <span className="text-white/60">Statut</span>

@@ -39,7 +39,8 @@ export function LoginForm() {
       const me = await login(values.email, values.password, values.remember);
       const from = params.get("depuis");
       // Un enseignant approuvé revient sur la page d'où il venait ; sinon, page d'accueil de son compte.
-      const target = from && from.startsWith("/") && !from.startsWith("//") && me.status === "approved" && me.role === "teacher" ? from : homeFor(me);
+      const safeFrom = from && from.startsWith("/") && !from.startsWith("//") && (me.role === "admin" || !from.startsWith("/admin"));
+      const target = safeFrom && me.status === "approved" ? from : homeFor(me);
       router.replace(target);
       router.refresh();
     } catch (e) {
@@ -99,7 +100,7 @@ export function LoginForm() {
           Vous êtes enseignant et n’avez pas de compte ?
         </span>
         <Link href="/inscription" className="inline-flex items-center gap-1 font-semibold text-teal-text hover:underline">
-          Demander un accès <Icon name="chevron_right" size={18} />
+          S’inscrire <Icon name="chevron_right" size={18} />
         </Link>
       </div>
     </form>

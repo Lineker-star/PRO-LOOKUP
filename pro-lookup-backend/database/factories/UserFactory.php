@@ -26,9 +26,11 @@ class UserFactory extends Factory
             'bio' => fake()->sentence(),
             'title' => 'Enseignant',
             'expertise' => 'Informatique',
+            'school' => 'École Supérieure des Sciences et Technologies',
             'department' => 'Informatique',
             'rank_id' => null,
             'role' => User::ROLE_TEACHER,
+            'teaches' => true,
             'status' => 'approved',
             'slug' => fake()->unique()->slug(2),
             'approved_by' => null,
@@ -50,6 +52,12 @@ class UserFactory extends Factory
 
     public function admin(): static
     {
-        return $this->state(fn () => ['role' => User::ROLE_ADMIN, 'slug' => null]);
+        return $this->state(fn () => ['role' => User::ROLE_ADMIN, 'teaches' => false, 'slug' => null]);
+    }
+
+    /** Administrateur qui enseigne aussi : profil public, sans mention du rôle. */
+    public function teachingAdmin(): static
+    {
+        return $this->state(fn () => ['role' => User::ROLE_ADMIN, 'teaches' => true, 'slug' => fake()->unique()->slug(2)]);
     }
 }

@@ -4,10 +4,11 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { AdminHeading } from "@/components/admin/AdminShell";
 import { Kpi } from "@/components/admin/AdminUi";
+import { useAuth } from "@/components/providers/AuthProvider";
 import { Avatar } from "@/components/ui/Avatar";
 import { GradeBadge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
-import { Card, Spinner } from "@/components/ui/Feedback";
+import { Alert, Card, Spinner } from "@/components/ui/Feedback";
 import { Icon } from "@/components/ui/Icon";
 import { api } from "@/lib/api/client";
 import { formatDateTime, timeAgo } from "@/lib/format";
@@ -15,6 +16,7 @@ import type { Dashboard } from "@/lib/types";
 
 /** Tableau de bord d'administration (brief §8) — maquette « vue d'ensemble zone C ». */
 export default function AdminDashboardPage() {
+  const { me } = useAuth();
   const dashboard = useQuery({ queryKey: ["admin", "dashboard"], queryFn: async () => (await api<{ data: Dashboard }>("/admin/dashboard")).data });
 
   if (dashboard.isPending) return <Spinner />;
@@ -28,8 +30,25 @@ export default function AdminDashboardPage() {
         actions={<ButtonLink href="/admin/creation" variant="primary" icon="person_add">Créer un compte enseignant</ButtonLink>}
       />
 
+      {me && !me.teaches && (
+        <Alert
+          tone="info"
+          title="Vous enseignez aussi ?"
+          action={<ButtonLink href="/espace/profil" size="sm" variant="outline" icon="edit">Mon profil d’enseignant</ButtonLink>}
+        >
+          Complétez votre profil puis publiez-le depuis votre espace : il apparaîtra dans l’annuaire comme celui de tout enseignant, sans mention de
+          votre rôle d’administrateur.
+        </Alert>
+      )}
+
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <Kpi label="Enseignants actifs" value={d?.stats.active_teachers} icon="groups" tone="teal" hint={`${d?.stats.suspended_teachers ?? 0} suspendu(s)`} />
+        <Kpi
+          label="Profils publics"
+          value={d?.stats.active_teachers}
+          icon="groups"
+          tone="teal"
+          hint={<>{d?.stats.suspended_teachers ?? 0} suspendu(s) · <Link href="/admin/enseignants" className="font-semibold text-teal-text hover:underline">{d?.stats.admins ?? 0} administrateur(s)</Link></>}
+        />
         <Kpi
           label="Demandes en attente"
           value={d?.stats.pending_requests}
@@ -64,7 +83,7 @@ export default function AdminDashboardPage() {
                         {r.user?.full_name}
                         {r.user?.grade && <GradeBadge name={r.user.grade.name} size="sm" />}
                       </p>
-                      <p className="truncate text-xs text-muted">{[r.user?.department?.name, r.user?.email].filter(Boolean).join(" · ")}</p>
+                      <p className="truncate text-xs text-muted">{[r.user?.department, r.user?.school, r.user?.email].filter(Boolean).join(" · ")}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">

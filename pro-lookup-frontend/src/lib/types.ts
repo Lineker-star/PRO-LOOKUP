@@ -4,8 +4,10 @@
  */
 
 export type Ref = { id: number; name: string; slug: string };
-export type DepartmentRef = Ref & { faculty_id: number };
-export type FacultyWithDepartments = Ref & { departments: DepartmentRef[] };
+/** École supérieure de la liste gérée par l'administration (filtre de l'annuaire). */
+export type School = Ref & { teachers_count: number };
+/** Suggestions des champs libres « École supérieure » et « Département / Filière ». */
+export type Suggestions = { schools: string[]; departments: string[] };
 
 export type AccountStatus = "pending" | "approved" | "rejected" | "suspended";
 export type Role = "teacher" | "admin";
@@ -29,7 +31,11 @@ export type VisibilitySection =
   | "research"
   | "awards"
   | "languages"
-  | "links";
+  | "links"
+  | "cv";
+
+/** CV en PDF : métadonnées seulement (le fichier est servi par l'API). */
+export type CvInfo = { size: number | null; updated_at: string | null };
 
 export type ProfileItem = {
   id: number;
@@ -61,8 +67,10 @@ export type TeacherCard = {
   expertise: string | null;
   avatar_url: string | null;
   grade: Ref | null;
-  faculty: Ref | null;
-  department: DepartmentRef | null;
+  /** École supérieure saisie par l'enseignant (texte libre). */
+  school: string | null;
+  /** Département / Filière saisi par l'enseignant (texte libre). */
+  department: string | null;
   posts_count?: number;
 };
 
@@ -74,6 +82,8 @@ export type PublicTeacher = TeacherCard & {
   items: Items;
   links: Links;
   contacts: { email: string | null; phone: string | null; office: string | null };
+  /** CV téléchargeable, ou null (pas de CV, ou section masquée). */
+  cv: CvInfo | null;
   visible_sections: VisibilitySection[];
   search_indexable: boolean;
   updated_at: string | null;
@@ -131,6 +141,10 @@ export type Me = TeacherCard & {
   id: number;
   email: string;
   role: Role;
+  /** Profil enseignant public ? Toujours vrai pour un enseignant ; au choix pour un administrateur. */
+  teaches: boolean;
+  /** École de la liste à laquelle le texte saisi correspond, le cas échéant. */
+  school_id: number | null;
   status: AccountStatus;
   slug: string | null;
   banner_url: string | null;
@@ -141,6 +155,7 @@ export type Me = TeacherCard & {
   office: string | null;
   links: Links;
   items: Items;
+  cv: (CvInfo & { name: string | null }) | null;
   visibility: {
     sections: Record<VisibilitySection, boolean>;
     show_email: boolean;
@@ -162,11 +177,14 @@ export type AdminUserDetail = Me & {
   slug_history: { slug: string; by_admin: boolean; created_at: string }[];
   approved_by: number | null;
   suspended_at: string | null;
+  admins_count: number;
   history: AuditEntry[];
 };
 
 export type PublicProfileSettings = {
   slug: string | null;
+  teaches: boolean;
+  can_toggle_teaches: boolean;
   sections: Record<VisibilitySection, boolean>;
   show_email: boolean;
   show_phone: boolean;
@@ -186,7 +204,7 @@ export type Session = {
   current: boolean;
 };
 
-export type Stats = { teachers: number; posts: number; faculties: number; departments: number };
+export type Stats = { teachers: number; posts: number; schools: number; departments: number };
 
 export type SearchResults = {
   query: string;
@@ -229,6 +247,8 @@ export type RegistrationDetail = RegistrationSummary & {
 export type AdminUserRow = TeacherCard & {
   id: number;
   email: string;
+  role: Role;
+  teaches: boolean;
   status: AccountStatus;
   matricule: string | null;
   created_at: string | null;
@@ -263,16 +283,14 @@ export type ReportSummary = {
       };
 };
 
-export type ReferenceItem = { id: number; name: string; slug: string; is_active: boolean; position?: number; usage: number };
-export type References = {
-  grades: ReferenceItem[];
-  categories: ReferenceItem[];
-  faculties: (ReferenceItem & { departments: (ReferenceItem & { faculty_id: number })[] })[];
-};
+export type ReferenceType = "grades" | "categories" | "schools";
+export type ReferenceItem = { id: number; name: string; slug: string; usage: number };
+export type References = Record<ReferenceType, ReferenceItem[]>;
 
 export type Dashboard = {
   stats: {
     active_teachers: number;
+    admins: number;
     pending_requests: number;
     suspended_teachers: number;
     posts_last_30_days: number;

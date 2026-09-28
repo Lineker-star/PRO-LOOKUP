@@ -238,7 +238,7 @@ export function PostEditor({ post }: { post?: OwnedPost }) {
                   <p className="flex flex-wrap items-center gap-2 font-semibold text-navy">
                     {me.full_name} {me.grade && <GradeBadge name={me.grade.name} size="sm" />}
                   </p>
-                  <p className="text-xs text-muted">{[me.department?.name, "Université ZTF"].filter(Boolean).join(" · ")}</p>
+                  <p className="text-xs text-muted">{[me.department, me.school].filter(Boolean).join(" · ") || "Université ZTF"}</p>
                 </div>
               </div>
             )}

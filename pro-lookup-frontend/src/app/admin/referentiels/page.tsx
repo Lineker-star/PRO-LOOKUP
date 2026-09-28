@@ -1,6 +1,5 @@
 "use client";
 
-import clsx from "clsx";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { AdminHeading } from "@/components/admin/AdminShell";
@@ -10,99 +9,100 @@ import { Input } from "@/components/ui/Field";
 import { Alert, Card, Spinner } from "@/components/ui/Feedback";
 import { Icon } from "@/components/ui/Icon";
 import { api, ApiError } from "@/lib/api/client";
-import type { ReferenceItem, References } from "@/lib/types";
+import type { ReferenceItem, References, ReferenceType } from "@/lib/types";
 
-type Type = "grades" | "categories" | "faculties" | "departments";
+const TABS: Record<ReferenceType, { label: string; icon: string; add: string; deleteEffect: string; info: string }> = {
+  grades: {
+    label: "Grades",
+    icon: "workspace_premium",
+    add: "Ajouter un grade",
+    deleteEffect: "Les enseignants qui ont ce grade n’en auront plus : ils en choisiront un autre depuis leur profil.",
+    info: "Le grade est une information, jamais une échelle de mérite : tous les badges ont le même aspect et l’annuaire ne trie jamais par grade.",
+  },
+  categories: {
+    label: "Catégories de publication",
+    icon: "label",
+    add: "Ajouter une catégorie",
+    deleteEffect: "Les publications de cette catégorie restent en ligne, sans catégorie.",
+    info: "Catégories proposées aux enseignants lorsqu’ils publient, et filtres du fil public.",
+  },
+  schools: {
+    label: "Écoles supérieures",
+    icon: "account_balance",
+    add: "Ajouter une école supérieure",
+    deleteEffect: "Les enseignants gardent l’école qu’ils ont saisie ; elle disparaît seulement des suggestions et des filtres de l’annuaire.",
+    info: "Les enseignants saisissent librement leur école supérieure et leur département / filière. Cette liste sert de suggestions à la saisie et de filtres dans l’annuaire ; un enseignant dont le texte correspond au nom d’une école y est rattaché automatiquement.",
+  },
+};
 
 /**
- * Listes gérées par l'administration (brief §8) : ajouter, renommer, désactiver.
- * Rien n'est supprimé : un élément désactivé disparaît des formulaires mais reste affiché là où il est utilisé.
+ * Listes gérées par l'administration (brief §8) : ajouter, renommer, supprimer.
+ * Chaque action est journalisée ; les confirmations se font dans la page.
  */
 export default function ReferencesPage() {
   const queryClient = useQueryClient();
-  const [tab, setTab] = useState<"grades" | "categories" | "faculties">("grades");
+  const [tab, setTab] = useState<ReferenceType>("grades");
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
   const refs = useQuery({ queryKey: ["admin", "references"], queryFn: async () => (await api<{ data: References }>("/admin/references")).data });
 
-  const mutate = async (fn: () => Promise<{ data: References }>) => {
+  const mutate = async (fn: () => Promise<{ data: References }>, done: string) => {
     setError(null);
+    setNotice(null);
     try {
       queryClient.setQueryData(["admin", "references"], (await fn()).data);
-      await queryClient.invalidateQueries({ queryKey: ["public-refs"] });
-      await queryClient.invalidateQueries({ queryKey: ["categories"] });
-      await queryClient.invalidateQueries({ queryKey: ["faculties"] });
+      // Les listes publiques en cache côté navigateur sont rafraîchies.
+      for (const key of ["admin-list-refs", "creation-refs", "profile-refs", "categories"]) {
+        await queryClient.invalidateQueries({ queryKey: [key] });
+      }
+      setNotice(done);
     } catch (e) {
       setError(e instanceof ApiError ? (Object.values(e.errors)[0]?.[0] ?? e.message) : "Enregistrement impossible.");
       throw e;
     }
   };
-  const create = (type: Type, name: string, faculty_id?: number) => mutate(() => api(`/admin/references/${type}`, { method: "POST", body: { name, faculty_id } }));
-  const update = (type: Type, id: number, body: Record<string, unknown>) => mutate(() => api(`/admin/references/${type}/${id}`, { method: "PUT", body }));
+  const create = (name: string) => mutate(() => api(`/admin/references/${tab}`, { method: "POST", body: { name } }), `« ${name} » ajouté(e).`);
+  const rename = (id: number, name: string) => mutate(() => api(`/admin/references/${tab}/${id}`, { method: "PUT", body: { name } }), `Renommé(e) en « ${name} ».`);
+  const remove = (item: ReferenceItem) => mutate(() => api(`/admin/references/${tab}/${item.id}`, { method: "DELETE" }), `« ${item.name} » supprimé(e).`);
+
+  const meta = TABS[tab];
 
   return (
     <div className="space-y-5">
       <AdminHeading
         crumbs={[{ label: "Référentiels" }]}
-        title="Grades, catégories, facultés et départements"
-        lead="Ces listes alimentent les formulaires d’inscription, les profils, les publications et les filtres de l’annuaire."
+        title="Grades, catégories et écoles supérieures"
+        lead="Ajoutez, renommez ou supprimez les éléments de ces listes. Elles alimentent les formulaires, les profils, les publications et les filtres de l’annuaire."
       />
       <StatusTabs
         value={tab}
-        onChange={setTab}
-        tabs={[
-          { id: "grades", label: "Grades", count: refs.data?.grades.length },
-          { id: "categories", label: "Catégories de publication", count: refs.data?.categories.length },
-          { id: "faculties", label: "Facultés et départements", count: refs.data?.faculties.length },
-        ]}
+        onChange={(v) => { setTab(v); setError(null); setNotice(null); }}
+        tabs={(Object.keys(TABS) as ReferenceType[]).map((id) => ({ id, label: TABS[id].label, count: refs.data?.[id].length }))}
       />
       {error && <Alert tone="danger">{error}</Alert>}
+      {notice && <Alert tone="success">{notice}</Alert>}
 
       {refs.isPending || !refs.data ? (
         <Spinner />
-      ) : tab === "faculties" ? (
-        <div className="space-y-4">
-          {refs.data.faculties.map((faculty) => (
-            <Card key={faculty.id} className="overflow-hidden">
-              <ItemRow item={faculty} icon="account_balance" onRename={(name) => update("faculties", faculty.id, { name })} onToggle={() => update("faculties", faculty.id, { is_active: !faculty.is_active })} strong />
-              <div className="border-t border-line bg-canvas px-5 py-3">
-                <p className="mb-2 text-xs font-bold uppercase tracking-wider text-muted">Départements</p>
-                <ul className="divide-y divide-line rounded-xl border border-line bg-white">
-                  {faculty.departments.map((d) => (
-                    <li key={d.id}>
-                      <ItemRow item={d} icon="apartment" onRename={(name) => update("departments", d.id, { name })} onToggle={() => update("departments", d.id, { is_active: !d.is_active })} />
-                    </li>
-                  ))}
-                </ul>
-                <AddForm label="Ajouter un département" onAdd={(name) => create("departments", name, faculty.id)} />
-              </div>
-            </Card>
-          ))}
-          <Card className="p-5">
-            <AddForm label="Ajouter une faculté" onAdd={(name) => create("faculties", name)} />
-          </Card>
-        </div>
       ) : (
         <Card className="overflow-hidden">
-          {tab === "grades" && (
-            <p className="border-b border-line bg-canvas px-5 py-3 text-xs text-muted">
-              <Icon name="info" size={14} className="mr-1 align-[-2px]" />
-              Le grade est une information, jamais une échelle de mérite : tous les badges ont le même aspect et l’annuaire ne trie jamais par grade.
-            </p>
+          <p className="border-b border-line bg-canvas px-5 py-3 text-xs text-muted">
+            <Icon name="info" size={14} className="mr-1 align-[-2px]" />
+            {meta.info}
+          </p>
+          {refs.data[tab].length > 0 ? (
+            <ul className="divide-y divide-line">
+              {refs.data[tab].map((item) => (
+                <li key={`${tab}-${item.id}`}>
+                  <ItemRow item={item} icon={meta.icon} deleteEffect={meta.deleteEffect} onRename={(name) => rename(item.id, name)} onDelete={() => remove(item)} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="px-5 py-8 text-center text-sm text-muted">Cette liste est vide.</p>
           )}
-          <ul className="divide-y divide-line">
-            {refs.data[tab].map((item) => (
-              <li key={item.id}>
-                <ItemRow
-                  item={item}
-                  icon={tab === "grades" ? "workspace_premium" : "label"}
-                  onRename={(name) => update(tab, item.id, { name })}
-                  onToggle={() => update(tab, item.id, { is_active: !item.is_active })}
-                />
-              </li>
-            ))}
-          </ul>
           <div className="border-t border-line px-5 py-4">
-            <AddForm label={tab === "grades" ? "Ajouter un grade" : "Ajouter une catégorie"} onAdd={(name) => create(tab, name)} />
+            <AddForm key={tab} label={meta.add} onAdd={create} />
           </div>
         </Card>
       )}
@@ -110,8 +110,20 @@ export default function ReferencesPage() {
   );
 }
 
-function ItemRow({ item, icon, onRename, onToggle, strong }: { item: ReferenceItem; icon: string; onRename: (name: string) => Promise<void>; onToggle: () => Promise<void>; strong?: boolean }) {
-  const [editing, setEditing] = useState(false);
+function ItemRow({
+  item,
+  icon,
+  deleteEffect,
+  onRename,
+  onDelete,
+}: {
+  item: ReferenceItem;
+  icon: string;
+  deleteEffect: string;
+  onRename: (name: string) => Promise<void>;
+  onDelete: () => Promise<void>;
+}) {
+  const [mode, setMode] = useState<"view" | "edit" | "delete">("view");
   const [name, setName] = useState(item.name);
   const [busy, setBusy] = useState(false);
 
@@ -119,7 +131,7 @@ function ItemRow({ item, icon, onRename, onToggle, strong }: { item: ReferenceIt
     setBusy(true);
     try {
       await fn();
-      setEditing(false);
+      setMode("view");
     } catch {
       /* message affiché en haut de page */
     } finally {
@@ -127,29 +139,43 @@ function ItemRow({ item, icon, onRename, onToggle, strong }: { item: ReferenceIt
     }
   };
 
+  if (mode === "edit") {
+    return (
+      <form className="flex flex-wrap items-center gap-2 px-5 py-3" onSubmit={(e) => { e.preventDefault(); run(() => onRename(name.trim())); }}>
+        <div className="min-w-0 flex-1 basis-60"><Input value={name} onChange={(e) => setName(e.target.value)} aria-label="Nouveau nom" maxLength={150} autoFocus /></div>
+        <Button type="submit" size="sm" icon="check" loading={busy} disabled={!name.trim() || name.trim() === item.name}>Enregistrer</Button>
+        <Button variant="ghost" size="sm" onClick={() => { setMode("view"); setName(item.name); }}>Annuler</Button>
+      </form>
+    );
+  }
+
   return (
-    <div className={clsx("flex flex-wrap items-center justify-between gap-3 px-5 py-3", !item.is_active && "opacity-60")}>
-      {editing ? (
-        <form className="flex flex-1 flex-wrap items-center gap-2" onSubmit={(e) => { e.preventDefault(); run(() => onRename(name)); }}>
-          <div className="min-w-60 flex-1"><Input value={name} onChange={(e) => setName(e.target.value)} aria-label="Nouveau nom" autoFocus /></div>
-          <Button type="submit" size="sm" icon="check" loading={busy} disabled={!name.trim()}>Enregistrer</Button>
-          <Button variant="ghost" size="sm" onClick={() => { setEditing(false); setName(item.name); }}>Annuler</Button>
-        </form>
-      ) : (
-        <>
-          <div className="flex min-w-0 items-center gap-3">
-            <Icon name={icon} size={20} className="text-muted" />
-            <span className={clsx("truncate text-navy", strong ? "font-bold" : "font-semibold")}>{item.name}</span>
-            {!item.is_active && <span className="rounded-full bg-mist px-2 py-0.5 text-xs font-semibold text-muted">Désactivé</span>}
-            <span className="tnum text-xs text-muted">· utilisé {item.usage} fois</span>
-          </div>
+    <div className="px-5 py-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex min-w-0 items-center gap-3">
+          <Icon name={icon} size={20} className="text-muted" />
+          <span className="truncate font-semibold text-navy">{item.name}</span>
+          <span className="tnum whitespace-nowrap text-xs text-muted">· utilisé {item.usage} fois</span>
+        </div>
+        {mode === "view" && (
           <div className="flex gap-2">
-            <Button variant="ghost" size="sm" icon="edit" onClick={() => setEditing(true)}>Renommer</Button>
-            <Button variant="outline" size="sm" icon={item.is_active ? "toggle_off" : "toggle_on"} loading={busy} onClick={() => run(onToggle)}>
-              {item.is_active ? "Désactiver" : "Réactiver"}
-            </Button>
+            <Button variant="ghost" size="sm" icon="edit" onClick={() => setMode("edit")}>Renommer</Button>
+            <Button variant="outline" size="sm" icon="delete" className="text-danger hover:border-danger" onClick={() => setMode("delete")}>Supprimer</Button>
           </div>
-        </>
+        )}
+      </div>
+      {mode === "delete" && (
+        <div className="mt-3 space-y-3 rounded-xl border border-danger/40 bg-danger-soft p-4">
+          <p className="text-sm font-bold text-navy">Supprimer « {item.name} » ?</p>
+          <p className="text-sm text-ink/80">
+            {item.usage > 0 ? `Utilisé ${item.usage} fois. ` : ""}
+            {deleteEffect}
+          </p>
+          <div className="flex flex-wrap justify-end gap-2">
+            <Button variant="ghost" size="sm" onClick={() => setMode("view")}>Annuler</Button>
+            <Button variant="danger" size="sm" icon="delete" loading={busy} onClick={() => run(onDelete)}>Supprimer définitivement</Button>
+          </div>
+        </div>
       )}
     </div>
   );
@@ -160,7 +186,7 @@ function AddForm({ label, onAdd }: { label: string; onAdd: (name: string) => Pro
   const [busy, setBusy] = useState(false);
   return (
     <form
-      className="mt-3 flex flex-wrap items-center gap-2"
+      className="flex flex-wrap items-center gap-2"
       onSubmit={async (e) => {
         e.preventDefault();
         setBusy(true);
@@ -174,7 +200,7 @@ function AddForm({ label, onAdd }: { label: string; onAdd: (name: string) => Pro
         }
       }}
     >
-      <div className="min-w-60 flex-1"><Input value={name} onChange={(e) => setName(e.target.value)} placeholder={label} aria-label={label} /></div>
+      <div className="min-w-0 flex-1 basis-60"><Input value={name} onChange={(e) => setName(e.target.value)} placeholder={label} aria-label={label} maxLength={150} /></div>
       <Button type="submit" variant="primary" size="sm" icon="add" loading={busy} disabled={!name.trim()}>{label}</Button>
     </form>
   );

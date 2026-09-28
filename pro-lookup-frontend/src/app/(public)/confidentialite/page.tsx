@@ -18,7 +18,7 @@ export default function PrivacyPage() {
           informations suivantes sont consultables par tout le monde, sans compte :
         </p>
         <ul>
-          <li>l’en-tête du profil : photo, bannière, nom, grade, titre professionnel, faculté et département ;</li>
+          <li>l’en-tête du profil : photo, bannière, nom, grade, titre professionnel, école supérieure et département / filière ;</li>
           <li>les sections du profil que l’enseignant a choisi de rendre visibles (biographie, expertise, enseignements, parcours…) ;</li>
           <li>les coordonnées que l’enseignant a explicitement rendues publiques (désactivées par défaut) ;</li>
           <li>les publications publiées par l’enseignant.</li>

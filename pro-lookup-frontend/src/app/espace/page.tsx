@@ -12,6 +12,7 @@ import { Icon } from "@/components/ui/Icon";
 import { api } from "@/lib/api/client";
 import { profileUrl } from "@/lib/config";
 import { POST_STATUS, timeAgo } from "@/lib/format";
+import { hasTeacherProfile } from "@/lib/roles";
 import type { Me, OwnedPost } from "@/lib/types";
 
 type MyPosts = { data: OwnedPost[]; counts: { all: number; draft: number; published: number; hidden: number } };
@@ -27,6 +28,7 @@ function completion(me: Me) {
     { ok: me.items.education.length > 0, label: "Parcours académique" },
     { ok: me.items.experience.length > 0, label: "Expérience" },
     { ok: Object.values(me.links).some(Boolean), label: "Liens (ORCID…)" },
+    { ok: Boolean(me.cv), label: "CV en PDF" },
   ];
   return { percent: Math.round((checks.filter((c) => c.ok).length / checks.length) * 100), missing: checks.filter((c) => !c.ok) };
 }
@@ -39,7 +41,8 @@ export default function SpaceDashboard() {
   if (!me) return <Spinner />;
   const { percent, missing } = completion(me);
   const hidden = posts.data?.data.filter((p) => p.status === "hidden") ?? [];
-  const url = me.slug ? profileUrl(me.slug) : null;
+  const teaching = hasTeacherProfile(me);
+  const url = me.slug && teaching ? profileUrl(me.slug) : null;
 
   return (
     <div className="space-y-6">
@@ -47,8 +50,16 @@ export default function SpaceDashboard() {
         eyebrow="Tableau de bord"
         title={`Bonjour ${me.first_name}`}
         lead="Gérez votre profil public et vos publications. Tout ce que vous publiez est visible par tous, sans compte."
-        actions={<ButtonLink href="/espace/publications/nouvelle" variant="accent" icon="edit_square">Nouvelle publication</ButtonLink>}
+        actions={teaching ? <ButtonLink href="/espace/publications/nouvelle" variant="accent" icon="edit_square">Nouvelle publication</ButtonLink> : undefined}
       />
+
+      {!teaching && (
+        <Alert tone="info" title="Vous êtes administrateur : votre profil enseignant n’est pas public">
+          Si vous enseignez aussi, complétez votre profil puis activez-le dans{" "}
+          <Link href="/espace/profil-public" className="font-semibold underline">Mon profil public et mon URL</Link>. Il apparaîtra dans l’annuaire
+          comme celui de tout enseignant : votre rôle d’administrateur n’y est jamais mentionné.
+        </Alert>
+      )}
 
       {(posts.data?.counts.hidden ?? 0) > 0 && (
         <Alert tone="danger" title="Une publication a été masquée par l’administration">
@@ -61,11 +72,26 @@ export default function SpaceDashboard() {
       <div className="grid gap-4 md:grid-cols-3">
         <Card className="p-5">
           <p className="text-xs font-bold uppercase tracking-wider text-muted">État du compte</p>
-          <div className="mt-3"><StatusBadge tone="success">Approuvé — profil public</StatusBadge></div>
-          <p className="mt-3 text-sm text-muted">Votre profil apparaît dans l’annuaire et la recherche.</p>
+          {teaching ? (
+            <>
+              <div className="mt-3"><StatusBadge tone="success">Approuvé — profil public</StatusBadge></div>
+              <p className="mt-3 text-sm text-muted">Votre profil apparaît dans l’annuaire et la recherche.</p>
+            </>
+          ) : (
+            <>
+              <div className="mt-3"><StatusBadge tone="neutral">Profil enseignant non publié</StatusBadge></div>
+              <p className="mt-3 text-sm text-muted">Vous n’apparaissez pas dans l’annuaire.</p>
+            </>
+          )}
         </Card>
         <Card className="p-5 md:col-span-2">
           <p className="text-xs font-bold uppercase tracking-wider text-muted">Adresse de votre profil</p>
+          {!url && (
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <p className="text-sm text-muted">Aucune adresse publique tant que votre profil enseignant n’est pas activé.</p>
+              <ButtonLink href="/espace/profil-public" variant="outline" size="sm" icon="public">Activer mon profil public</ButtonLink>
+            </div>
+          )}
           {url && (
             <>
               <p className="mt-3 break-all rounded-lg bg-canvas px-3 py-2 font-mono text-sm font-semibold text-navy">{url.replace(/^https?:\/\//, "")}</p>

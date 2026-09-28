@@ -2,9 +2,20 @@ import clsx from "clsx";
 import Link from "next/link";
 import { Icon } from "@/components/ui/Icon";
 
+export type PaginationLabels = { pagination: string; page_of: string; page_n: string; previous_page: string; next_page: string };
+
+const FRENCH: PaginationLabels = {
+  pagination: "Pagination",
+  page_of: "Page {page} sur {last}",
+  page_n: "Page {n}",
+  previous_page: "Page précédente",
+  next_page: "Page suivante",
+};
+
 /**
  * Pagination par liens (fonctionne sans JavaScript, bon pour le référencement).
  * `params` contient les filtres actuels, conservés d'une page à l'autre.
+ * `summary` : total déjà accordé (« 12 enseignants ») ; `labels` : libellés traduits (pages publiques).
  */
 export function Pagination({
   page,
@@ -13,6 +24,8 @@ export function Pagination({
   params = {},
   total,
   label = "résultats",
+  summary,
+  labels = FRENCH,
 }: {
   page: number;
   lastPage: number;
@@ -20,9 +33,13 @@ export function Pagination({
   params?: Record<string, string | undefined>;
   total?: number;
   label?: string;
+  summary?: string;
+  labels?: PaginationLabels;
 }) {
+  const totalText = summary ?? (total !== undefined ? `${total} ${label}` : null);
+
   if (lastPage <= 1) {
-    return total !== undefined ? <p className="text-sm text-muted">{total} {label}</p> : null;
+    return totalText ? <p className="text-sm text-muted">{totalText}</p> : null;
   }
 
   const href = (p: number) => {
@@ -34,27 +51,28 @@ export function Pagination({
   };
 
   const pages = Array.from(new Set([1, page - 1, page, page + 1, lastPage])).filter((p) => p >= 1 && p <= lastPage).sort((a, b) => a - b);
+  const fill = (s: string, vars: Record<string, number>) => s.replace(/\{(\w+)\}/g, (m, k: string) => (k in vars ? String(vars[k]) : m));
 
   return (
-    <nav className="flex flex-wrap items-center justify-between gap-3" aria-label="Pagination">
-      {total !== undefined && (
+    <nav className="flex flex-wrap items-center justify-between gap-3" aria-label={labels.pagination}>
+      {totalText && (
         <p className="text-sm text-muted">
-          Page {page} sur {lastPage} · <span className="tnum">{total}</span> {label}
+          {fill(labels.page_of, { page, last: lastPage })} · <span className="tnum">{totalText}</span>
         </p>
       )}
       <div className="flex items-center gap-1">
-        <PageLink href={href(page - 1)} disabled={page <= 1} label="Page précédente">
+        <PageLink href={href(page - 1)} disabled={page <= 1} label={labels.previous_page}>
           <Icon name="chevron_left" size={18} />
         </PageLink>
         {pages.map((p, i) => (
           <span key={p} className="flex items-center gap-1">
             {i > 0 && p - pages[i - 1] > 1 && <span className="px-1 text-muted">…</span>}
-            <PageLink href={href(p)} active={p === page} label={`Page ${p}`}>
+            <PageLink href={href(p)} active={p === page} label={fill(labels.page_n, { n: p })}>
               {p}
             </PageLink>
           </span>
         ))}
-        <PageLink href={href(page + 1)} disabled={page >= lastPage} label="Page suivante">
+        <PageLink href={href(page + 1)} disabled={page >= lastPage} label={labels.next_page}>
           <Icon name="chevron_right" size={18} />
         </PageLink>
       </div>

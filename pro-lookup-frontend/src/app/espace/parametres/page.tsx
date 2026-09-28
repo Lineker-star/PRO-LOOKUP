@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/components/providers/AuthProvider";
-import { useLang } from "@/components/providers/LangProvider";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { SpaceHeading } from "@/components/space/SpaceShell";
 import { Button } from "@/components/ui/Button";
 import { Field, Input } from "@/components/ui/Field";
@@ -17,7 +17,6 @@ import type { Session } from "@/lib/types";
 /** Paramètres du compte : sécurité (mot de passe, sessions) et langue (brief §10). */
 export default function SettingsPage() {
   const { me, logout } = useAuth();
-  const { lang, setLang } = useLang();
   const router = useRouter();
   if (!me) return <Spinner />;
 
@@ -33,21 +32,18 @@ export default function SettingsPage() {
           <div className="rounded-lg bg-canvas p-3"><dt className="text-xs text-muted">Membre depuis</dt><dd className="font-semibold text-navy">{formatDateTime(me.created_at)}</dd></div>
           <div className="rounded-lg bg-canvas p-3"><dt className="text-xs text-muted">Compte approuvé le</dt><dd className="font-semibold text-navy">{formatDateTime(me.approved_at) || "—"}</dd></div>
         </dl>
-        <p className="mt-3 text-xs text-muted">Pour modifier votre email ou votre matricule, ou supprimer votre compte, adressez-vous à l’administration.</p>
+        <p className="mt-3 text-xs text-muted">L’email de connexion et le matricule ne sont pas modifiables. Pour supprimer votre compte, adressez-vous à l’administration.</p>
       </Card>
 
       <PasswordCard />
       <SessionsCard />
 
       <Card className="p-6">
-        <h2 className="flex items-center gap-2 font-bold text-navy"><Icon name="translate" size={20} className="text-teal-text" /> Langue de l’interface</h2>
-        <div className="mt-4 flex gap-2">
-          {(["fr", "en"] as const).map((l) => (
-            <Button key={l} variant={lang === l ? "primary" : "outline"} onClick={() => setLang(l)}>
-              {l === "fr" ? "Français" : "English"}
-            </Button>
-          ))}
-        </div>
+        <h2 className="flex items-center gap-2 font-bold text-navy"><Icon name="translate" size={20} className="text-teal-text" /> Langue des pages publiques</h2>
+        <p className="mt-1 text-sm text-muted">
+          Accueil, annuaire, publications, recherche et profils publics sont disponibles en 11 langues. Votre espace reste en français.
+        </p>
+        <LanguageSwitcher variant="grid" className="mt-4" />
       </Card>
 
       <Card className="flex flex-wrap items-center justify-between gap-3 p-6">

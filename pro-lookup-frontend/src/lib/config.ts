@@ -19,3 +19,5 @@ export const PUBLIC_REVALIDATE = 300;
 /** URL canonique d'un profil : https://<domaine>/in/<identifiant> */
 export const profileUrl = (slug: string) => `${SITE_URL}/in/${slug}`;
 export const postUrl = (id: number | string) => `${SITE_URL}/publications/${id}`;
+/** Téléchargement public du CV (PDF servi par l'API, qui vérifie que le profil et la section sont publics). */
+export const cvDownloadUrl = (slug: string) => `${PUBLIC_API_URL}/public/teachers/${encodeURIComponent(slug)}/cv`;

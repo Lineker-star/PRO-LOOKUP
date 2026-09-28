@@ -27,7 +27,8 @@ export default function PublicProfileSettingsPage() {
 
   if (settings.isPending || !settings.data) return <Spinner />;
   const s = settings.data;
-  const url = s.slug ? profileUrl(s.slug) : "";
+  const url = s.slug && s.teaches ? profileUrl(s.slug) : "";
+  const hiddenAdminProfile = s.can_toggle_teaches && !s.teaches;
 
   const update = async (key: string, body: Record<string, unknown>) => {
     setSaving(key);
@@ -49,11 +50,33 @@ export default function PublicProfileSettingsPage() {
         eyebrow="Visibilité"
         title="Mon profil public et mon URL"
         lead="Choisissez ce que le public voit. Une section masquée n’apparaît nulle part : ni sur la page, ni dans le PDF, ni dans l’aperçu de lien."
-        actions={s.slug ? <ButtonLink href={`/in/${s.slug}`} variant="accent" icon="visibility">Voir mon profil tel que le public le voit</ButtonLink> : undefined}
+        actions={url ? <ButtonLink href={`/in/${s.slug}`} variant="accent" icon="visibility">Voir mon profil tel que le public le voit</ButtonLink> : undefined}
       />
       {error && <Alert tone="danger">{error}</Alert>}
 
-      <SlugCard settings={s} onChanged={async (next) => { queryClient.setQueryData(["public-profile"], next); await refresh(); }} />
+      {s.can_toggle_teaches && (
+        <Card className="p-6">
+          <h2 className="flex items-center gap-2 font-bold text-navy"><Icon name="school" size={20} className="text-teal-text" /> Profil d’enseignant</h2>
+          <p className="mt-1 text-sm text-muted">
+            Vous êtes administrateur. Si vous enseignez aussi, publiez votre profil : il apparaîtra dans l’annuaire comme celui de tout enseignant,
+            sans aucune mention de votre rôle d’administrateur.
+          </p>
+          <div className="mt-3">
+            <Toggle
+              id="teaches"
+              label="J’enseigne : publier mon profil dans l’annuaire"
+              description={s.teaches ? "Votre profil et vos publications sont visibles publiquement." : "Votre profil n’est pas public ; vous n’apparaissez pas dans l’annuaire."}
+              checked={s.teaches}
+              disabled={saving !== null}
+              onChange={(v) => update("teaches", { teaches: v })}
+            />
+          </div>
+        </Card>
+      )}
+
+      {!hiddenAdminProfile && (
+      <>
+      <SlugCard key={s.slug ?? ""} settings={s} onChanged={async (next) => { queryClient.setQueryData(["public-profile"], next); await refresh(); }} />
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card className="p-6">
@@ -66,7 +89,7 @@ export default function PublicProfileSettingsPage() {
 
       <Card className="p-6">
         <h2 className="flex items-center gap-2 font-bold text-navy"><Icon name="visibility" size={20} className="text-teal-text" /> Sections visibles</h2>
-        <p className="mt-1 text-sm text-muted">L’en-tête (photo, nom, grade, titre, faculté, département) reste toujours public : c’est la base de l’annuaire.</p>
+        <p className="mt-1 text-sm text-muted">L’en-tête (photo, nom, grade, titre, école supérieure, département / filière) reste toujours public : c’est la base de l’annuaire.</p>
         <div className="mt-3 divide-y divide-line">
           {(Object.keys(VISIBILITY_SECTIONS) as VisibilitySection[]).map((key) => (
             <Toggle
@@ -105,6 +128,8 @@ export default function PublicProfileSettingsPage() {
           </div>
         </Card>
       </div>
+      </>
+      )}
     </div>
   );
 }

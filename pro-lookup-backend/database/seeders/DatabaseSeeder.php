@@ -2,32 +2,30 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Services\FrontendRevalidator;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 /**
- * Données de démarrage. Rejouable sans erreur (updateOrCreate partout).
- * Compte administrateur de démonstration : admin@iuztf.cm / Password123!
+ * Données de DÉMONSTRATION (local uniquement). Rejouable sans erreur.
+ *
+ *   php artisan db:seed
+ *
+ * En production, lancez seulement :
+ *   php artisan db:seed --class=ReferenceSeeder --force
+ *   php artisan db:seed --class=AdminSeeder --force      (avec ADMIN_EMAIL / ADMIN_PASSWORD)
  */
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->call(ReferenceSeeder::class);
-
-        $admin = User::updateOrCreate(['email' => 'admin@iuztf.cm'], [
-            'first_name' => 'Administrateur',
-            'last_name' => 'PRO-LOOKUP',
-            'password' => Hash::make('Password123!'),
+        $this->call([
+            ReferenceSeeder::class,       // grades, catégories, écoles supérieures
+            AdminSeeder::class,           // admin@iuztf.cm / Password123!
+            PersonnelSeeder::class,       // enseignants approuvés fictifs, leurs publications et leur CV
+            PendingRequestsSeeder::class, // inscriptions en attente à approuver ou refuser
         ]);
-        // Rôle et statut hors $fillable : affectés explicitement.
-        $admin->role = User::ROLE_ADMIN;
-        $admin->status = 'approved';
-        $admin->slug = null; // un administrateur n'a pas de profil public
-        $admin->email_verified_at ??= now();
-        $admin->save();
 
-        $this->call(PersonnelSeeder::class);
+        // Les données ont changé sans passer par l'API : les pages publiques en cache sont vidées.
+        app(FrontendRevalidator::class)->tags(['teachers', 'posts', 'stats', 'references']);
     }
 }

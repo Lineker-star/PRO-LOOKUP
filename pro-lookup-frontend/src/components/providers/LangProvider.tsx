@@ -2,10 +2,18 @@
 
 import { createContext, useContext, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import { dictionaries, type Dict, type Lang } from "@/lib/i18n";
+import { dictionaries, LANGS, plural, type Dict, type Lang, type Plural } from "@/lib/i18n";
 import { setLangCookie } from "@/lib/session";
 
-type LangContextValue = { lang: Lang; t: Dict; setLang: (lang: Lang) => void };
+type LangContextValue = {
+  lang: Lang;
+  t: Dict;
+  /** Locale Intl de la langue (dates, nombres). */
+  locale: string;
+  /** Accord du pluriel : p(t.teachers_count, 3) → « 3 enseignants ». */
+  p: (forms: Plural, n: number, vars?: Record<string, string | number>) => string;
+  setLang: (lang: Lang) => void;
+};
 
 const LangContext = createContext<LangContextValue | null>(null);
 
@@ -18,7 +26,15 @@ export function LangProvider({ lang, children }: { lang: Lang; children: ReactNo
     router.refresh();
   };
 
-  return <LangContext.Provider value={{ lang, t: dictionaries[lang], setLang }}>{children}</LangContext.Provider>;
+  const value: LangContextValue = {
+    lang,
+    t: dictionaries[lang],
+    locale: LANGS[lang].locale,
+    p: (forms, n, vars) => plural(lang, forms, n, vars),
+    setLang,
+  };
+
+  return <LangContext.Provider value={value}>{children}</LangContext.Provider>;
 }
 
 export function useLang(): LangContextValue {

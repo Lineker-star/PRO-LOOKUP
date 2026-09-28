@@ -4,8 +4,17 @@ import QRCode from "qrcode";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button";
 
-/** QR code de l'URL du profil, téléchargeable en PNG et SVG (brief §6.5). */
-export function QrCodePanel({ url, fileName }: { url: string; fileName: string }) {
+type QrLabels = { alt: string; png: string; svg: string; hint: string };
+
+const FRENCH: QrLabels = {
+  alt: "QR code menant à {url}",
+  png: "Télécharger en PNG",
+  svg: "Télécharger en SVG",
+  hint: "À imprimer sur une carte de visite, une affiche ou une diapositive de conférence.",
+};
+
+/** QR code de l'URL du profil, téléchargeable en PNG et SVG (brief §6.5). Libellés traduits sur le profil public. */
+export function QrCodePanel({ url, fileName, labels = FRENCH }: { url: string; fileName: string; labels?: QrLabels }) {
   const [png, setPng] = useState<string | null>(null);
   const [svg, setSvg] = useState<string | null>(null);
 
@@ -27,7 +36,7 @@ export function QrCodePanel({ url, fileName }: { url: string; fileName: string }
       <div className="rounded-2xl border border-line bg-white p-3 shadow-card">
         {png ? (
           // eslint-disable-next-line @next/next/no-img-element -- image générée localement (data URL)
-          <img src={png} alt={`QR code menant à ${url}`} className="size-56" />
+          <img src={png} alt={labels.alt.replace("{url}", url)} className="size-56" />
         ) : (
           <div className="size-56 animate-pulse rounded-lg bg-mist" />
         )}
@@ -35,7 +44,7 @@ export function QrCodePanel({ url, fileName }: { url: string; fileName: string }
       <p className="break-all text-center text-sm font-medium text-navy">{url}</p>
       <div className="flex flex-wrap justify-center gap-2">
         <Button variant="primary" size="sm" icon="download" disabled={!png} onClick={() => png && download(png, "png")}>
-          Télécharger en PNG
+          {labels.png}
         </Button>
         <Button
           variant="outline"
@@ -44,10 +53,10 @@ export function QrCodePanel({ url, fileName }: { url: string; fileName: string }
           disabled={!svg}
           onClick={() => svg && download(`data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`, "svg")}
         >
-          Télécharger en SVG
+          {labels.svg}
         </Button>
       </div>
-      <p className="text-center text-xs text-muted">À imprimer sur une carte de visite, une affiche ou une diapositive de conférence.</p>
+      <p className="text-center text-xs text-muted">{labels.hint}</p>
     </div>
   );
 }

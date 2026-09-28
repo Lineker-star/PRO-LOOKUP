@@ -25,12 +25,15 @@ export async function copyText(text: string): Promise<boolean> {
 export function CopyLinkButton({
   url,
   label = "Copier le lien",
+  copiedLabel = "Lien copié",
   variant = "outline",
   size = "md",
   className,
 }: {
   url: string;
   label?: string;
+  /** Libellés traduits sur les pages publiques ; français par défaut (espace enseignant). */
+  copiedLabel?: string;
   variant?: "outline" | "light" | "primary" | "accent";
   size?: "sm" | "md";
   className?: string;
@@ -51,7 +54,7 @@ export function CopyLinkButton({
       }}
       aria-live="polite"
     >
-      {copied ? "Lien copié" : label}
+      {copied ? copiedLabel : label}
     </Button>
   );
 }

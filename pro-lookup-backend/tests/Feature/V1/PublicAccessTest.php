@@ -107,6 +107,30 @@ class PublicAccessTest extends TestCase
         $this->assertDatabaseCount('reports', 1);
     }
 
+    public function test_directory_filters_work_without_any_search_text(): void
+    {
+        $this->seedReferences();
+        $linked = User::factory()->create(['rank_id' => $this->grade->id, 'faculty_id' => $this->school->id, 'department' => 'Informatique']);
+        // École saisie librement, non rattachée à la liste mais au nom proche : retrouvée par le filtre.
+        $typed = User::factory()->create(['faculty_id' => null, 'school' => 'École Supérieure des Sciences et Technologies (Bertoua)', 'department' => 'Génie logiciel']);
+        $elsewhere = User::factory()->create(['faculty_id' => null, 'school' => 'Institut des Beaux-Arts', 'department' => 'Peinture']);
+        Post::factory()->for($elsewhere)->create();
+        $post = Post::factory()->for($linked)->create();
+
+        $slugs = fn (string $query) => collect($this->getJson('/api/v1/public/teachers'.$query)->assertOk()->json('data'))->pluck('slug')->sort()->values()->all();
+
+        $this->assertEqualsCanonicalizing([$linked->slug, $typed->slug], $slugs("?school={$this->school->slug}"));
+        $this->assertSame([$linked->slug], $slugs("?grade={$this->grade->slug}"));
+        $this->assertSame([$typed->slug], $slugs('?department=logiciel'));
+        $this->assertSame([], $slugs('?school=ecole-inconnue'));
+        $this->getJson('/api/v1/public/teachers/'.$linked->slug)->assertJsonPath('data.school', 'École Supérieure des Sciences et Technologies');
+
+        $postIds = collect($this->getJson("/api/v1/public/posts?school={$this->school->slug}")->json('data'))->pluck('id')->all();
+        $this->assertSame([$post->id], $postIds);
+
+        $this->getJson('/api/v1/public/schools')->assertOk()->assertJsonPath('data.0.name', $this->school->name);
+    }
+
     public function test_search_and_stats_only_count_public_content(): void
     {
         User::factory()->create(['first_name' => 'Aminata', 'last_name' => 'Recherche']);

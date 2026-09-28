@@ -2,13 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Models\Department;
 use App\Models\Post;
 use App\Models\PostCategory;
 use App\Models\ProfileItem;
 use App\Models\Rank;
 use App\Models\RegistrationRequest;
 use App\Models\User;
+use Database\Seeders\Concerns\ResolvesDemoAffiliation;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -18,16 +18,15 @@ use Illuminate\Support\Facades\Storage;
  */
 class PersonnelSeeder extends Seeder
 {
+    use ResolvesDemoAffiliation;
+
     public function run(): void
     {
         $password = Hash::make('Password123!');
         $grade = fn (string $slug) => Rank::where('slug', $slug)->value('id');
-        $dept = fn (string $slug) => Department::where('slug', $slug)->first();
         $category = fn (string $slug) => PostCategory::where('slug', $slug)->value('id');
 
         foreach ($this->teachers() as $index => $t) {
-            $department = $dept($t['department']);
-
             $user = User::updateOrCreate(['email' => $t['email']], [
                 'first_name' => $t['first_name'],
                 'last_name' => $t['last_name'],
@@ -37,9 +36,8 @@ class PersonnelSeeder extends Seeder
                 'expertise' => $t['expertise'],
                 'expertise_tags' => $t['tags'],
                 'rank_id' => $grade($t['grade']),
-                'faculty_id' => $department?->faculty_id,
-                'department_id' => $department?->id,
-                'department' => $department?->name,
+                ...$this->affiliation($t['department']),
+                'department_id' => null,
                 'matricule' => 'ENS-'.str_pad((string) ($index + 101), 4, '0', STR_PAD_LEFT),
                 'phone' => '+237 6 90 00 '.str_pad((string) (10 + $index), 2, '0').' '.str_pad((string) (20 + $index), 2, '0'),
                 'office' => $t['office'],
@@ -48,10 +46,18 @@ class PersonnelSeeder extends Seeder
                 'show_office' => true,
             ]);
             $user->role = User::ROLE_TEACHER;
+            $user->teaches = true;
             $user->status = 'approved';
             $user->slug = $t['slug'];
             $user->approved_at ??= now()->subDays(60 - $index);
             $user->email_verified_at ??= now();
+            // CV de démonstration (PDF d'une page, disque privé) : bouton « Télécharger le CV » sur le profil.
+            $cvPath = "cvs/demo-{$t['slug']}.pdf";
+            Storage::disk('local')->put($cvPath, $this->demoPdf("Curriculum vitae - {$this->ascii($user->full_name)} (document de demonstration)"));
+            $user->cv_path = $cvPath;
+            $user->cv_name = "CV-{$t['slug']}.pdf";
+            $user->cv_size = Storage::disk('local')->size($cvPath);
+            $user->cv_updated_at ??= now()->subDays(10 + $index);
             $user->save();
 
             // Sections du profil (remplacées à chaque exécution).
@@ -79,11 +85,14 @@ class PersonnelSeeder extends Seeder
             }
         }
 
-        $this->pendingRequest($password, $dept('informatique'), $grade('assistant'));
+        $this->pendingRequest($password, $grade('assistant'));
+
+        // Données écrites directement en base : les pages publiques en cache sont vidées.
+        app(\App\Services\FrontendRevalidator::class)->tags(['teachers', 'posts', 'stats']);
     }
 
     /** Une demande en attente, pour tester la file d'approbation. */
-    private function pendingRequest(string $password, ?Department $department, ?int $gradeId): void
+    private function pendingRequest(string $password, ?int $gradeId): void
     {
         $user = User::updateOrCreate(['email' => 'blaise.ngono@iuztf.cm'], [
             'first_name' => 'Blaise',
@@ -92,9 +101,8 @@ class PersonnelSeeder extends Seeder
             'title' => 'Assistant en informatique',
             'expertise' => 'Réseaux informatiques',
             'rank_id' => $gradeId,
-            'faculty_id' => $department?->faculty_id,
-            'department_id' => $department?->id,
-            'department' => $department?->name,
+            ...$this->affiliation('informatique'),
+            'department_id' => null,
             'matricule' => 'ENS-0450',
         ]);
         $user->role = User::ROLE_TEACHER;
@@ -114,6 +122,12 @@ class PersonnelSeeder extends Seeder
                 'status' => 'pending',
             ]);
         }
+    }
+
+    /** Texte sans accents ni parenthèses, pour la police PDF standard. */
+    private function ascii(string $text): string
+    {
+        return str_replace(['(', ')', '\\'], '', \Illuminate\Support\Str::ascii($text));
     }
 
     /** Petit PDF valide d'une page, pour la démonstration. */

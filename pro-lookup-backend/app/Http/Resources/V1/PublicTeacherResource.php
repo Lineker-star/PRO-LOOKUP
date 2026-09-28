@@ -32,6 +32,11 @@ class PublicTeacherResource extends JsonResource
                 'phone' => $user->show_phone ? $user->phone : null,
                 'office' => $user->show_office ? $user->office : null,
             ],
+            // CV téléchargeable (fichier servi par GET /public/teachers/{slug}/cv), jamais son nom de fichier d'origine.
+            'cv' => $user->hasPublicCv() ? [
+                'size' => $user->cv_size,
+                'updated_at' => $user->cv_updated_at?->toIso8601String(),
+            ] : null,
             'visible_sections' => collect($user->sectionVisibility())->filter()->keys()->values(),
             'search_indexable' => (bool) $user->search_indexable,
             'posts_count' => $this->whenCounted('publishedPosts', fn () => $this->published_posts_count),

@@ -76,8 +76,8 @@ export default function RequestDetailPage() {
               {[
                 ["Email", p.email, "mail"],
                 ["Matricule enseignant", r.matricule, "pin"],
-                ["Faculté", p.faculty?.name, "account_balance"],
-                ["Département", p.department?.name, "apartment"],
+                ["École supérieure", p.school, "account_balance"],
+                ["Département / Filière", p.department, "apartment"],
                 ["Domaine d’expertise", p.expertise, "psychology"],
                 ["Téléphone", p.phone, "call"],
               ].map(([label, value, icon]) => (
@@ -205,7 +205,7 @@ export default function RequestDetailPage() {
           <Card className="p-6 text-sm">
             <h2 className="font-bold text-navy">Points à vérifier</h2>
             <ul className="mt-3 space-y-2 text-muted">
-              {["Le matricule correspond à un enseignant de l’université", "Le justificatif est lisible et au nom du demandeur", "La faculté, le département et le grade sont cohérents", "L’email appartient bien au demandeur"].map((item) => (
+              {["Le matricule correspond à un enseignant de l’université", "Le justificatif est lisible et au nom du demandeur", "L’école supérieure, le département / la filière et le grade sont cohérents", "L’email appartient bien au demandeur"].map((item) => (
                 <li key={item} className="flex items-start gap-2"><Icon name="check_small" size={18} className="text-teal-text" /> {item}</li>
               ))}
             </ul>

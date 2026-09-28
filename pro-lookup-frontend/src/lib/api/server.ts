@@ -2,13 +2,14 @@ import "server-only";
 
 import { PUBLIC_REVALIDATE, SERVER_API_URL } from "@/lib/config";
 import type {
-  FacultyWithDepartments,
   Paginated,
   Post,
   PublicTeacher,
   Ref,
+  School,
   SearchResults,
   Stats,
+  Suggestions,
   TeacherCard,
 } from "@/lib/types";
 
@@ -93,12 +94,19 @@ export async function searchAll(q: string, limit = 12) {
 
 export async function getStats(): Promise<Stats> {
   const { body } = await getPublic<{ data: Stats }>("/stats", ["stats"]);
-  return body?.data ?? { teachers: 0, posts: 0, faculties: 0, departments: 0 };
+  return body?.data ?? { teachers: 0, posts: 0, schools: 0, departments: 0 };
 }
 
-export async function getFaculties(): Promise<FacultyWithDepartments[]> {
-  const { body } = await getPublic<{ data: FacultyWithDepartments[] }>("/faculties", ["references"]);
+/** Écoles supérieures de la liste gérée par l'administration (filtres de l'annuaire). */
+export async function getSchools(): Promise<School[]> {
+  const { body } = await getPublic<{ data: School[] }>("/schools", ["references", "teachers"]);
   return body?.data ?? [];
+}
+
+/** Valeurs connues des champs libres « École supérieure » et « Département / Filière ». */
+export async function getSuggestions(): Promise<Suggestions> {
+  const { body } = await getPublic<{ data: Suggestions }>("/suggestions", ["references", "teachers"]);
+  return body?.data ?? { schools: [], departments: [] };
 }
 
 export async function getGrades(): Promise<Ref[]> {

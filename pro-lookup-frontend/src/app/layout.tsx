@@ -2,15 +2,18 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "@/components/providers/Providers";
 import { SITE_NAME, SITE_URL, UNIVERSITY_FULL } from "@/lib/config";
+import { LANGS } from "@/lib/i18n";
 import { getLang } from "@/lib/i18n-server";
 import "./globals.css";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
+// Latin étendu (allemand, espagnol, portugais, italien, swahili…) et cyrillique (russe).
+// Le chinois, le japonais et le hindi utilisent les polices du système.
+const inter = Inter({ variable: "--font-inter", subsets: ["latin", "latin-ext", "cyrillic"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — Les enseignants de l’Université ZTF`,
+    default: `${SITE_NAME} — La qualité des enseignants de l’Université ZTF`,
     template: `%s · ${SITE_NAME}`,
   },
   description:
@@ -18,7 +21,7 @@ export const metadata: Metadata = {
   applicationName: SITE_NAME,
   openGraph: { siteName: SITE_NAME, locale: "fr_FR", type: "website" },
   twitter: { card: "summary_large_image" },
-  icons: { icon: "/logo/pro-lookup-symbole.png", apple: "/logo/pro-lookup-symbole.png" },
+  // Icône du site : favicon.ico, icon.png et apple-icon.png (symbole PRO-LOOKUP) dans src/app.
   other: { "institution": UNIVERSITY_FULL },
 };
 
@@ -32,7 +35,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   const lang = await getLang();
 
   return (
-    <html lang={lang} className={`${inter.variable} h-full antialiased`}>
+    <html lang={LANGS[lang].html} className={`${inter.variable} h-full antialiased`}>
       <head>
         {/* Icônes Material Symbols (même jeu que les maquettes). « block » évite d’afficher le nom de l’icône
             en texte pendant le chargement ; la feuille est chargée une fois pour toute l’application. */}

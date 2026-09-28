@@ -17,6 +17,8 @@ enum ProfileSection: string
     case Awards = 'awards';
     case Languages = 'languages';
     case Links = 'links';
+    /** CV en PDF téléchargeable depuis le profil public. */
+    case Cv = 'cv';
 
     /** Sections répétables stockées dans la table profile_items. */
     public static function itemSections(): array

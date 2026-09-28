@@ -16,14 +16,16 @@ class DashboardController extends Controller
     public function __invoke(): JsonResponse
     {
         $pending = RegistrationRequest::where('status', 'pending')
-            ->with(['user.rank', 'user.faculty', 'user.departmentRef'])
+            ->with(['user.rank'])
             ->latest()->limit(5)->get();
 
         return response()->json(['data' => [
             'stats' => [
-                'active_teachers' => User::teachers()->where('status', 'approved')->count(),
+                // Profils publics, administrateurs enseignants compris.
+                'active_teachers' => User::query()->publicTeachers()->count(),
+                'admins' => User::where('role', User::ROLE_ADMIN)->count(),
                 'pending_requests' => RegistrationRequest::where('status', 'pending')->count(),
-                'suspended_teachers' => User::teachers()->where('status', 'suspended')->count(),
+                'suspended_teachers' => User::where('status', 'suspended')->count(),
                 'posts_last_30_days' => Post::where('status', 'published')->where('published_at', '>=', now()->subDays(30))->count(),
                 'published_posts' => Post::where('status', 'published')->count(),
                 'hidden_posts' => Post::where('status', 'hidden')->count(),

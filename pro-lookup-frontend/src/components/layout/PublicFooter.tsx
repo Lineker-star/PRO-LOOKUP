@@ -15,11 +15,12 @@ export function PublicFooter({ t }: { t: Dict }) {
           <p className="max-w-xs text-sm leading-relaxed text-white/70">{t.footer_tagline}</p>
           <p className="flex items-center gap-2 text-xs text-white/60">
             <Icon name="location_on" size={16} />
-            Bertoua, Région de l’Est, Cameroun
+            {t.footer_location}
           </p>
         </div>
 
         <FooterColumn title={t.footer_explore}>
+          <FooterLink href="/">{t.nav_home}</FooterLink>
           <FooterLink href="/enseignants">{t.directory_title}</FooterLink>
           <FooterLink href="/publications">{t.posts_title}</FooterLink>
           <FooterLink href="/recherche">{t.search_title}</FooterLink>
@@ -27,8 +28,8 @@ export function PublicFooter({ t }: { t: Dict }) {
 
         <FooterColumn title={t.footer_teachers}>
           <FooterLink href="/connexion">{t.login}</FooterLink>
-          <FooterLink href="/inscription">{t.request_access}</FooterLink>
-          <FooterLink href="/mot-de-passe-oublie">Mot de passe oublié</FooterLink>
+          <FooterLink href="/inscription">{t.register}</FooterLink>
+          <FooterLink href="/mot-de-passe-oublie">{t.forgot_password}</FooterLink>
         </FooterColumn>
 
         <FooterColumn title={t.footer_legal}>
@@ -39,7 +40,7 @@ export function PublicFooter({ t }: { t: Dict }) {
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-5 text-xs text-white/50 sm:px-6 lg:px-8">
           <p>
-            © {year} Université ZTF — Bertoua. {t.rights}
+            © {year} {t.university} — Bertoua. {t.rights}
           </p>
           <p>PRO-LOOKUP</p>
         </div>

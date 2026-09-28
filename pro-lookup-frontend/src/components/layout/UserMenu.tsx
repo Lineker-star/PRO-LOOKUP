@@ -7,8 +7,12 @@ import { useAuth } from "@/components/providers/AuthProvider";
 import { useLang } from "@/components/providers/LangProvider";
 import { Avatar } from "@/components/ui/Avatar";
 import { Icon } from "@/components/ui/Icon";
+import { hasTeacherProfile } from "@/lib/roles";
 
-/** Menu avatar : Mon espace, Mon profil, Mes publications, Paramètres, Se déconnecter (brief §5.3). */
+/**
+ * Menu avatar : Mon espace, Mon profil, Mes publications, Paramètres, Se déconnecter (brief §5.3).
+ * Un administrateur y trouve en plus l'Administration ; s'il enseigne, son espace enseignant complet.
+ */
 export function UserMenu() {
   const { me, logout } = useAuth();
   const { t } = useLang();
@@ -33,17 +37,19 @@ export function UserMenu() {
 
   const isAdmin = me.role === "admin";
   const approved = me.status === "approved";
+  const teaching = hasTeacherProfile(me);
 
-  const items = isAdmin
-    ? [{ href: "/admin", icon: "admin_panel_settings", label: t.admin }]
-    : approved
+  const items = [
+    ...(isAdmin ? [{ href: "/admin", icon: "admin_panel_settings", label: t.admin }] : []),
+    ...(approved
       ? [
           { href: "/espace", icon: "space_dashboard", label: t.my_space },
-          { href: me.slug ? `/in/${me.slug}` : "/espace/profil", icon: "person", label: t.my_profile },
-          { href: "/espace/publications", icon: "article", label: t.my_posts },
+          { href: me.slug && teaching ? `/in/${me.slug}` : "/espace/profil", icon: "person", label: t.my_profile },
+          ...(teaching ? [{ href: "/espace/publications", icon: "article", label: t.my_posts }] : []),
           { href: "/espace/parametres", icon: "settings", label: t.settings },
         ]
-      : [{ href: "/espace/en-attente", icon: "hourglass_top", label: t.my_space }];
+      : [{ href: "/espace/en-attente", icon: "hourglass_top", label: t.my_space }]),
+  ];
 
   return (
     <div className="relative" ref={ref}>
@@ -56,7 +62,7 @@ export function UserMenu() {
       >
         <Avatar src={me.avatar_url} name={me.full_name} size="xs" ring={false} />
         <Icon name="expand_more" size={18} className="text-muted" />
-        <span className="sr-only">Menu du compte</span>
+        <span className="sr-only">{t.account_menu}</span>
       </button>
 
       {open && (
@@ -65,7 +71,8 @@ export function UserMenu() {
             <Avatar src={me.avatar_url} name={me.full_name} size="sm" ring={false} />
             <div className="min-w-0">
               <p className="truncate text-sm font-semibold text-navy">{me.full_name}</p>
-              <p className="truncate text-xs text-muted">{isAdmin ? "Administrateur" : (me.grade?.name ?? me.email)}</p>
+              {/* Visible seulement par la personne connectée : jamais sur le profil public. */}
+              <p className="truncate text-xs text-muted">{isAdmin ? t.administrator : (me.grade?.name ?? me.email)}</p>
             </div>
           </div>
           <div className="p-1.5">

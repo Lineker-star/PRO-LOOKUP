@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\PostStatus;
-use App\Enums\UserStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,16 +27,13 @@ class Post extends Model
     }
 
     /**
-     * Publications visibles publiquement : publiées ET dont l'auteur est un
-     * enseignant approuvé (brief §4 « Règle absolue »).
+     * Publications visibles publiquement : publiées ET dont l'auteur a un profil public
+     * (compte approuvé qui enseigne) — brief §4 « Règle absolue ».
      */
     public function scopePubliclyVisible(Builder $query): Builder
     {
         return $query->where('status', PostStatus::Published->value)
-            ->whereHas('user', fn (Builder $q) => $q
-                ->where('role', User::ROLE_TEACHER)
-                ->where('status', UserStatus::Approved->value)
-                ->whereNotNull('slug'));
+            ->whereHas('user', fn (Builder $q) => $q->publicTeachers());
     }
 
     public function user(): BelongsTo

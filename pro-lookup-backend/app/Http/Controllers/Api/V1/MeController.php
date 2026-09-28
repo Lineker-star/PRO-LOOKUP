@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\ProfileItemRequest;
 use App\Http\Requests\V1\UpdateProfileRequest;
 use App\Http\Resources\V1\OwnerProfileResource;
+use App\Models\Faculty;
 use App\Models\ProfileItem;
 use App\Models\RegistrationRequest;
 use App\Models\User;
@@ -18,6 +19,8 @@ use App\Support\Emails;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
@@ -31,7 +34,7 @@ class MeController extends Controller
 
     private function profile(User $user): array
     {
-        return (new OwnerProfileResource($user->fresh(['rank', 'faculty', 'departmentRef', 'registrationRequest', 'profileItems'])))->resolve();
+        return (new OwnerProfileResource($user->fresh(['rank', 'registrationRequest', 'profileItems'])))->resolve();
     }
 
     /** Prévient Next.js si le profil est public (seuls les profils approuvés sont en cache public). */
@@ -75,10 +78,20 @@ class MeController extends Controller
             $data['expertise_tags'] = array_values(array_unique(array_filter(array_map('trim', $data['expertise_tags']))));
         }
 
-        $user->fill($data);
-        if ($user->isDirty('department_id')) {
-            $user->department = optional($user->departmentRef()->first())->name;
+        // Le grade est choisi dans la liste ; l'école est rattachée à la liste si son nom y figure.
+        if (array_key_exists('grade_id', $data)) {
+            $data['rank_id'] = $data['grade_id'];
+            unset($data['grade_id']);
         }
+        if (array_key_exists('school', $data)) {
+            $data['school'] = trim($data['school']);
+            $data['faculty_id'] = Faculty::idForName($data['school']);
+        }
+        if (array_key_exists('department', $data)) {
+            $data['department'] = trim($data['department']);
+        }
+
+        $user->fill($data);
         $user->save();
         $this->touchPublic($user);
 
@@ -112,6 +125,70 @@ class MeController extends Controller
         $this->touchPublic($user);
 
         return response()->json(['data' => $this->profile($user)]);
+    }
+
+    // ------------------------------------------------------------------ CV (PDF)
+
+    /**
+     * Dépôt (ou remplacement) du CV. PDF uniquement, 10 Mo maximum, vérifié sur son contenu
+     * (signature « %PDF »). Rangé sur le disque privé, sous un nom aléatoire.
+     */
+    public function uploadCv(Request $request): JsonResponse
+    {
+        $request->validate(
+            ['cv' => ['required', 'file', 'mimes:pdf', 'mimetypes:application/pdf', 'max:10240']],
+            ['cv.mimes' => 'Le CV doit être un fichier PDF.', 'cv.mimetypes' => 'Le CV doit être un fichier PDF.', 'cv.max' => 'Le CV ne doit pas dépasser 10 Mo.'],
+        );
+        $file = $request->file('cv');
+        $handle = fopen($file->getRealPath(), 'rb');
+        $signature = $handle ? fread($handle, 5) : '';
+        if ($handle) {
+            fclose($handle);
+        }
+        if ($signature !== '%PDF-') {
+            throw ValidationException::withMessages(['cv' => 'Ce fichier n’est pas un PDF valide.']);
+        }
+
+        $user = $request->user();
+        $old = $user->cv_path;
+        $user->cv_path = $file->storeAs('cvs', Str::uuid().'.pdf', 'local');
+        $user->cv_name = Str::limit($file->getClientOriginalName(), 180, '');
+        $user->cv_size = $file->getSize();
+        $user->cv_updated_at = now();
+        $user->save();
+        if ($old) {
+            Storage::disk('local')->delete($old);
+        }
+        $this->touchPublic($user);
+
+        return response()->json(['data' => $this->profile($user), 'message' => 'CV enregistré.']);
+    }
+
+    public function deleteCv(Request $request): JsonResponse
+    {
+        $user = $request->user();
+        if ($user->cv_path) {
+            Storage::disk('local')->delete($user->cv_path);
+        }
+        $user->forceFill(['cv_path' => null, 'cv_name' => null, 'cv_size' => null, 'cv_updated_at' => null])->save();
+        $this->touchPublic($user);
+
+        return response()->json(['data' => $this->profile($user), 'message' => 'CV retiré.']);
+    }
+
+    /** Le propriétaire consulte son propre CV, quel que soit le statut du compte. */
+    public function downloadCv(Request $request)
+    {
+        $user = $request->user();
+        abort_unless($user->cv_path && Storage::disk('local')->exists($user->cv_path), 404);
+
+        return Storage::disk('local')->response($user->cv_path, self::cvFileName($user), ['Content-Type' => 'application/pdf']);
+    }
+
+    /** Nom du fichier proposé au téléchargement : « cv-prenom-nom.pdf ». */
+    public static function cvFileName(User $user): string
+    {
+        return 'cv-'.(Str::slug(Str::ascii($user->full_name)) ?: 'enseignant').'.pdf';
     }
 
     // ------------------------------------------------------------------ Sections répétables
@@ -186,6 +263,9 @@ class MeController extends Controller
 
         return response()->json(['data' => [
             'slug' => $user->slug,
+            // Profil visible dans l'annuaire ? Toujours vrai pour un enseignant ; au choix pour un administrateur.
+            'teaches' => (bool) $user->teaches,
+            'can_toggle_teaches' => $user->isAdmin(),
             'sections' => $user->sectionVisibility(),
             'show_email' => (bool) $user->show_email,
             'show_phone' => (bool) $user->show_phone,
@@ -207,9 +287,23 @@ class MeController extends Controller
             'show_phone' => ['sometimes', 'boolean'],
             'show_office' => ['sometimes', 'boolean'],
             'search_indexable' => ['sometimes', 'boolean'],
+            'teaches' => ['sometimes', 'boolean'],
         ]);
 
         $user = $request->user();
+
+        // Un administrateur qui enseigne aussi peut publier son profil public
+        // (son rôle d'administrateur n'y apparaît jamais). Un enseignant, lui, est toujours public.
+        if (array_key_exists('teaches', $data)) {
+            if (! $user->isAdmin()) {
+                return response()->json(['message' => 'Seul un administrateur peut masquer ou afficher son profil enseignant.'], 403);
+            }
+            $user->teaches = $data['teaches'];
+            if ($user->teaches && ! $user->slug) {
+                $user->slug = $slugs->generateFor($user);
+            }
+        }
+
         if (isset($data['sections'])) {
             $user->public_sections = array_intersect_key(
                 array_merge($user->sectionVisibility(), array_map('boolval', $data['sections'])),

@@ -12,15 +12,16 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const result = await getTeacher(slug);
 
   if (result.kind !== "found") {
-    return brandedOgImage({ eyebrow: "Annuaire des enseignants", title: "Les enseignants de l’Université ZTF" });
+    return brandedOgImage({ eyebrow: "Annuaire des enseignants", title: "La qualité des enseignants de l’Université ZTF" });
   }
 
+  // Image d'aperçu partagée sur les réseaux : en français, langue de l'université.
   const t = result.teacher;
   return brandedOgImage({
     eyebrow: "Profil enseignant",
     title: t.full_name,
     badge: t.grade?.name,
-    subtitle: [t.department ? `Département ${t.department.name}` : null, "Université ZTF"].filter(Boolean).join(" · "),
+    subtitle: [t.department, t.school ?? "Université ZTF"].filter(Boolean).join(" · "),
     photo: await reachable(t.avatar_url),
     initials: initials(t.full_name),
   });

@@ -7,6 +7,7 @@ import { useLang } from "@/components/providers/LangProvider";
 import { Avatar } from "@/components/ui/Avatar";
 import { Icon } from "@/components/ui/Icon";
 import { PUBLIC_API_URL } from "@/lib/config";
+import { fmt } from "@/lib/i18n";
 import type { SearchResults } from "@/lib/types";
 
 /**
@@ -86,17 +87,17 @@ export function HeaderSearch({ className }: { className?: string }) {
         <div className="absolute left-0 right-0 z-50 mt-2 overflow-hidden rounded-xl border border-line bg-white shadow-float">
           <div className="flex items-center justify-between border-b border-line bg-canvas px-4 py-2.5 text-xs">
             <span className="font-semibold text-navy">
-              Recherche : <span className="text-teal-text">« {q.trim()} »</span>
+              {t.search_label} : <span className="text-teal-text">« {q.trim()} »</span>
             </span>
-            <span className="rounded bg-white px-1.5 py-0.5 text-muted ring-1 ring-line">Échap pour fermer</span>
+            <span className="rounded bg-white px-1.5 py-0.5 text-muted ring-1 ring-line">{t.search_escape}</span>
           </div>
 
           {results.teachers.length === 0 && results.posts.length === 0 ? (
-            <p className="px-4 py-6 text-center text-sm text-muted">Aucun résultat pour cette recherche.</p>
+            <p className="px-4 py-6 text-center text-sm text-muted">{t.search_no_result}</p>
           ) : (
             <div className="max-h-96 overflow-y-auto p-2">
               {results.teachers.length > 0 && (
-                <p className="px-2 pb-1 pt-2 text-[11px] font-bold uppercase tracking-widest text-muted">Enseignants</p>
+                <p className="px-2 pb-1 pt-2 text-[11px] font-bold uppercase tracking-widest text-muted">{t.nav_teachers}</p>
               )}
               {results.teachers.map((teacher) => (
                 <Link
@@ -109,13 +110,13 @@ export function HeaderSearch({ className }: { className?: string }) {
                   <span className="min-w-0">
                     <span className="block truncate text-sm font-semibold text-navy">{teacher.full_name}</span>
                     <span className="block truncate text-xs text-muted">
-                      {[teacher.grade?.name, teacher.department?.name].filter(Boolean).join(" · ")}
+                      {[teacher.grade?.name, teacher.department, teacher.school].filter(Boolean).join(" · ")}
                     </span>
                   </span>
                 </Link>
               ))}
               {results.posts.length > 0 && (
-                <p className="px-2 pb-1 pt-3 text-[11px] font-bold uppercase tracking-widest text-muted">Publications</p>
+                <p className="px-2 pb-1 pt-3 text-[11px] font-bold uppercase tracking-widest text-muted">{t.nav_posts}</p>
               )}
               {results.posts.map((post) => (
                 <Link
@@ -141,7 +142,7 @@ export function HeaderSearch({ className }: { className?: string }) {
             onClick={() => setOpen(false)}
             className="flex items-center justify-between border-t border-line px-4 py-3 text-sm font-semibold text-teal-text hover:bg-canvas"
           >
-            Voir tous les résultats ({results.totals.teachers + results.totals.posts})
+            {fmt(t.search_see_all, { n: results.totals.teachers + results.totals.posts })}
             <Icon name="arrow_forward" size={18} />
           </Link>
         </div>

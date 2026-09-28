@@ -35,7 +35,7 @@ class MyPostController extends Controller
 
     private function present(Post $post): array
     {
-        return PostResource::forAudience($post->fresh(['category', 'media', 'user.rank', 'user.faculty', 'user.departmentRef']), 'owner')->resolve();
+        return PostResource::forAudience($post->fresh(['category', 'media', 'user.rank']), 'owner')->resolve();
     }
 
     public function index(Request $request): JsonResponse
@@ -45,7 +45,7 @@ class MyPostController extends Controller
 
         $posts = (clone $base)
             ->when(in_array($status, ['draft', 'published', 'hidden'], true), fn ($q) => $q->where('status', $status))
-            ->with(['category', 'media', 'user.rank', 'user.faculty', 'user.departmentRef'])
+            ->with(['category', 'media', 'user.rank'])
             ->latest('updated_at')
             ->paginate(min((int) $request->query('per_page', 20), 50));
 

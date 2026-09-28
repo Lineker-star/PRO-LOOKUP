@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { copyText } from "@/components/public/CopyLinkButton";
 import { QrCodePanel } from "@/components/public/QrCodePanel";
 import { ReportForm, type ReportTarget } from "@/components/public/ReportForm";
+import { useLang } from "@/components/providers/LangProvider";
 import { Icon } from "@/components/ui/Icon";
 import { Modal } from "@/components/ui/Modal";
 
@@ -19,7 +20,7 @@ export function ShareMenu({
   qrFileName,
   pdfHref,
   compact = false,
-  label = "Plus…",
+  label,
 }: {
   url: string;
   title: string;
@@ -29,6 +30,7 @@ export function ShareMenu({
   compact?: boolean;
   label?: string;
 }) {
+  const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [dialog, setDialog] = useState<"qr" | "report" | null>(null);
@@ -70,8 +72,8 @@ export function ShareMenu({
         )}
       >
         <Icon name="more_horiz" size={20} />
-        {!compact && label}
-        {compact && <span className="sr-only">Plus d’options</span>}
+        {!compact && (label ?? t.more)}
+        {compact && <span className="sr-only">{t.more_options}</span>}
       </button>
 
       {open && (
@@ -91,22 +93,22 @@ export function ShareMenu({
             }}
           >
             <Icon name={copied ? "check" : "link"} size={18} className={copied ? "text-success" : "text-muted"} />
-            {copied ? "Lien copié" : "Copier le lien"}
+            {copied ? t.link_copied : t.copy_link}
           </button>
           <button type="button" role="menuitem" className={item} onClick={share}>
             <Icon name="share" size={18} className="text-muted" />
-            Partager
+            {t.share}
           </button>
           {qrFileName && (
             <button type="button" role="menuitem" className={item} onClick={() => { setOpen(false); setDialog("qr"); }}>
               <Icon name="qr_code_2" size={18} className="text-muted" />
-              QR code
+              {t.qr_code}
             </button>
           )}
           {pdfHref && (
             <a href={pdfHref} role="menuitem" className={item} target="_blank" rel="noopener">
               <Icon name="picture_as_pdf" size={18} className="text-muted" />
-              Enregistrer en PDF
+              {t.save_pdf}
             </a>
           )}
           {report && (
@@ -114,7 +116,7 @@ export function ShareMenu({
               <div className="my-1 border-t border-line" />
               <button type="button" role="menuitem" className={clsx(item, "text-danger hover:bg-danger-soft")} onClick={() => { setOpen(false); setDialog("report"); }}>
                 <Icon name="flag" size={18} />
-                Signaler
+                {t.report}
               </button>
             </>
           )}
@@ -122,14 +124,14 @@ export function ShareMenu({
       )}
 
       {dialog === "qr" && qrFileName && (
-        <Modal title="QR code du profil" subtitle="Scannez-le pour ouvrir le profil public." icon="qr_code_2" onClose={() => setDialog(null)} size="sm">
-          <QrCodePanel url={url} fileName={qrFileName} />
+        <Modal title={t.qr_title} subtitle={t.qr_subtitle} icon="qr_code_2" onClose={() => setDialog(null)} size="sm">
+          <QrCodePanel url={url} fileName={qrFileName} labels={{ alt: t.qr_alt, png: t.qr_png, svg: t.qr_svg, hint: t.qr_hint }} />
         </Modal>
       )}
       {dialog === "report" && report && (
         <Modal
-          title={report.type === "post" ? "Signaler cette publication" : "Signaler ce profil"}
-          subtitle="Votre signalement sera examiné par l’administration de l’université."
+          title={report.type === "post" ? t.report_post_title : t.report_profile_title}
+          subtitle={t.report_subtitle}
           icon="flag"
           onClose={() => setDialog(null)}
         >

@@ -57,6 +57,7 @@ export function clearSession() {
   setCookie(SESSION_COOKIE, "", 0);
 }
 
-export function setLangCookie(lang: "fr" | "en") {
+/** Langue de l'interface publique (code validé côté serveur par normalizeLang). */
+export function setLangCookie(lang: string) {
   setCookie(LANG_COOKIE, lang, 60 * 60 * 24 * 365);
 }
