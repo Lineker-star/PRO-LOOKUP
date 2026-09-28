@@ -23,6 +23,8 @@ async function getPublic<T>(path: string, tags: string[]): Promise<{ status: num
     const response = await fetch(`${SERVER_API_URL}/public${path}`, {
       headers: { Accept: "application/json" },
       next: { revalidate: PUBLIC_REVALIDATE, tags },
+      // Empêche un backend injoignable de bloquer indéfiniment le rendu (build statique compris).
+      signal: AbortSignal.timeout(10_000),
     });
     if (!response.ok) {
       return { status: response.status, body: null };
