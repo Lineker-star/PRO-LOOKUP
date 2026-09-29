@@ -3,15 +3,20 @@
 namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Enums\UserStatus;
+use App\Http\Controllers\Concerns\ManagesTeacherProfile;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\ProfileItemRequest;
+use App\Http\Requests\V1\UpdateProfileRequest;
 use App\Http\Resources\V1\OwnerProfileResource;
 use App\Http\Resources\V1\Refs;
 use App\Models\AdminAuditLog;
 use App\Models\Faculty;
+use App\Models\ProfileItem;
 use App\Models\Report;
 use App\Models\User;
 use App\Services\AuditLogger;
 use App\Services\FrontendRevalidator;
+use App\Services\ImageStore;
 use App\Services\SlugService;
 use App\Support\Emails;
 use Illuminate\Http\JsonResponse;
@@ -19,16 +24,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password as PasswordRule;
 
 /**
  * Gestion des comptes (enseignants et administrateurs).
  *
- * Règle : l'administration NE MODIFIE JAMAIS les informations ni le profil d'un enseignant,
- * qu'il soit en attente ou déjà validé. Elle peut uniquement : consulter, créer un compte
- * directement, suspendre / réactiver, supprimer, nommer ou retirer un administrateur.
+ * L'administration peut : consulter, créer un compte directement (avec mot de passe,
+ * photo, CV et publications scientifiques), modifier le profil d'un enseignant,
+ * suspendre / réactiver, supprimer, nommer ou retirer un administrateur
+ * (DECISIONS.md, point 11 ter révisé).
  */
 class UserController extends Controller
 {
+    use ManagesTeacherProfile;
+
     public function __construct(private AuditLogger $audit, private FrontendRevalidator $revalidator)
     {
     }
@@ -109,13 +118,19 @@ class UserController extends Controller
         return response()->json(['data' => $this->detail(User::findOrFail($id))]);
     }
 
-    /** Création directe : compte approuvé d'office, email pour définir le mot de passe (brief §5.2). */
-    public function store(Request $request, SlugService $slugs): JsonResponse
+    /**
+     * Création directe : compte approuvé d'office (brief §5.2). L'admin peut fixer lui-même
+     * le mot de passe, déposer une photo et un CV, et ajouter d'emblée des publications
+     * scientifiques (elles apparaissent ensuite comme n'importe quelle publication du profil).
+     * Sans mot de passe fourni, un email invite l'enseignant à en définir un (comportement historique).
+     */
+    public function store(Request $request, SlugService $slugs, ImageStore $images): JsonResponse
     {
         $data = $request->validate([
             'first_name' => ['required', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')],
+            'password' => ['nullable', 'confirmed', PasswordRule::min(8)->letters()->numbers()],
             'grade_id' => ['required', 'integer', Rule::exists('ranks', 'id')->where('is_active', true)],
             'school' => ['required', 'string', 'max:150'],
             'department' => ['required', 'string', 'max:150'],
@@ -123,19 +138,33 @@ class UserController extends Controller
             'expertise' => ['nullable', 'string', 'max:150'],
             'matricule' => ['nullable', 'string', 'max:50'],
             'reason' => ['nullable', 'string', 'max:1000'],
+            'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'cv' => ['nullable', 'file', 'mimes:pdf', 'mimetypes:application/pdf', 'max:10240'],
+            'publications' => ['nullable', 'array'],
+            'publications.*.title' => ['required_with:publications', 'string', 'max:255'],
+            'publications.*.author' => ['nullable', 'string', 'max:255'],
+            'publications.*.year' => ['nullable', 'string', 'max:60'],
+            'publications.*.resume' => ['nullable', 'string', 'max:2000'],
+            'publications.*.link' => ['nullable', 'string', 'max:500'],
         ], [
             'email.unique' => 'Un compte existe déjà avec cette adresse email.',
             'school.required' => 'Indiquez l’école supérieure de l’enseignant.',
             'department.required' => 'Indiquez le département ou la filière de l’enseignant.',
+            'cv.mimes' => 'Le CV doit être un fichier PDF.',
+            'cv.mimetypes' => 'Le CV doit être un fichier PDF.',
+            'cv.max' => 'Le CV ne doit pas dépasser 10 Mo.',
         ]);
 
-        $user = DB::transaction(function () use ($data, $request, $slugs) {
+        $hasPassword = ! empty($data['password']);
+
+        $user = DB::transaction(function () use ($data, $request, $slugs, $images, $hasPassword) {
             $user = new User([
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
                 'email' => strtolower($data['email']),
-                // Mot de passe aléatoire inutilisable : l'enseignant définit le sien via l'email reçu.
-                'password' => Str::random(40),
+                // Sans mot de passe fourni par l'admin : valeur aléatoire inutilisable, l'enseignant
+                // définit la sienne via l'email reçu (comportement historique, voir Emails::accountCreated).
+                'password' => $hasPassword ? $data['password'] : Str::random(40),
                 'rank_id' => $data['grade_id'],
                 'school' => trim($data['school']),
                 'faculty_id' => Faculty::idForName($data['school']),
@@ -150,20 +179,146 @@ class UserController extends Controller
             $user->approved_at = now();
             $user->email_verified_at = now();
             $user->slug = $slugs->generateFor($user);
+
+            if ($request->hasFile('photo')) {
+                $user->avatar_path = $images->store($request->file('photo'), 'avatars', 800);
+            }
             $user->save();
 
-            $this->audit->log($request->user(), 'user.created', $user, $data['reason'] ?? null);
+            if ($request->hasFile('cv')) {
+                $this->storeTeacherCv($user, $request->file('cv'));
+            }
+
+            foreach ($data['publications'] ?? [] as $publication) {
+                if (trim((string) ($publication['title'] ?? '')) === '') {
+                    continue;
+                }
+                $this->addTeacherProfileItem($user, [
+                    'section' => 'scientific_publication',
+                    'title' => $publication['title'],
+                    'author' => $publication['author'] ?? null,
+                    'period' => $publication['year'] ?? null,
+                    'description' => $publication['resume'] ?? null,
+                    'url' => $publication['link'] ?? null,
+                ]);
+            }
+
+            $this->audit->log($request->user(), 'user.created', $user, $data['reason'] ?? null, [
+                'password_set_by_admin' => $hasPassword,
+                'publications_added' => count($data['publications'] ?? []),
+            ]);
 
             return $user;
         });
 
-        Emails::accountCreated($user);
+        $hasPassword ? Emails::accountCreatedWithPassword($user) : Emails::accountCreated($user);
         $this->revalidator->teacher($user->slug);
 
         return response()->json([
-            'message' => 'Compte créé et approuvé. Un email a été envoyé à l’enseignant pour définir son mot de passe.',
+            'message' => $hasPassword
+                ? 'Compte créé et approuvé avec le mot de passe fourni.'
+                : 'Compte créé et approuvé. Un email a été envoyé à l’enseignant pour définir son mot de passe.',
             'data' => $this->detail($user),
         ], 201);
+    }
+
+    /**
+     * Modification du profil d'un enseignant par l'administration (DECISIONS.md, point 11 ter révisé).
+     * Mêmes règles et mêmes champs que lorsque l'enseignant modifie lui-même son profil.
+     */
+    public function updateProfile(UpdateProfileRequest $request, int $id): JsonResponse
+    {
+        $user = User::findOrFail($id);
+        $this->applyProfileFields($user, $request->validated());
+        $this->audit->log($request->user(), 'user.profile_updated', $user);
+        $this->revalidator->teacher($user->slug);
+
+        return response()->json(['data' => $this->detail($user), 'message' => 'Profil enregistré.']);
+    }
+
+    /** Photo de profil ou bannière d'un enseignant, déposée par l'administration. */
+    public function uploadImage(Request $request, ImageStore $images, int $id, string $kind): JsonResponse
+    {
+        abort_unless(in_array($kind, ['avatar', 'banner'], true), 404);
+        $request->validate(['image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120']]);
+
+        $user = User::findOrFail($id);
+        $this->storeTeacherImage($user, $images, $request->file('image'), $kind);
+        $this->audit->log($request->user(), 'user.image_updated', $user, null, ['kind' => $kind]);
+        $this->revalidator->teacher($user->slug);
+
+        return response()->json(['data' => $this->detail($user), 'message' => 'Image enregistrée.']);
+    }
+
+    public function deleteImage(Request $request, ImageStore $images, int $id, string $kind): JsonResponse
+    {
+        abort_unless(in_array($kind, ['avatar', 'banner'], true), 404);
+        $user = User::findOrFail($id);
+        $this->removeTeacherImage($user, $images, $kind);
+        $this->audit->log($request->user(), 'user.image_removed', $user, null, ['kind' => $kind]);
+        $this->revalidator->teacher($user->slug);
+
+        return response()->json(['data' => $this->detail($user)]);
+    }
+
+    /** Dépôt (ou remplacement) du CV d'un enseignant par l'administration. */
+    public function uploadCv(Request $request, int $id): JsonResponse
+    {
+        $request->validate(
+            ['cv' => ['required', 'file', 'mimes:pdf', 'mimetypes:application/pdf', 'max:10240']],
+            ['cv.mimes' => 'Le CV doit être un fichier PDF.', 'cv.mimetypes' => 'Le CV doit être un fichier PDF.', 'cv.max' => 'Le CV ne doit pas dépasser 10 Mo.'],
+        );
+
+        $user = User::findOrFail($id);
+        $this->storeTeacherCv($user, $request->file('cv'));
+        $this->audit->log($request->user(), 'user.cv_updated', $user);
+        $this->revalidator->teacher($user->slug);
+
+        return response()->json(['data' => $this->detail($user), 'message' => 'CV enregistré.']);
+    }
+
+    public function deleteCv(Request $request, int $id): JsonResponse
+    {
+        $user = User::findOrFail($id);
+        $this->removeTeacherCv($user);
+        $this->audit->log($request->user(), 'user.cv_removed', $user);
+        $this->revalidator->teacher($user->slug);
+
+        return response()->json(['data' => $this->detail($user), 'message' => 'CV retiré.']);
+    }
+
+    // ------------------------------------------------------------------ Sections répétables (publications, diplômes…)
+
+    public function storeItem(ProfileItemRequest $request, int $id): JsonResponse
+    {
+        $user = User::findOrFail($id);
+        $item = $this->addTeacherProfileItem($user, $request->validated());
+        $this->audit->log($request->user(), 'user.profile_item_added', $user, null, ['section' => $item->section, 'title' => $item->title]);
+        $this->revalidator->teacher($user->slug);
+
+        return response()->json(['data' => $this->detail($user)], 201);
+    }
+
+    public function updateItem(ProfileItemRequest $request, int $id, ProfileItem $item): JsonResponse
+    {
+        $user = User::findOrFail($id);
+        abort_unless($item->user_id === $user->id, 404);
+        $item->update($request->safe()->except('section'));
+        $this->audit->log($request->user(), 'user.profile_item_updated', $user, null, ['section' => $item->section, 'title' => $item->title]);
+        $this->revalidator->teacher($user->slug);
+
+        return response()->json(['data' => $this->detail($user)]);
+    }
+
+    public function destroyItem(Request $request, int $id, ProfileItem $item): JsonResponse
+    {
+        $user = User::findOrFail($id);
+        abort_unless($item->user_id === $user->id, 404);
+        $item->delete();
+        $this->audit->log($request->user(), 'user.profile_item_removed', $user, null, ['section' => $item->section, 'title' => $item->title]);
+        $this->revalidator->teacher($user->slug);
+
+        return response()->json(['data' => $this->detail($user)]);
     }
 
     /** Un administrateur doit d'abord perdre ce rôle avant d'être suspendu ou supprimé. */

@@ -183,6 +183,8 @@ export const ru: Dict = {
   copy_link: "Копировать ссылку",
   link_copied: "Ссылка скопирована",
   share: "Поделиться",
+  share_whatsapp: "Поделиться в WhatsApp",
+  share_facebook: "Поделиться в Facebook",
   qr_code: "QR-код",
   save_pdf: "Сохранить в PDF",
   report: "Пожаловаться",

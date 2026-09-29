@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Enums\ProfileSection;
 use App\Enums\UserStatus;
+use App\Http\Controllers\Concerns\ManagesTeacherProfile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\ProfileItemRequest;
 use App\Http\Requests\V1\UpdateProfileRequest;
 use App\Http\Resources\V1\OwnerProfileResource;
-use App\Models\Faculty;
 use App\Models\ProfileItem;
 use App\Models\RegistrationRequest;
 use App\Models\User;
@@ -28,6 +28,8 @@ use Illuminate\Validation\ValidationException;
 /** Espace enseignant (zone B) : gestion de son propre compte et de son profil. */
 class MeController extends Controller
 {
+    use ManagesTeacherProfile;
+
     public function __construct(private FrontendRevalidator $revalidator)
     {
     }
@@ -69,30 +71,7 @@ class MeController extends Controller
     public function update(UpdateProfileRequest $request): JsonResponse
     {
         $user = $request->user();
-        $data = $request->validated();
-
-        if (array_key_exists('links', $data)) {
-            $data['links'] = array_intersect_key($data['links'] ?? [], array_flip(['orcid', 'google_scholar', 'researchgate', 'linkedin', 'website']));
-        }
-        if (array_key_exists('expertise_tags', $data)) {
-            $data['expertise_tags'] = array_values(array_unique(array_filter(array_map('trim', $data['expertise_tags']))));
-        }
-
-        // Le grade est choisi dans la liste ; l'école est rattachée à la liste si son nom y figure.
-        if (array_key_exists('grade_id', $data)) {
-            $data['rank_id'] = $data['grade_id'];
-            unset($data['grade_id']);
-        }
-        if (array_key_exists('school', $data)) {
-            $data['school'] = trim($data['school']);
-            $data['faculty_id'] = Faculty::idForName($data['school']);
-        }
-        if (array_key_exists('department', $data)) {
-            $data['department'] = trim($data['department']);
-        }
-
-        $user->fill($data);
-        $user->save();
+        $this->applyProfileFields($user, $request->validated());
         $this->touchPublic($user);
 
         return response()->json(['data' => $this->profile($user), 'message' => 'Profil enregistré.']);
@@ -105,10 +84,7 @@ class MeController extends Controller
         $request->validate(['image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120']]);
 
         $user = $request->user();
-        $column = $kind === 'avatar' ? 'avatar_path' : 'banner_path';
-        $images->delete($user->{$column});
-        $user->{$column} = $images->store($request->file('image'), $kind === 'avatar' ? 'avatars' : 'banners', $kind === 'avatar' ? 800 : 1800);
-        $user->save();
+        $this->storeTeacherImage($user, $images, $request->file('image'), $kind);
         $this->touchPublic($user);
 
         return response()->json(['data' => $this->profile($user), 'message' => 'Image enregistrée.']);
@@ -118,10 +94,7 @@ class MeController extends Controller
     {
         abort_unless(in_array($kind, ['avatar', 'banner'], true), 404);
         $user = $request->user();
-        $column = $kind === 'avatar' ? 'avatar_path' : 'banner_path';
-        $images->delete($user->{$column});
-        $user->{$column} = null;
-        $user->save();
+        $this->removeTeacherImage($user, $images, $kind);
         $this->touchPublic($user);
 
         return response()->json(['data' => $this->profile($user)]);
@@ -139,26 +112,9 @@ class MeController extends Controller
             ['cv' => ['required', 'file', 'mimes:pdf', 'mimetypes:application/pdf', 'max:10240']],
             ['cv.mimes' => 'Le CV doit être un fichier PDF.', 'cv.mimetypes' => 'Le CV doit être un fichier PDF.', 'cv.max' => 'Le CV ne doit pas dépasser 10 Mo.'],
         );
-        $file = $request->file('cv');
-        $handle = fopen($file->getRealPath(), 'rb');
-        $signature = $handle ? fread($handle, 5) : '';
-        if ($handle) {
-            fclose($handle);
-        }
-        if ($signature !== '%PDF-') {
-            throw ValidationException::withMessages(['cv' => 'Ce fichier n’est pas un PDF valide.']);
-        }
 
         $user = $request->user();
-        $old = $user->cv_path;
-        $user->cv_path = $file->storeAs('cvs', Str::uuid().'.pdf', 'local');
-        $user->cv_name = Str::limit($file->getClientOriginalName(), 180, '');
-        $user->cv_size = $file->getSize();
-        $user->cv_updated_at = now();
-        $user->save();
-        if ($old) {
-            Storage::disk('local')->delete($old);
-        }
+        $this->storeTeacherCv($user, $request->file('cv'));
         $this->touchPublic($user);
 
         return response()->json(['data' => $this->profile($user), 'message' => 'CV enregistré.']);
@@ -167,10 +123,7 @@ class MeController extends Controller
     public function deleteCv(Request $request): JsonResponse
     {
         $user = $request->user();
-        if ($user->cv_path) {
-            Storage::disk('local')->delete($user->cv_path);
-        }
-        $user->forceFill(['cv_path' => null, 'cv_name' => null, 'cv_size' => null, 'cv_updated_at' => null])->save();
+        $this->removeTeacherCv($user);
         $this->touchPublic($user);
 
         return response()->json(['data' => $this->profile($user), 'message' => 'CV retiré.']);
@@ -196,9 +149,7 @@ class MeController extends Controller
     public function storeItem(ProfileItemRequest $request): JsonResponse
     {
         $user = $request->user();
-        $data = $request->validated();
-        $data['position'] ??= (int) $user->profileItems()->where('section', $data['section'])->max('position') + 1;
-        $user->profileItems()->create($data);
+        $this->addTeacherProfileItem($user, $request->validated());
         $this->touchPublic($user);
 
         return response()->json(['data' => $this->profile($user)], 201);

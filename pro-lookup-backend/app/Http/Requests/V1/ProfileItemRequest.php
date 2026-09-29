@@ -19,6 +19,7 @@ class ProfileItemRequest extends FormRequest
         return [
             'section' => [$this->isMethod('post') ? 'required' : 'sometimes', Rule::in(ProfileSection::itemSections())],
             'title' => ['required', 'string', 'max:255'],
+            'author' => ['nullable', 'string', 'max:255'],
             'organization' => ['nullable', 'string', 'max:255'],
             'period' => ['nullable', 'string', 'max:60'],
             'description' => ['nullable', 'string', 'max:2000'],

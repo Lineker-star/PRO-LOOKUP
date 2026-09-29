@@ -5,22 +5,25 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { AdminHeading } from "@/components/admin/AdminShell";
 import { ReasonAction } from "@/components/admin/AdminUi";
+import { FileDrop } from "@/components/auth/RegisterForm";
 import { useAuth } from "@/components/providers/AuthProvider";
 import { Avatar } from "@/components/ui/Avatar";
 import { GradeBadge, StatusBadge } from "@/components/ui/Badge";
-import { ButtonLink } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Field";
+import { Button, ButtonLink } from "@/components/ui/Button";
+import { Drawer } from "@/components/ui/Drawer";
+import { Field, Input, Select, Textarea } from "@/components/ui/Field";
 import { Alert, Card, EmptyState, Spinner } from "@/components/ui/Feedback";
 import { Icon } from "@/components/ui/Icon";
-import { api } from "@/lib/api/client";
-import { profileUrl } from "@/lib/config";
+import { SchoolSelect } from "@/components/ui/SchoolSelect";
+import { api, ApiError } from "@/lib/api/client";
+import { profileUrl, PUBLIC_API_URL } from "@/lib/config";
 import { ACCOUNT_STATUS, formatDateTime } from "@/lib/format";
-import type { AdminUserDetail } from "@/lib/types";
+import type { AdminUserDetail, ProfileItem, Ref, School } from "@/lib/types";
 
 /**
  * Fiche d'un compte (brief §8) : consultation, suspension, réactivation, suppression, historique,
- * nomination ou retrait du rôle d'administrateur. L'administration ne modifie JAMAIS les
- * informations ni le profil d'un enseignant : seul l'enseignant le fait, depuis son espace.
+ * nomination ou retrait du rôle d'administrateur. L'administration peut aussi modifier le profil
+ * d'un enseignant, sa photo, son CV et ses publications scientifiques (DECISIONS.md, point 11 ter révisé).
  */
 export default function TeacherAdminDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -28,11 +31,24 @@ export default function TeacherAdminDetailPage() {
   const queryClient = useQueryClient();
   const { me } = useAuth();
   const [message, setMessage] = useState<{ tone: "success" | "danger"; text: string } | null>(null);
+  const [editingProfile, setEditingProfile] = useState(false);
 
   const detail = useQuery({
     queryKey: ["admin", "user", id],
     queryFn: async () => (await api<{ data: AdminUserDetail }>(`/admin/users/${id}`)).data,
     retry: false,
+  });
+
+  const refs = useQuery({
+    queryKey: ["creation-refs"],
+    queryFn: async () => {
+      const [g, sc] = await Promise.all([
+        fetch(`${PUBLIC_API_URL}/public/grades`).then((r) => r.json()),
+        fetch(`${PUBLIC_API_URL}/public/schools`).then((r) => r.json()),
+      ]);
+      return { grades: g.data as Ref[], schools: sc.data as School[] };
+    },
+    staleTime: 600_000,
   });
 
   if (detail.isPending) return <Spinner />;
@@ -70,21 +86,24 @@ export default function TeacherAdminDetailPage() {
       <div className="grid gap-6 xl:grid-cols-3">
         <div className="space-y-6 xl:col-span-2">
           <Card className="p-6">
-            <div className="flex flex-wrap items-center gap-4">
-              <Avatar src={u.avatar_url} name={u.full_name} size="lg" />
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  <h2 className="text-xl font-extrabold text-navy">{u.full_name}</h2>
-                  <StatusBadge tone={ACCOUNT_STATUS[u.status].tone}>{ACCOUNT_STATUS[u.status].label}</StatusBadge>
-                  {isAdmin && (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-navy px-2.5 py-0.5 text-xs font-semibold text-white">
-                      <Icon name="admin_panel_settings" size={14} /> Administrateur{isSelf ? " (vous)" : ""}
-                    </span>
-                  )}
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-4">
+                <Avatar src={u.avatar_url} name={u.full_name} size="lg" />
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h2 className="text-xl font-extrabold text-navy">{u.full_name}</h2>
+                    <StatusBadge tone={ACCOUNT_STATUS[u.status].tone}>{ACCOUNT_STATUS[u.status].label}</StatusBadge>
+                    {isAdmin && (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-navy px-2.5 py-0.5 text-xs font-semibold text-white">
+                        <Icon name="admin_panel_settings" size={14} /> Administrateur{isSelf ? " (vous)" : ""}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm text-muted">{u.title ?? "—"}</p>
+                  {u.grade && <GradeBadge name={u.grade.name} size="sm" className="mt-2" />}
                 </div>
-                <p className="text-sm text-muted">{u.title ?? "—"}</p>
-                {u.grade && <GradeBadge name={u.grade.name} size="sm" className="mt-2" />}
               </div>
+              <Button variant="outline" size="sm" icon="edit" onClick={() => setEditingProfile(true)}>Modifier le profil</Button>
             </div>
             <dl className="mt-6 grid gap-3 text-sm sm:grid-cols-3">
               {[
@@ -101,11 +120,10 @@ export default function TeacherAdminDetailPage() {
                 </div>
               ))}
             </dl>
-            <p className="mt-4 flex items-start gap-2 rounded-lg bg-mist px-3 py-2 text-xs text-navy">
-              <Icon name="lock" size={16} className="mt-px shrink-0" />
-              Les informations et le profil d’un enseignant ne sont modifiables que par lui-même, depuis son espace.
-            </p>
           </Card>
+
+          <TeacherPhotoAndCv user={u} onUpdated={(data) => queryClient.setQueryData(["admin", "user", id], data)} />
+          <TeacherPublications user={u} onUpdated={(data) => queryClient.setQueryData(["admin", "user", id], data)} />
 
           <Card>
             <h2 className="flex items-center gap-2 border-b border-line px-5 py-4 font-bold text-navy"><Icon name="history" size={20} className="text-teal-text" /> Historique</h2>
@@ -214,7 +232,276 @@ export default function TeacherAdminDetailPage() {
           </Card>
         </div>
       </div>
+
+      {editingProfile && (
+        <EditProfileDrawer
+          user={u}
+          grades={refs.data?.grades ?? []}
+          schools={refs.data?.schools ?? []}
+          onClose={() => setEditingProfile(false)}
+          onSaved={(data) => {
+            queryClient.setQueryData(["admin", "user", id], data);
+            setEditingProfile(false);
+          }}
+        />
+      )}
     </div>
+  );
+}
+
+/** Modification du profil d'un enseignant par l'administration (DECISIONS.md, point 11 ter révisé). */
+function EditProfileDrawer({
+  user,
+  grades,
+  schools,
+  onClose,
+  onSaved,
+}: {
+  user: AdminUserDetail;
+  grades: Ref[];
+  schools: School[];
+  onClose: () => void;
+  onSaved: (data: AdminUserDetail) => void;
+}) {
+  const [v, setV] = useState({
+    first_name: user.first_name,
+    last_name: user.last_name,
+    title: user.title ?? "",
+    expertise: user.expertise ?? "",
+    grade_id: user.grade ? String(user.grade.id) : "",
+    school: user.school ?? "",
+    department: user.department ?? "",
+    phone: user.phone ?? "",
+    office: user.office ?? "",
+    bio: user.bio ?? "",
+  });
+  const [error, setError] = useState<ApiError | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  const set = (key: keyof typeof v) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setV({ ...v, [key]: e.target.value });
+
+  return (
+    <Drawer
+      title="Modifier le profil"
+      subtitle={user.full_name}
+      onClose={onClose}
+      footer={
+        <div className="flex justify-end gap-2">
+          <Button variant="ghost" onClick={onClose}>Annuler</Button>
+          <Button type="submit" form="f-edit-profile" variant="primary" icon="save" loading={saving}>Enregistrer</Button>
+        </div>
+      }
+    >
+      <form
+        id="f-edit-profile"
+        className="space-y-4"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          setSaving(true);
+          setError(null);
+          try {
+            const res = await api<{ data: AdminUserDetail }>(`/admin/users/${user.id}/profile`, {
+              method: "PUT",
+              body: { ...v, school: v.school.trim(), department: v.department.trim(), grade_id: Number(v.grade_id) },
+            });
+            onSaved(res.data);
+          } catch (err) {
+            setError(err instanceof ApiError ? err : new ApiError(0, "Enregistrement impossible."));
+          } finally {
+            setSaving(false);
+          }
+        }}
+      >
+        {error && <Alert tone="danger">{error.message}</Alert>}
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Prénom" htmlFor="e-first" required error={error?.field("first_name")}><Input id="e-first" value={v.first_name} onChange={set("first_name")} required /></Field>
+          <Field label="Nom" htmlFor="e-last" required error={error?.field("last_name")}><Input id="e-last" value={v.last_name} onChange={set("last_name")} required /></Field>
+        </div>
+        <Field label="Titre professionnel" htmlFor="e-title"><Input id="e-title" value={v.title} onChange={set("title")} /></Field>
+        <Field label="Domaine d’expertise" htmlFor="e-exp"><Input id="e-exp" value={v.expertise} onChange={set("expertise")} /></Field>
+        <Field label="École supérieure" htmlFor="e-school" required error={error?.field("school")}>
+          <SchoolSelect id="e-school" schools={schools} value={v.school} onChange={(val) => setV({ ...v, school: val })} invalid={!!error?.field("school")} />
+        </Field>
+        <Field label="Département / Filière" htmlFor="e-dept" required error={error?.field("department")}>
+          <Input id="e-dept" value={v.department} onChange={set("department")} required maxLength={150} />
+        </Field>
+        <Field label="Grade" htmlFor="e-grade" required error={error?.field("grade_id")}>
+          <Select id="e-grade" value={v.grade_id} onChange={(e) => setV({ ...v, grade_id: e.target.value })} required>
+            <option value="">Choisir…</option>
+            {grades.map((g) => <option key={g.id} value={g.id}>{g.name}</option>)}
+          </Select>
+        </Field>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Téléphone" htmlFor="e-phone"><Input id="e-phone" value={v.phone} onChange={set("phone")} /></Field>
+          <Field label="Bureau" htmlFor="e-office"><Input id="e-office" value={v.office} onChange={set("office")} /></Field>
+        </div>
+        <Field label="À propos" htmlFor="e-bio"><Textarea id="e-bio" rows={5} value={v.bio} onChange={set("bio")} maxLength={2000} /></Field>
+      </form>
+    </Drawer>
+  );
+}
+
+/** Photo de profil et CV de l'enseignant, déposés par l'administration (DECISIONS.md, point 11 ter révisé). */
+function TeacherPhotoAndCv({ user, onUpdated }: { user: AdminUserDetail; onUpdated: (data: AdminUserDetail) => void }) {
+  const [busy, setBusy] = useState<"photo" | "cv" | null>(null);
+  const [error, setError] = useState<ApiError | null>(null);
+
+  const uploadPhoto = async (file: File | null) => {
+    if (!file) return;
+    setBusy("photo");
+    setError(null);
+    try {
+      const body = new FormData();
+      body.append("image", file);
+      const res = await api<{ data: AdminUserDetail }>(`/admin/users/${user.id}/images/avatar`, { method: "POST", body });
+      onUpdated(res.data);
+    } catch (err) {
+      setError(err instanceof ApiError ? err : new ApiError(0, "Envoi impossible."));
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  const uploadCv = async (file: File | null) => {
+    if (!file) return;
+    setBusy("cv");
+    setError(null);
+    try {
+      const body = new FormData();
+      body.append("cv", file);
+      const res = await api<{ data: AdminUserDetail }>(`/admin/users/${user.id}/cv`, { method: "POST", body });
+      onUpdated(res.data);
+    } catch (err) {
+      setError(err instanceof ApiError ? err : new ApiError(0, "Envoi impossible."));
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  const removeCv = async () => {
+    setBusy("cv");
+    try {
+      const res = await api<{ data: AdminUserDetail }>(`/admin/users/${user.id}/cv`, { method: "DELETE" });
+      onUpdated(res.data);
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  return (
+    <Card className="p-6">
+      <h2 className="flex items-center gap-2 font-bold text-navy"><Icon name="photo_camera" size={20} className="text-teal-text" /> Photo et CV</h2>
+      {error && <Alert tone="danger" className="mt-3">{error.message}</Alert>}
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <Field label="Photo de profil" htmlFor="tp-photo">
+          <FileDrop id="tp-photo" accept="image/jpeg,image/png,image/webp" file={null} icon="photo_camera" label={busy === "photo" ? "Envoi…" : "Déposer une photo"} onChange={uploadPhoto} />
+        </Field>
+        <Field label="CV (PDF)" htmlFor="tp-cv">
+          <FileDrop id="tp-cv" accept=".pdf" file={null} icon="picture_as_pdf" label={busy === "cv" ? "Envoi…" : "Déposer le CV"} onChange={uploadCv} />
+          {user.cv && (
+            <p className="mt-2 flex items-center justify-between gap-2 text-xs text-muted">
+              <span>Actuel : {user.cv.name}</span>
+              <button type="button" onClick={removeCv} className="font-semibold text-danger hover:underline">Retirer</button>
+            </p>
+          )}
+        </Field>
+      </div>
+    </Card>
+  );
+}
+
+/** Publications scientifiques ajoutées par l'administration pour le compte de l'enseignant : elles
+ * apparaissent sur le profil public comme n'importe quelle autre publication (DECISIONS.md, 11 ter révisé). */
+function TeacherPublications({ user, onUpdated }: { user: AdminUserDetail; onUpdated: (data: AdminUserDetail) => void }) {
+  const [adding, setAdding] = useState(false);
+  const [v, setV] = useState({ title: "", author: "", year: "", resume: "", link: "" });
+  const [error, setError] = useState<ApiError | null>(null);
+  const [saving, setSaving] = useState(false);
+  const items = user.items.scientific_publication;
+
+  const remove = async (item: ProfileItem) => {
+    const res = await api<{ data: AdminUserDetail }>(`/admin/users/${user.id}/profile-items/${item.id}`, { method: "DELETE" });
+    onUpdated(res.data);
+  };
+
+  return (
+    <Card className="p-6">
+      <div className="flex items-center justify-between gap-3">
+        <h2 className="flex items-center gap-2 font-bold text-navy"><Icon name="menu_book" size={20} className="text-teal-text" /> Publications scientifiques</h2>
+        {!adding && <Button variant="outline" size="sm" icon="add" onClick={() => setAdding(true)}>Ajouter</Button>}
+      </div>
+
+      {items.length > 0 ? (
+        <ul className="mt-4 divide-y divide-line">
+          {items.map((item) => (
+            <li key={item.id} className="flex items-start justify-between gap-3 py-3 first:pt-0 last:pb-0">
+              <div className="min-w-0">
+                <p className="font-semibold text-navy">{item.title}</p>
+                <p className="text-sm text-muted">{[item.author, item.organization, item.period].filter(Boolean).join(" · ")}</p>
+                {item.description && <p className="mt-1 line-clamp-2 text-sm text-ink/80">{item.description}</p>}
+              </div>
+              <button type="button" onClick={() => remove(item)} className="shrink-0 text-xs font-semibold text-danger hover:underline">Retirer</button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        !adding && <p className="mt-3 text-sm text-muted">Aucune publication scientifique pour ce compte.</p>
+      )}
+
+      {adding && (
+        <form
+          className="mt-4 space-y-3 rounded-xl border border-line p-4"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            setSaving(true);
+            setError(null);
+            try {
+              const res = await api<{ data: AdminUserDetail }>(`/admin/users/${user.id}/profile-items`, {
+                method: "POST",
+                body: {
+                  section: "scientific_publication",
+                  title: v.title,
+                  author: v.author || null,
+                  period: v.year || null,
+                  description: v.resume || null,
+                  url: v.link || null,
+                },
+              });
+              onUpdated(res.data);
+              setV({ title: "", author: "", year: "", resume: "", link: "" });
+              setAdding(false);
+            } catch (err) {
+              setError(err instanceof ApiError ? err : new ApiError(0, "Enregistrement impossible."));
+            } finally {
+              setSaving(false);
+            }
+          }}
+        >
+          {error && <Alert tone="danger">{error.message}</Alert>}
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Field label="Nom de la publication" htmlFor="np-title" required className="sm:col-span-2" error={error?.field("title")}>
+              <Input id="np-title" value={v.title} onChange={(e) => setV({ ...v, title: e.target.value })} maxLength={255} required />
+            </Field>
+            <Field label="Auteur(s)" htmlFor="np-author">
+              <Input id="np-author" value={v.author} onChange={(e) => setV({ ...v, author: e.target.value })} maxLength={255} />
+            </Field>
+            <Field label="Année" htmlFor="np-year">
+              <Input id="np-year" value={v.year} onChange={(e) => setV({ ...v, year: e.target.value })} maxLength={60} />
+            </Field>
+            <Field label="Résumé" htmlFor="np-resume" className="sm:col-span-2">
+              <Textarea id="np-resume" rows={2} value={v.resume} onChange={(e) => setV({ ...v, resume: e.target.value })} maxLength={2000} />
+            </Field>
+            <Field label="Source ou lien" htmlFor="np-link" className="sm:col-span-2">
+              <Input id="np-link" icon="link" value={v.link} onChange={(e) => setV({ ...v, link: e.target.value })} maxLength={500} />
+            </Field>
+          </div>
+          <div className="flex justify-end gap-2">
+            <Button type="button" variant="ghost" size="sm" onClick={() => setAdding(false)}>Annuler</Button>
+            <Button type="submit" variant="primary" size="sm" icon="save" loading={saving}>Ajouter la publication</Button>
+          </div>
+        </form>
+      )}
+    </Card>
   );
 }
 

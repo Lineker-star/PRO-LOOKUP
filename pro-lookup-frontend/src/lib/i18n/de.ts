@@ -183,6 +183,8 @@ export const de: Dict = {
   copy_link: "Link kopieren",
   link_copied: "Link kopiert",
   share: "Teilen",
+  share_whatsapp: "Auf WhatsApp teilen",
+  share_facebook: "Auf Facebook teilen",
   qr_code: "QR-Code",
   save_pdf: "Als PDF speichern",
   report: "Melden",

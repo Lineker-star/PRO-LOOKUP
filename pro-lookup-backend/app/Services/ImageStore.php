@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -14,6 +15,15 @@ class ImageStore
 {
     public function store(UploadedFile $file, string $directory, int $maxWidth = 1600): string
     {
+        // GD absent au runtime (déjà vu sur certaines images Railway malgré son installation au
+        // build) : on stocke le fichier tel quel plutôt que de faire échouer tout l'envoi. Les
+        // métadonnées ne sont alors pas retirées — voir le journal pour le signaler.
+        if (! function_exists('imagecreatefromstring')) {
+            Log::warning('ImageStore : extension GD indisponible, image stockée sans redimensionnement ni retrait des métadonnées.');
+
+            return $file->store($directory, 'public');
+        }
+
         $source = @imagecreatefromstring((string) file_get_contents($file->getRealPath()));
 
         // Format non lisible par GD : on stocke le fichier tel quel (déjà validé comme image).

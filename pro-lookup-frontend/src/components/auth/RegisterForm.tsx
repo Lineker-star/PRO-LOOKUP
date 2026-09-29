@@ -13,9 +13,10 @@ import { Button, ButtonLink } from "@/components/ui/Button";
 import { Field, Input, Select } from "@/components/ui/Field";
 import { Alert } from "@/components/ui/Feedback";
 import { Icon } from "@/components/ui/Icon";
+import { SchoolSelect } from "@/components/ui/SchoolSelect";
 import { api, ApiError } from "@/lib/api/client";
 import { fileSize, initials } from "@/lib/format";
-import type { Me, Ref, Suggestions } from "@/lib/types";
+import type { Me, Ref, School, Suggestions } from "@/lib/types";
 
 const MAX_DOC = 5 * 1024 * 1024;
 const MAX_PHOTO = 4 * 1024 * 1024;
@@ -58,7 +59,7 @@ const STEPS: { title: string; icon: string; fields: FieldPath<Values>[] }[] = [
   { title: "Récapitulatif", icon: "fact_check", fields: ["accept_terms"] },
 ];
 
-export function RegisterForm({ suggestions, grades }: { suggestions: Suggestions; grades: Ref[] }) {
+export function RegisterForm({ suggestions, grades, schools }: { suggestions: Suggestions; grades: Ref[]; schools: School[] }) {
   const { startSession } = useAuth();
   const [step, setStep] = useState(0);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -239,18 +240,15 @@ export function RegisterForm({ suggestions, grades }: { suggestions: Suggestions
             <fieldset className="space-y-5">
               <legend className="text-lg font-bold text-navy">Votre rattachement à l’université</legend>
               <div className="grid gap-5 sm:grid-cols-2">
-                <Field
-                  label="École supérieure"
-                  htmlFor="r-school"
-                  required
-                  error={err("school")}
-                  hint="Saisissez le nom de l’école où vous enseignez (des suggestions s’affichent pendant la saisie)."
-                >
-                  <Input id="r-school" list="r-school-list" icon="account_balance" autoComplete="organization" invalid={!!err("school")} {...register("school")} />
+                <Field label="École supérieure" htmlFor="r-school" required error={err("school")} hint="Choisissez dans la liste, ou « Autre » si votre école n’y figure pas.">
+                  <SchoolSelect
+                    id="r-school"
+                    schools={schools}
+                    value={values.school}
+                    onChange={(v) => setValue("school", v, { shouldValidate: true, shouldDirty: true })}
+                    invalid={!!err("school")}
+                  />
                 </Field>
-                <datalist id="r-school-list">
-                  {suggestions.schools.map((s) => <option key={s} value={s} />)}
-                </datalist>
                 <Field label="Département / Filière" htmlFor="r-department" required error={err("department")} hint="Ex. « Informatique », « Génie civil ».">
                   <Input id="r-department" list="r-department-list" icon="apartment" invalid={!!err("department")} {...register("department")} />
                 </Field>

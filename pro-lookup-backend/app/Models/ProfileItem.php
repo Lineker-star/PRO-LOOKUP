@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class ProfileItem extends Model
 {
-    protected $fillable = ['user_id', 'section', 'title', 'organization', 'period', 'description', 'url', 'position'];
+    protected $fillable = ['user_id', 'section', 'title', 'author', 'organization', 'period', 'description', 'url', 'position'];
 
     protected function casts(): array
     {

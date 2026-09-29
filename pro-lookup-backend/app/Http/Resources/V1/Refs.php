@@ -69,6 +69,7 @@ final class Refs
             $grouped[$item->section][] = [
                 'id' => $item->id,
                 'title' => $item->title,
+                'author' => $item->author,
                 'organization' => $item->organization,
                 'period' => $item->period,
                 'description' => $item->description,

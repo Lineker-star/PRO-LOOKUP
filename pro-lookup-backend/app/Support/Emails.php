@@ -107,6 +107,21 @@ class Emails
         ));
     }
 
+    /** Compte créé par l'administration avec un mot de passe déjà défini (communiqué hors email, par prudence). */
+    public static function accountCreatedWithPassword(User $user): void
+    {
+        $user->notify(new PlatformNotification(
+            'Votre compte PRO-LOOKUP a été créé',
+            [
+                'L’administration de l’Université ZTF vous a créé un compte enseignant sur PRO-LOOKUP.',
+                'Votre profil public est accessible à l’adresse : '.self::front('/in/'.$user->slug),
+                'Connectez-vous avec l’adresse email '.$user->email.' et le mot de passe qui vous a été communiqué par l’administration. Vous pourrez le modifier depuis votre espace.',
+            ],
+            'Me connecter',
+            self::front('/connexion'),
+        ));
+    }
+
     public static function promoted(User $user): void
     {
         $user->notify(new PlatformNotification(

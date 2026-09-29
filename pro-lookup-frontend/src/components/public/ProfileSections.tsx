@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import type { ReactNode } from "react";
+import { QrCodePanel } from "@/components/public/QrCodePanel";
 import { Tag } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
 import { cvDownloadUrl } from "@/lib/config";
@@ -50,7 +51,9 @@ function ItemList({ items, section, t }: { items: ProfileItem[]; section: ItemSe
             <p className="font-semibold text-navy">{item.title}</p>
             {item.period && <span className="tnum text-xs font-semibold text-muted">{item.period}</span>}
           </div>
-          {item.organization && <p className="text-sm text-muted">{item.organization}</p>}
+          {(item.author || item.organization) && (
+            <p className="text-sm text-muted">{[item.author, item.organization].filter(Boolean).join(" · ")}</p>
+          )}
           {item.description && <p className="mt-1 text-sm leading-relaxed text-ink/80">{item.description}</p>}
           {item.url && (
             <a href={item.url.startsWith("http") ? item.url : `https://doi.org/${item.url}`} target="_blank" rel="noopener noreferrer" className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-teal-text hover:underline">
@@ -212,6 +215,15 @@ export function ProfileSideSections({ teacher, url, t, locale }: { teacher: Publ
             </li>
           )}
         </ul>
+      </SectionCard>
+
+      <SectionCard icon="qr_code_2" title={t.qr_title}>
+        <p className="mb-4 text-sm text-muted">{t.qr_subtitle}</p>
+        <QrCodePanel
+          url={url}
+          fileName={`qr-${teacher.slug}`}
+          labels={{ alt: t.qr_alt, png: t.qr_png, svg: t.qr_svg, hint: t.qr_hint }}
+        />
       </SectionCard>
 
       {links.length > 0 && (

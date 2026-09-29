@@ -182,6 +182,8 @@ export const sw: Dict = {
   copy_link: "Nakili kiungo",
   link_copied: "Kiungo kimenakiliwa",
   share: "Shiriki",
+  share_whatsapp: "Shiriki kwa WhatsApp",
+  share_facebook: "Shiriki kwa Facebook",
   qr_code: "Msimbo wa QR",
   save_pdf: "Hifadhi kama PDF",
   report: "Ripoti",

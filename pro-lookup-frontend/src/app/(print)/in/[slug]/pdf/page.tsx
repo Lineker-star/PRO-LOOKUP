@@ -168,7 +168,7 @@ function PlainList({ items }: { items: ProfileItem[] }) {
             {item.title}
             {item.period ? <span className="font-normal text-muted"> · {item.period}</span> : null}
           </p>
-          {item.organization && <p className="text-muted">{item.organization}</p>}
+          {(item.author || item.organization) && <p className="text-muted">{[item.author, item.organization].filter(Boolean).join(" · ")}</p>}
         </li>
       ))}
     </ul>

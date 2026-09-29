@@ -179,6 +179,8 @@ export const ja: Dict = {
   copy_link: "リンクをコピー",
   link_copied: "リンクをコピーしました",
   share: "共有",
+  share_whatsapp: "WhatsAppで共有",
+  share_facebook: "Facebookで共有",
   qr_code: "QRコード",
   save_pdf: "PDFで保存",
   report: "報告する",

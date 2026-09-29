@@ -182,6 +182,8 @@ export const hi: Dict = {
   copy_link: "लिंक कॉपी करें",
   link_copied: "लिंक कॉपी हो गया",
   share: "साझा करें",
+  share_whatsapp: "व्हाट्सएप पर साझा करें",
+  share_facebook: "फ़ेसबुक पर साझा करें",
   qr_code: "QR कोड",
   save_pdf: "PDF के रूप में सहेजें",
   report: "रिपोर्ट करें",

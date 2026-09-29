@@ -69,7 +69,8 @@ class AdminTest extends TestCase
         $this->assertDatabaseHas('admin_audit_logs', ['action' => 'user.created']);
     }
 
-    public function test_admin_cannot_edit_a_teacher_or_reset_their_url(): void
+    /** Les anciennes routes retirées (11 ter d'origine) restent absentes ; l'édition passe par /profile (11 ter révisé). */
+    public function test_legacy_edit_and_reset_slug_routes_stay_removed(): void
     {
         $admin = User::factory()->admin()->create();
         $teacher = User::factory()->create(['first_name' => 'Intact', 'slug' => 'intact']);
@@ -83,6 +84,114 @@ class AdminTest extends TestCase
         $this->assertSame('Intact', $teacher->fresh()->first_name);
         $this->assertSame('intact', $teacher->fresh()->slug);
         $this->assertSame('Attente', $pending->fresh()->first_name);
+    }
+
+    /** DECISIONS.md, point 11 ter révisé : l'admin peut désormais modifier le profil d'un enseignant. */
+    public function test_admin_updates_a_teacher_profile(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $teacher = User::factory()->create(['first_name' => 'Avant', 'slug' => 'avant-apres']);
+        $otherSchool = \App\Models\Faculty::create(['name' => 'École Autre', 'slug' => 'ecole-autre']);
+
+        $this->actingAs($admin)->putJson("/api/v1/admin/users/{$teacher->id}/profile", [
+            'first_name' => 'Après',
+            'school' => $otherSchool->name,
+            'department' => 'Nouvelle filière',
+            'grade_id' => $this->grade->id,
+        ])->assertOk()->assertJsonPath('data.first_name', 'Après');
+
+        $teacher->refresh();
+        $this->assertSame('Après', $teacher->first_name);
+        $this->assertSame($otherSchool->id, $teacher->faculty_id);
+        $this->getJson('/api/v1/public/teachers/avant-apres')->assertJsonPath('data.first_name', 'Après');
+        $this->assertDatabaseHas('admin_audit_logs', ['action' => 'user.profile_updated', 'target_id' => $teacher->id]);
+    }
+
+    /** DECISIONS.md, point 11 ter révisé : l'admin peut déposer un CV pour un enseignant. */
+    public function test_admin_uploads_cv_for_a_teacher(): void
+    {
+        \Illuminate\Support\Facades\Storage::fake('local');
+        $admin = User::factory()->admin()->create();
+        $teacher = User::factory()->create(['slug' => 'photo-cv']);
+        $cv = \Illuminate\Http\UploadedFile::fake()->createWithContent('cv.pdf', "%PDF-1.4\n1 0 obj << >> endobj\ntrailer << >>\n%%EOF");
+
+        $this->actingAs($admin)->post("/api/v1/admin/users/{$teacher->id}/cv", ['cv' => $cv], ['Accept' => 'application/json'])
+            ->assertOk()->assertJsonPath('data.cv.name', 'cv.pdf');
+
+        $teacher->refresh();
+        \Illuminate\Support\Facades\Storage::disk('local')->assertExists($teacher->cv_path);
+        $this->assertDatabaseHas('admin_audit_logs', ['action' => 'user.cv_updated', 'target_id' => $teacher->id]);
+    }
+
+    /**
+     * DECISIONS.md, point 11 ter révisé : l'admin peut déposer la photo d'un enseignant.
+     * Nécessite l'extension GD (absente de ce PHP CLI local, présente sur Railway — voir CvTest).
+     */
+    public function test_admin_uploads_avatar_for_a_teacher(): void
+    {
+        \Illuminate\Support\Facades\Storage::fake('public');
+        $admin = User::factory()->admin()->create();
+        $teacher = User::factory()->create(['slug' => 'photo-seule']);
+
+        $this->actingAs($admin)->post(
+            "/api/v1/admin/users/{$teacher->id}/images/avatar",
+            ['image' => \Illuminate\Http\UploadedFile::fake()->image('photo.jpg', 400, 400)],
+            ['Accept' => 'application/json'],
+        )->assertOk();
+
+        $teacher->refresh();
+        $this->assertNotNull($teacher->avatar_path);
+        \Illuminate\Support\Facades\Storage::disk('public')->assertExists($teacher->avatar_path);
+        $this->assertDatabaseHas('admin_audit_logs', ['action' => 'user.image_updated', 'target_id' => $teacher->id]);
+    }
+
+    /** DECISIONS.md, point 11 ter révisé : publications ajoutées par l'admin, visibles comme celles de l'enseignant. */
+    public function test_admin_adds_and_removes_a_scientific_publication_for_a_teacher(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $teacher = User::factory()->create(['slug' => 'publie']);
+
+        $res = $this->actingAs($admin)->postJson("/api/v1/admin/users/{$teacher->id}/profile-items", [
+            'section' => 'scientific_publication',
+            'title' => 'Étude sur X',
+            'author' => 'Tchoumi A.',
+            'period' => '2024',
+            'description' => 'Résumé de l’étude.',
+            'url' => 'https://doi.org/10.1234/exemple',
+        ])->assertCreated();
+
+        $itemId = $res->json('data.items.scientific_publication.0.id');
+        $this->getJson('/api/v1/public/teachers/publie')
+            ->assertJsonPath('data.items.scientific_publication.0.title', 'Étude sur X')
+            ->assertJsonPath('data.items.scientific_publication.0.author', 'Tchoumi A.');
+
+        $this->actingAs($admin)->deleteJson("/api/v1/admin/users/{$teacher->id}/profile-items/{$itemId}")->assertOk();
+        $this->getJson('/api/v1/public/teachers/publie')->assertJsonPath('data.items.scientific_publication', []);
+    }
+
+    /** DECISIONS.md, point 11 ter révisé : mot de passe, CV et publications dès la création directe. */
+    public function test_direct_creation_accepts_password_cv_and_publications(): void
+    {
+        \Illuminate\Support\Facades\Storage::fake('local');
+        $admin = User::factory()->admin()->create();
+        $cv = \Illuminate\Http\UploadedFile::fake()->createWithContent('cv.pdf', "%PDF-1.4\n1 0 obj << >> endobj\ntrailer << >>\n%%EOF");
+
+        $this->actingAs($admin)->post('/api/v1/admin/users', [
+            'first_name' => 'Nadia', 'last_name' => 'Directe', 'email' => 'nadia.directe@example.cm',
+            'password' => 'MotDePasse123', 'password_confirmation' => 'MotDePasse123',
+            'grade_id' => $this->grade->id, 'school' => $this->school->name, 'department' => 'Mathématiques',
+            'cv' => $cv,
+            'publications' => [['title' => 'Premier article', 'author' => 'Directe N.', 'year' => '2023']],
+        ], ['Accept' => 'application/json'])->assertCreated();
+
+        $user = User::where('email', 'nadia.directe@example.cm')->first();
+        $this->assertTrue(\Illuminate\Support\Facades\Hash::check('MotDePasse123', $user->password));
+        $this->assertNotNull($user->cv_path);
+        $this->assertSame('Premier article', $user->profileItems()->where('section', 'scientific_publication')->first()?->title);
+        $this->assertDatabaseHas('admin_audit_logs', ['action' => 'user.created', 'target_id' => $user->id]);
+
+        // Avec mot de passe fourni, connexion possible immédiatement (pas besoin du lien email).
+        $this->postJson('/api/v1/auth/login', ['email' => 'nadia.directe@example.cm', 'password' => 'MotDePasse123'])->assertOk();
     }
 
     public function test_admin_names_another_administrator(): void

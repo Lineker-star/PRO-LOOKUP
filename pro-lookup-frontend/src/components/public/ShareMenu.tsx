@@ -99,6 +99,28 @@ export function ShareMenu({
             <Icon name="share" size={18} className="text-muted" />
             {t.share}
           </button>
+          <a
+            href={`https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}`}
+            role="menuitem"
+            className={item}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setOpen(false)}
+          >
+            <WhatsAppIcon className="size-[18px] text-muted" />
+            {t.share_whatsapp}
+          </a>
+          <a
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
+            role="menuitem"
+            className={item}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setOpen(false)}
+          >
+            <FacebookIcon className="size-[18px] text-muted" />
+            {t.share_facebook}
+          </a>
           {qrFileName && (
             <button type="button" role="menuitem" className={item} onClick={() => { setOpen(false); setDialog("qr"); }}>
               <Icon name="qr_code_2" size={18} className="text-muted" />
@@ -139,5 +161,22 @@ export function ShareMenu({
         </Modal>
       )}
     </div>
+  );
+}
+
+/* Material Symbols ne fournit pas d'icônes de marque : logos WhatsApp/Facebook en SVG inline. */
+function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2Zm5.64 8.17c0 4.42-3.6 8.02-8.02 8.02a8 8 0 0 1-4.09-1.11l-.29-.17-3.02.79.81-2.95-.19-.3a7.93 7.93 0 0 1-1.24-4.28c0-4.42 3.6-8 8.02-8 2.13 0 4.13.83 5.64 2.34a7.9 7.9 0 0 1 2.33 5.65Zm-4.4-4.6c-.15 0-.4.06-.61.31s-.82.8-.82 1.94.84 2.25.96 2.4c.12.16 1.63 2.6 4.05 3.54 2 .78 2.41.63 2.84.59.43-.04 1.4-.57 1.6-1.13.2-.55.2-1.03.14-1.13-.06-.1-.22-.16-.46-.28s-1.4-.69-1.62-.77c-.22-.08-.38-.12-.54.12-.16.24-.62.77-.76.93-.14.16-.28.18-.52.06-.24-.12-1-.37-1.9-1.17-.7-.62-1.18-1.39-1.32-1.63-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.32-.75-1.8-.2-.47-.4-.4-.54-.41Z" />
+    </svg>
+  );
+}
+
+function FacebookIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+      <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.9h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94Z" />
+    </svg>
   );
 }

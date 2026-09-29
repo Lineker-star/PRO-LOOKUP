@@ -179,6 +179,8 @@ export const zh: Dict = {
   copy_link: "复制链接",
   link_copied: "链接已复制",
   share: "分享",
+  share_whatsapp: "分享到 WhatsApp",
+  share_facebook: "分享到 Facebook",
   qr_code: "二维码",
   save_pdf: "保存为 PDF",
   report: "举报",

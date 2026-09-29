@@ -139,7 +139,7 @@ export default function EditProfilePage() {
                 <li key={item.id} className="flex items-start justify-between gap-3 py-3 first:pt-0 last:pb-0">
                   <div className="min-w-0">
                     <p className="font-semibold text-navy">{item.title}</p>
-                    <p className="text-sm text-muted">{[item.organization, item.period].filter(Boolean).join(" · ")}</p>
+                    <p className="text-sm text-muted">{[item.author, item.organization, item.period].filter(Boolean).join(" · ")}</p>
                     {item.description && <p className="mt-1 line-clamp-2 text-sm text-ink/80">{item.description}</p>}
                   </div>
                   <Button variant="ghost" size="sm" icon="edit" onClick={() => setEditing({ kind: "item", section, item })}>Modifier</Button>
@@ -594,6 +594,7 @@ function ItemDrawer({ section, item, onClose }: { section: ItemSection; item?: P
   const meta = ITEM_SECTIONS[section];
   const [v, setV] = useState({
     title: item?.title ?? "",
+    author: item?.author ?? "",
     organization: item?.organization ?? "",
     period: item?.period ?? "",
     description: item?.description ?? "",
@@ -668,6 +669,11 @@ function ItemDrawer({ section, item, onClose }: { section: ItemSection; item?: P
           <datalist id="it-language-list">
             {WORLD_LANGUAGES.map((l) => <option key={l} value={l} />)}
           </datalist>
+        )}
+        {section === "scientific_publication" && (
+          <Field label="Auteur(s)" htmlFor="it-author" hint="Ex. « Tchoumi A., Ndongo D. » — laissez vide si vous en êtes le seul auteur.">
+            <Input id="it-author" value={v.author} onChange={(e) => setV({ ...v, author: e.target.value })} maxLength={255} />
+          </Field>
         )}
         <Field label={meta.orgLabel} htmlFor="it-org">
           <Input id="it-org" value={v.organization} onChange={(e) => setV({ ...v, organization: e.target.value })} maxLength={255} />

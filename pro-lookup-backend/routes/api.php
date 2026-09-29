@@ -104,7 +104,14 @@ Route::prefix('v1')->group(function () {
         Route::get('/users', [UserController::class, 'index']);
         Route::post('/users', [UserController::class, 'store']);
         Route::get('/users/{id}', [UserController::class, 'show'])->whereNumber('id');
-        // Pas de modification des informations ou du profil d'un enseignant par l'administration.
+        Route::put('/users/{id}/profile', [UserController::class, 'updateProfile'])->whereNumber('id');
+        Route::post('/users/{id}/images/{kind}', [UserController::class, 'uploadImage'])->whereNumber('id');
+        Route::delete('/users/{id}/images/{kind}', [UserController::class, 'deleteImage'])->whereNumber('id');
+        Route::post('/users/{id}/cv', [UserController::class, 'uploadCv'])->whereNumber('id');
+        Route::delete('/users/{id}/cv', [UserController::class, 'deleteCv'])->whereNumber('id');
+        Route::post('/users/{id}/profile-items', [UserController::class, 'storeItem'])->whereNumber('id');
+        Route::put('/users/{id}/profile-items/{item}', [UserController::class, 'updateItem'])->whereNumber(['id', 'item']);
+        Route::delete('/users/{id}/profile-items/{item}', [UserController::class, 'destroyItem'])->whereNumber(['id', 'item']);
         Route::post('/users/{id}/suspend', [UserController::class, 'suspend'])->whereNumber('id');
         Route::post('/users/{id}/reactivate', [UserController::class, 'reactivate'])->whereNumber('id');
         Route::post('/users/{id}/promote', [UserController::class, 'promote'])->whereNumber('id');

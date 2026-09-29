@@ -40,6 +40,7 @@ export type CvInfo = { size: number | null; updated_at: string | null };
 export type ProfileItem = {
   id: number;
   title: string;
+  author: string | null;
   organization: string | null;
   period: string | null;
   description: string | null;

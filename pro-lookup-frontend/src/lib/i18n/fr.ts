@@ -201,6 +201,8 @@ export const fr = {
   copy_link: "Copier le lien",
   link_copied: "Lien copié",
   share: "Partager",
+  share_whatsapp: "Partager sur WhatsApp",
+  share_facebook: "Partager sur Facebook",
   qr_code: "QR code",
   save_pdf: "Enregistrer en PDF",
   report: "Signaler",
