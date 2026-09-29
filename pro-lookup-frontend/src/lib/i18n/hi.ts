@@ -238,6 +238,7 @@ export const hi: Dict = {
 
   // CV (PDF)
   download_cv: "सीवी डाउनलोड करें",
+  view_cv: "सीवी देखें",
   cv_title: "बायोडाटा (सीवी)",
   cv_text: "{name} का पूरा सीवी, PDF प्रारूप में।",
   cv_updated: "{date} को अद्यतन",

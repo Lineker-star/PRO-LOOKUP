@@ -238,6 +238,7 @@ export const sw: Dict = {
 
   // CV (PDF)
   download_cv: "Pakua CV",
+  view_cv: "Tazama CV",
   cv_title: "Wasifu kamili (CV)",
   cv_text: "CV kamili ya {name}, katika muundo wa PDF.",
   cv_updated: "Imesasishwa {date}",

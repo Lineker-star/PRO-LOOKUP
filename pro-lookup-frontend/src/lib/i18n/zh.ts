@@ -235,6 +235,7 @@ export const zh: Dict = {
 
   // CV (PDF)
   download_cv: "下载简历",
+  view_cv: "查看简历",
   cv_title: "个人简历",
   cv_text: "{name} 的完整简历（PDF 格式）。",
   cv_updated: "更新于 {date}",

@@ -125,7 +125,9 @@ class PublicController extends Controller
         $user = User::query()->publicTeachers()->where('slug', $slug)->first();
         abort_unless($user && $user->hasPublicCv() && Storage::disk('local')->exists($user->cv_path), 404, 'Ce CV n’est pas disponible.');
 
-        return Storage::disk('local')->download($user->cv_path, MeController::cvFileName($user), [
+        // Consultation seulement : un visiteur peut lire le CV mais pas le télécharger en un clic
+        // (l'enseignant, lui, le télécharge depuis son espace via GET /me/cv, en `attachment`).
+        return Storage::disk('local')->response($user->cv_path, MeController::cvFileName($user), [
             'Content-Type' => 'application/pdf',
             'X-Content-Type-Options' => 'nosniff',
             'Cache-Control' => 'public, max-age=300',

@@ -135,7 +135,9 @@ class MeController extends Controller
         $user = $request->user();
         abort_unless($user->cv_path && Storage::disk('local')->exists($user->cv_path), 404);
 
-        return Storage::disk('local')->response($user->cv_path, self::cvFileName($user), ['Content-Type' => 'application/pdf']);
+        // Le propriétaire peut réellement télécharger son propre CV (contrairement au visiteur
+        // sur le profil public, qui ne peut que le consulter — voir PublicController::teacherCv).
+        return Storage::disk('local')->download($user->cv_path, self::cvFileName($user), ['Content-Type' => 'application/pdf']);
     }
 
     /** Nom du fichier proposé au téléchargement : « cv-prenom-nom.pdf ». */

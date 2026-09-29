@@ -244,6 +244,7 @@ export const ru: Dict = {
 
   // CV (PDF)
   download_cv: "Скачать резюме",
+  view_cv: "Посмотреть резюме",
   cv_title: "Резюме (CV)",
   cv_text: "Полное резюме: {name}, в формате PDF.",
   cv_updated: "Обновлено {date}",

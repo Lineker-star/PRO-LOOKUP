@@ -239,6 +239,7 @@ export const es: Dict = {
 
   // CV (PDF)
   download_cv: "Descargar el CV",
+  view_cv: "Ver el CV",
   cv_title: "Currículum vítae",
   cv_text: "CV completo de {name}, en formato PDF.",
   cv_updated: "Actualizado el {date}",

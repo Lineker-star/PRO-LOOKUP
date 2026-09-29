@@ -258,6 +258,7 @@ export const fr = {
 
   // CV (PDF)
   download_cv: "Télécharger le CV",
+  view_cv: "Voir le CV",
   cv_title: "Curriculum vitae",
   cv_text: "CV complet de {name}, au format PDF.",
   cv_updated: "Mis à jour le {date}",

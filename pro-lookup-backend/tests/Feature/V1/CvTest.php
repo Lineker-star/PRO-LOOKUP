@@ -8,7 +8,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-/** CV en PDF : dépôt par l'enseignant, téléchargement public sur le profil. */
+/** CV en PDF : dépôt par l'enseignant ; consultable (pas téléchargeable en un clic) par un visiteur. */
 class CvTest extends TestCase
 {
     use RefreshDatabase;
@@ -24,7 +24,7 @@ class CvTest extends TestCase
         return UploadedFile::fake()->createWithContent($name, "%PDF-1.4\n1 0 obj << >> endobj\ntrailer << >>\n%%EOF");
     }
 
-    public function test_teacher_uploads_a_cv_that_visitors_can_download(): void
+    public function test_teacher_uploads_a_cv_that_visitors_can_only_view(): void
     {
         $teacher = User::factory()->create(['first_name' => 'Amina', 'last_name' => 'Tchoumi', 'slug' => 'amina']);
 
@@ -40,9 +40,15 @@ class CvTest extends TestCase
 
         $this->getJson('/api/v1/public/teachers/amina')->assertJsonPath('data.cv.size', $teacher->cv_size);
 
-        $download = $this->get('/api/v1/public/teachers/amina/cv')->assertOk();
-        $this->assertStringContainsString('application/pdf', $download->headers->get('Content-Type'));
-        $this->assertStringContainsString('cv-amina-tchoumi.pdf', $download->headers->get('Content-Disposition'));
+        // Un visiteur ne peut que consulter le CV (disposition « inline »), pas le télécharger en un clic.
+        $view = $this->get('/api/v1/public/teachers/amina/cv')->assertOk();
+        $this->assertStringContainsString('application/pdf', $view->headers->get('Content-Type'));
+        $this->assertStringContainsString('inline', $view->headers->get('Content-Disposition'));
+        $this->assertStringContainsString('cv-amina-tchoumi.pdf', $view->headers->get('Content-Disposition'));
+
+        // Le propriétaire, lui, peut réellement le télécharger (disposition « attachment »).
+        $download = $this->actingAs($teacher)->get('/api/v1/me/cv')->assertOk();
+        $this->assertStringContainsString('attachment', $download->headers->get('Content-Disposition'));
     }
 
     public function test_only_real_pdfs_are_accepted(): void

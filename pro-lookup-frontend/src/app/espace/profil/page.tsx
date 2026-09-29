@@ -211,8 +211,9 @@ function Empty({ children }: { children: React.ReactNode }) {
 // ------------------------------------------------------------------ CV (PDF)
 
 /**
- * Dépôt du CV : PDF, 10 Mo maximum. Une fois le profil public, les visiteurs le téléchargent
- * depuis le bouton « Télécharger le CV » (masquable depuis « Mon profil public »).
+ * Dépôt du CV : PDF, 10 Mo maximum. Une fois le profil public, les visiteurs peuvent le
+ * consulter (bouton « Voir le CV », lecture seule) ; vous seul pouvez le télécharger, depuis
+ * votre espace (masquable depuis « Mon profil public »).
  */
 function CvBlock({ me }: { me: Me }) {
   const { setMe } = useAuth();
@@ -324,15 +325,15 @@ function CvBlock({ me }: { me: Me }) {
           )}
         </div>
       ) : (
-        <Empty>Déposez votre CV au format PDF (10 Mo maximum) : les visiteurs de votre profil pourront le télécharger.</Empty>
+        <Empty>Déposez votre CV au format PDF (10 Mo maximum) : les visiteurs de votre profil pourront le consulter (pas le télécharger).</Empty>
       )}
 
       <p className="mt-3 text-xs text-muted">
         {hidden
           ? "Le téléchargement du CV est actuellement masqué sur votre profil public (réglable dans « Mon profil public »)."
           : me.status === "approved"
-            ? "Visible sur votre profil public : bouton « Télécharger le CV ». Vous pouvez le masquer depuis « Mon profil public »."
-            : "Il sera téléchargeable sur votre profil dès son approbation."}
+            ? "Visible sur votre profil public : bouton « Voir le CV » (consultation seulement pour les visiteurs). Vous pouvez le masquer depuis « Mon profil public »."
+            : "Il sera consultable sur votre profil dès son approbation."}
       </p>
     </Card>
   );

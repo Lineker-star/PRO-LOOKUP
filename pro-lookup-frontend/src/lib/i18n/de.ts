@@ -239,6 +239,7 @@ export const de: Dict = {
 
   // CV (PDF)
   download_cv: "Lebenslauf herunterladen",
+  view_cv: "Lebenslauf ansehen",
   cv_title: "Lebenslauf",
   cv_text: "Vollständiger Lebenslauf von {name} als PDF.",
   cv_updated: "Aktualisiert am {date}",

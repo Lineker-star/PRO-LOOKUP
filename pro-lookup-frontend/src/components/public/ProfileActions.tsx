@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { CopyLinkButton } from "@/components/public/CopyLinkButton";
+import { CvLink } from "@/components/public/CvLink";
 import { ShareMenu } from "@/components/public/ShareMenu";
 import { useAuth } from "@/components/providers/AuthProvider";
 import { useLang } from "@/components/providers/LangProvider";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { Modal } from "@/components/ui/Modal";
-import { cvDownloadUrl } from "@/lib/config";
 import { fmt } from "@/lib/i18n";
 import type { PublicTeacher } from "@/lib/types";
 
@@ -38,14 +38,17 @@ export function ProfileActions({ teacher, url }: { teacher: PublicTeacher; url: 
         </ButtonLink>
       )}
       {teacher.cv && (
-        <a
-          href={cvDownloadUrl(teacher.slug)}
-          download
+        <CvLink
+          teacher={teacher}
           className="inline-flex h-10 items-center gap-2 rounded-lg bg-teal px-4 text-sm font-semibold text-navy transition hover:brightness-95 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-white/60"
         >
-          <Icon name="download" size={20} />
-          {t.download_cv}
-        </a>
+          {(owner) => (
+            <>
+              <Icon name={owner ? "download" : "visibility"} size={20} />
+              {owner ? t.download_cv : t.view_cv}
+            </>
+          )}
+        </CvLink>
       )}
       <CopyLinkButton url={url} label={t.copy_profile_link} copiedLabel={t.link_copied} variant="light" />
       <Button variant="light" icon="contact_mail" onClick={() => setContactOpen(true)}>

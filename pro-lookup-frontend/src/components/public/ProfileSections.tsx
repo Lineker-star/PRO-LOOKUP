@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import type { ReactNode } from "react";
+import { CvLink } from "@/components/public/CvLink";
 import { QrCodePanel } from "@/components/public/QrCodePanel";
 import { Tag } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
-import { cvDownloadUrl } from "@/lib/config";
 import { fileSizeIntl, formatDate, ITEM_SECTIONS, LINK_LABELS, orcidUrl } from "@/lib/format";
 import { fmt, type Dict } from "@/lib/i18n";
 import type { ItemSection, ProfileItem, PublicTeacher } from "@/lib/types";
@@ -164,29 +164,31 @@ export function ProfileSideSections({ teacher, url, t, locale }: { teacher: Publ
   const links = Object.entries(teacher.links).filter(([, v]) => Boolean(v)) as [string, string][];
   const { email, phone, office } = teacher.contacts;
 
+  const { cv } = teacher;
+
   return (
     <div className="space-y-6">
-      {teacher.cv && (
+      {cv && (
         <SectionCard icon="description" title={t.cv_title} className="print:hidden">
           <p className="text-sm text-muted">{fmt(t.cv_text, { name: teacher.full_name })}</p>
-          <a
-            href={cvDownloadUrl(teacher.slug)}
-            download
-            className="mt-4 flex items-center gap-3 rounded-xl border border-line bg-canvas p-3 transition hover:border-teal"
-          >
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-danger-soft text-danger">
-              <Icon name="picture_as_pdf" size={24} />
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="block text-sm font-semibold text-navy">{t.download_cv}</span>
-              <span className="block text-xs text-muted">
-                {["PDF", fileSizeIntl(teacher.cv.size, locale), teacher.cv.updated_at ? fmt(t.cv_updated, { date: formatDate(teacher.cv.updated_at, locale) }) : null]
-                  .filter(Boolean)
-                  .join(" · ")}
-              </span>
-            </span>
-            <Icon name="download" size={20} className="text-teal-text" />
-          </a>
+          <CvLink teacher={teacher} className="mt-4 flex items-center gap-3 rounded-xl border border-line bg-canvas p-3 transition hover:border-teal">
+            {(owner) => (
+              <>
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-danger-soft text-danger">
+                  <Icon name="picture_as_pdf" size={24} />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-semibold text-navy">{owner ? t.download_cv : t.view_cv}</span>
+                  <span className="block text-xs text-muted">
+                    {["PDF", fileSizeIntl(cv.size, locale), cv.updated_at ? fmt(t.cv_updated, { date: formatDate(cv.updated_at, locale) }) : null]
+                      .filter(Boolean)
+                      .join(" · ")}
+                  </span>
+                </span>
+                <Icon name={owner ? "download" : "visibility"} size={20} className="text-teal-text" />
+              </>
+            )}
+          </CvLink>
         </SectionCard>
       )}
 

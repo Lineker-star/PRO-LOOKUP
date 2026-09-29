@@ -235,6 +235,7 @@ export const ja: Dict = {
 
   // CV (PDF)
   download_cv: "履歴書をダウンロード",
+  view_cv: "履歴書を見る",
   cv_title: "履歴書（CV）",
   cv_text: "{name} の履歴書（PDF形式）。",
   cv_updated: "{date} 更新",
