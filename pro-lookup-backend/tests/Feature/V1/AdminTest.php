@@ -313,6 +313,23 @@ class AdminTest extends TestCase
         $this->assertSame('actioned', $onPost->fresh()->status);
     }
 
+    /** Message générique en français, pas l'exception technique de Laravel, sur un compte déjà supprimé. */
+    public function test_acting_on_an_already_deleted_user_gives_a_friendly_message(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $teacher = User::factory()->create();
+        $id = $teacher->id;
+
+        $this->actingAs($admin)->deleteJson("/api/v1/admin/users/{$id}", ['reason' => 'Compte en double', 'confirm_email' => $teacher->email])->assertOk();
+
+        $this->actingAs($admin)->deleteJson("/api/v1/admin/users/{$id}", ['reason' => 'Compte en double', 'confirm_email' => $teacher->email])
+            ->assertNotFound()
+            ->assertJsonPath('message', 'Ce compte n’existe plus : il a peut-être déjà été supprimé.');
+        $this->actingAs($admin)->getJson("/api/v1/admin/users/{$id}")
+            ->assertNotFound()
+            ->assertJsonPath('message', 'Ce compte n’existe plus : il a peut-être déjà été supprimé.');
+    }
+
     public function test_report_can_lead_to_hiding_the_post(): void
     {
         $admin = User::factory()->admin()->create();

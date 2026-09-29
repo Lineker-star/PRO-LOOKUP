@@ -67,10 +67,10 @@ export default function AuditPage() {
                       </span>
                     </td>
                     <td className="px-5 py-3">
-                      {log.target_type === "user" && log.target_id ? (
+                      {log.target_type === "user" && log.target_id && log.action !== "user.deleted" ? (
                         <Link href={`/admin/enseignants/${log.target_id}`} className="font-semibold text-navy hover:underline">{log.target_label}</Link>
                       ) : (
-                        <span className="text-ink">{log.target_label ?? "—"}</span>
+                        <span className="text-ink">{log.target_label ?? "—"}{log.action === "user.deleted" && <span className="ml-1.5 text-xs font-normal text-muted">(supprimé)</span>}</span>
                       )}
                     </td>
                     <td className="px-5 py-3 text-ink">{log.admin ?? "—"}</td>
