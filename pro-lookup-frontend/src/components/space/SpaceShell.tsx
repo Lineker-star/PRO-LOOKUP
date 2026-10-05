@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { useAuth } from "@/components/providers/AuthProvider";
 import { AvatarUploader } from "@/components/space/AvatarUploader";
+import { NotificationsBell } from "@/components/space/NotificationsBell";
 import { GradeBadge, StatusBadge } from "@/components/ui/Badge";
 import { Spinner } from "@/components/ui/Feedback";
 import { Icon } from "@/components/ui/Icon";
@@ -40,6 +41,9 @@ export function SpaceShell({ children }: { children: ReactNode }) {
     <div className="mx-auto grid w-full max-w-7xl flex-1 gap-6 px-4 py-6 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-8">
       <aside className="lg:col-span-3">
         <div className="space-y-4 lg:sticky lg:top-24">
+          <div className="flex justify-end">
+            <NotificationsBell />
+          </div>
           <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-card">
             <div className="hero-mesh h-16" aria-hidden />
             <div className="-mt-8 px-5 pb-5 text-center">

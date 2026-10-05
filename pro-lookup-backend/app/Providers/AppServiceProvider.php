@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Services\Brevo\BrevoTransport;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,6 +19,12 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Mail::extend('brevo', fn () => new BrevoTransport(
+            (string) config('services.brevo.key'),
+            (string) config('services.brevo.sender_email'),
+            (string) config('services.brevo.sender_name'),
+        ));
+
         // Le lien « mot de passe oublié » pointe vers la page du frontend Next.js.
         ResetPassword::createUrlUsing(fn ($user, string $token) => rtrim((string) config('app.frontend_url'), '/')
             .'/reinitialiser-mot-de-passe?token='.$token.'&email='.urlencode($user->getEmailForPasswordReset()));

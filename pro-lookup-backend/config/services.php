@@ -28,6 +28,16 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    // Brevo (plan gratuit : environ 300 emails/jour). Les emails « optionnels » (profil, administration,
+    // newsletter) cessent d'être envoyés au-delà de `optional_limit` pour garder de la marge aux emails de compte.
+    'brevo' => [
+        'key' => env('BREVO_API_KEY'),
+        'sender_email' => env('BREVO_SENDER_EMAIL'),
+        'sender_name' => env('BREVO_SENDER_NAME', 'PRO-LOOKUP'),
+        'daily_limit' => (int) env('BREVO_DAILY_LIMIT', 300),
+        'optional_limit' => (int) env('BREVO_OPTIONAL_LIMIT', 250),
+    ],
+
     // Signal de mise à jour des pages publiques en cache côté Next.js (brief §9.2).
     'frontend' => [
         'revalidate_url' => env('FRONTEND_REVALIDATE_URL'),

@@ -172,6 +172,26 @@ export type Me = TeacherCard & {
   created_at: string | null;
 };
 
+/** Notification du centre de notifications (cloche) de l'espace enseignant. */
+export type InAppNotification = {
+  id: number;
+  category: "account" | "profile" | "admin" | "newsletter";
+  title: string;
+  body: string | null;
+  action_url: string | null;
+  read: boolean;
+  created_at: string | null;
+};
+
+export type NotificationsResponse = {
+  data: InAppNotification[];
+  meta: { current_page: number; last_page: number; total: number };
+  unread_count: number;
+};
+
+/** Préférences d'envoi par email (les catégories « account » sont toujours envoyées). */
+export type EmailPreferences = { profile: boolean; admin: boolean; newsletter: boolean };
+
 export type AdminUserDetail = Me & {
   posts_count: number;
   published_posts_count: number;

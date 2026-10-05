@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\NotificationCategory;
 use App\Enums\ProfileSection;
 use App\Enums\UserStatus;
 use Database\Factories\UserFactory;
@@ -56,6 +57,7 @@ class User extends Authenticatable
             'faculty_id' => 'integer',
             'department_id' => 'integer',
             'expertise_tags' => 'array',
+            'email_preferences' => 'array',
             'links' => 'array',
             'public_sections' => 'array',
             'show_email' => 'boolean',
@@ -99,6 +101,16 @@ class User extends Authenticatable
     public function isApproved(): bool
     {
         return $this->status === UserStatus::Approved->value;
+    }
+
+    /** Envoi par email autorisé pour cette catégorie (les emails de compte ne se règlent pas). */
+    public function emailEnabled(NotificationCategory $category): bool
+    {
+        if ($category->isTransactional()) {
+            return true;
+        }
+
+        return (bool) ($this->email_preferences[$category->value] ?? $category->defaultEnabled());
     }
 
     public function avatarUrl(): ?string
@@ -181,6 +193,11 @@ class User extends Authenticatable
     public function profileItems(): HasMany
     {
         return $this->hasMany(ProfileItem::class)->orderBy('position')->orderBy('id');
+    }
+
+    public function inAppNotifications(): HasMany
+    {
+        return $this->hasMany(InAppNotification::class);
     }
 
     public function slugHistory(): HasMany

@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\Admin\ReportController;
 use App\Http\Controllers\Api\V1\Admin\UserController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\MeController;
+use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\Api\V1\MyPostController;
 use App\Http\Controllers\Api\V1\PublicController;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,11 @@ Route::prefix('v1')->group(function () {
         Route::post('/reports', [PublicController::class, 'report'])->middleware('throttle:reports');
     });
 
+    // ------------------------------------------------------------ Désabonnement (lien signé depuis un email)
+    Route::get('/email/unsubscribe/{user}/{category}', [NotificationController::class, 'unsubscribe'])
+        ->middleware('signed')
+        ->name('email.unsubscribe');
+
     // ------------------------------------------------------------ Authentification
     Route::prefix('auth')->group(function () {
         Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:register');
@@ -69,6 +75,11 @@ Route::prefix('v1')->group(function () {
         Route::delete('/profile-items/{item}', [MeController::class, 'destroyItem']);
         Route::post('/registration', [MeController::class, 'resubmit']);
         Route::put('/password', [MeController::class, 'updatePassword']);
+        Route::get('/notifications', [NotificationController::class, 'index']);
+        Route::post('/notifications/{id}/read', [NotificationController::class, 'markRead'])->whereNumber('id');
+        Route::post('/notifications/read-all', [NotificationController::class, 'markAllRead']);
+        Route::get('/email-preferences', [NotificationController::class, 'preferences']);
+        Route::put('/email-preferences', [NotificationController::class, 'updatePreferences']);
         Route::get('/sessions', [MeController::class, 'sessions']);
         Route::delete('/sessions/{id}', [MeController::class, 'revokeSession'])->whereNumber('id');
         Route::delete('/sessions', [MeController::class, 'revokeOtherSessions']);

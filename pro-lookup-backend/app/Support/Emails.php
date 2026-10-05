@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Enums\NotificationCategory;
 use App\Models\Post;
 use App\Models\User;
 use App\Notifications\PlatformNotification;
@@ -36,6 +37,7 @@ class Emails
             ["{$teacher->full_name} ({$teacher->email}) s’est inscrit(e) comme enseignant(e) : sa demande attend votre validation."],
             'Examiner la demande',
             self::front('/admin/demandes'),
+            NotificationCategory::Admin->value,
         )));
     }
 
@@ -158,6 +160,7 @@ class Emails
             ],
             'Voir mes publications',
             self::front('/espace/publications'),
+            NotificationCategory::Profile->value,
         ));
     }
 }

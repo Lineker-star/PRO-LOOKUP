@@ -12,7 +12,7 @@ import { Alert, Card, Spinner } from "@/components/ui/Feedback";
 import { Icon } from "@/components/ui/Icon";
 import { api, ApiError } from "@/lib/api/client";
 import { formatDateTime } from "@/lib/format";
-import type { Session } from "@/lib/types";
+import type { EmailPreferences, Session } from "@/lib/types";
 
 /** Paramètres du compte : sécurité (mot de passe, sessions) et langue (brief §10). */
 export default function SettingsPage() {
@@ -35,6 +35,7 @@ export default function SettingsPage() {
         <p className="mt-3 text-xs text-muted">L’email de connexion et le matricule ne sont pas modifiables. Pour supprimer votre compte, adressez-vous à l’administration.</p>
       </Card>
 
+      <EmailPreferencesCard isAdmin={me.role === "admin"} />
       <PasswordCard />
       <SessionsCard />
 
@@ -54,6 +55,63 @@ export default function SettingsPage() {
         <Button variant="outline" icon="logout" onClick={async () => { await logout(); router.push("/"); }}>Se déconnecter</Button>
       </Card>
     </div>
+  );
+}
+
+/** Ce que vous recevez par email. Les emails de compte (inscription, validation, mot de passe) sont toujours envoyés. */
+function EmailPreferencesCard({ isAdmin }: { isAdmin: boolean }) {
+  const queryClient = useQueryClient();
+  const [error, setError] = useState<string | null>(null);
+  const prefs = useQuery({
+    queryKey: ["email-preferences"],
+    queryFn: async () => (await api<{ data: EmailPreferences }>("/me/email-preferences")).data,
+  });
+
+  const toggle = async (key: keyof EmailPreferences, value: boolean) => {
+    setError(null);
+    try {
+      const res = await api<{ data: EmailPreferences }>("/me/email-preferences", { method: "PUT", body: { [key]: value } });
+      queryClient.setQueryData(["email-preferences"], res.data);
+    } catch {
+      setError("Enregistrement impossible. Réessayez.");
+    }
+  };
+
+  const rows: { key: keyof EmailPreferences; label: string; hint: string; show: boolean }[] = [
+    { key: "profile", label: "Activité de mon profil", hint: "Une de vos publications est masquée, ou une modification de votre profil par l’administration.", show: true },
+    { key: "admin", label: "Tâches d’administration", hint: "Nouvelles inscriptions et signalements à traiter.", show: isAdmin },
+    { key: "newsletter", label: "Actualités de l’université", hint: "Annonces et lettres d’information occasionnelles.", show: true },
+  ];
+
+  return (
+    <Card className="p-6">
+      <h2 className="flex items-center gap-2 font-bold text-navy"><Icon name="mail" size={20} className="text-teal-text" /> Emails</h2>
+      <p className="mt-1 text-sm text-muted">
+        Les emails de compte (inscription, validation, mot de passe) sont toujours envoyés. Les autres se règlent ici ; chacun contient aussi un lien de désabonnement.
+      </p>
+      {error && <Alert tone="danger" className="mt-3">{error}</Alert>}
+      {prefs.isPending ? (
+        <Spinner />
+      ) : (
+        <ul className="mt-4 divide-y divide-line">
+          {rows.filter((r) => r.show).map((r) => (
+            <li key={r.key} className="flex items-start justify-between gap-4 py-3">
+              <div>
+                <p className="text-sm font-semibold text-navy">{r.label}</p>
+                <p className="text-xs text-muted">{r.hint}</p>
+              </div>
+              <input
+                type="checkbox"
+                aria-label={r.label}
+                className="mt-1 size-4 shrink-0 accent-navy"
+                checked={prefs.data?.[r.key] ?? false}
+                onChange={(e) => toggle(r.key, e.target.checked)}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
+    </Card>
   );
 }
 
