@@ -1,5 +1,8 @@
+"use client";
+
 /* eslint-disable @next/next/no-img-element -- images servies par l'API Laravel (stockage public) */
 import clsx from "clsx";
+import { useState } from "react";
 import { initials } from "@/lib/format";
 
 const sizes = {
@@ -31,8 +34,19 @@ export function Avatar({
     className,
   );
 
-  if (src) {
-    return <img src={src} alt={`Photo de ${name}`} className={clsx(base, "object-cover bg-mist")} loading="lazy" />;
+  // Fichier introuvable (stockage éphémère après un redéploiement) : on retombe sur les initiales.
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+
+  if (src && failedSrc !== src) {
+    return (
+      <img
+        src={src}
+        alt={`Photo de ${name}`}
+        className={clsx(base, "object-cover bg-mist")}
+        loading="lazy"
+        onError={() => setFailedSrc(src)}
+      />
+    );
   }
 
   return (
