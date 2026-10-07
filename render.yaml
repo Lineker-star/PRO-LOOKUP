@@ -1,0 +1,115 @@
+# Blueprint Render pour le backend PRO-LOOKUP (pro-lookup-backend/Dockerfile).
+# Point de départ pratique : vérifiez chaque valeur dans le tableau de bord Render après
+# la première création, en particulier les secrets marqués "sync: false" (à saisir à la main).
+# Le frontend Next.js (pro-lookup-frontend) reste sur Vercel ; il n'est pas couvert ici.
+
+databases:
+  - name: pro-lookup-db
+    plan: free
+    databaseName: pro_lookup
+    user: pro_lookup
+
+services:
+  # ---------------------------------------------------------------- API Laravel
+  - type: web
+    name: pro-lookup-backend
+    runtime: docker
+    plan: free
+    rootDir: pro-lookup-backend
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /up
+    envVars:
+      - key: APP_NAME
+        value: PRO-LOOKUP
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        sync: false # php artisan key:generate --show, une seule fois
+      - key: APP_URL
+        sync: false # URL publique de CE service Render, une fois connue
+      - key: APP_LOCALE
+        value: fr
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase: { name: pro-lookup-db, property: host }
+      - key: DB_PORT
+        fromDatabase: { name: pro-lookup-db, property: port }
+      - key: DB_DATABASE
+        fromDatabase: { name: pro-lookup-db, property: database }
+      - key: DB_USERNAME
+        fromDatabase: { name: pro-lookup-db, property: user }
+      - key: DB_PASSWORD
+        fromDatabase: { name: pro-lookup-db, property: password }
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: database
+      - key: FILESYSTEM_DISK
+        value: local
+      - key: MAIL_MAILER
+        value: brevo
+      - key: BREVO_API_KEY
+        sync: false
+      - key: BREVO_SENDER_EMAIL
+        sync: false
+      - key: BREVO_SENDER_NAME
+        value: PRO-LOOKUP
+      - key: FRONTEND_URL
+        sync: false # domaine Vercel du frontend
+      - key: FRONTEND_URLS
+        sync: false
+      - key: FRONTEND_REVALIDATE_URL
+        sync: false
+      - key: FRONTEND_REVALIDATE_SECRET
+        sync: false
+
+  # ---------------------------------------------------------------- Worker (emails en file d'attente)
+  - type: worker
+    name: pro-lookup-queue
+    runtime: docker
+    plan: free
+    rootDir: pro-lookup-backend
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    dockerCommand: /usr/local/bin/entrypoint-queue.sh
+    envVars:
+      - key: APP_KEY
+        sync: false
+      - key: APP_ENV
+        value: production
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase: { name: pro-lookup-db, property: host }
+      - key: DB_PORT
+        fromDatabase: { name: pro-lookup-db, property: port }
+      - key: DB_DATABASE
+        fromDatabase: { name: pro-lookup-db, property: database }
+      - key: DB_USERNAME
+        fromDatabase: { name: pro-lookup-db, property: user }
+      - key: DB_PASSWORD
+        fromDatabase: { name: pro-lookup-db, property: password }
+      - key: QUEUE_CONNECTION
+        value: database
+      - key: MAIL_MAILER
+        value: brevo
+      - key: BREVO_API_KEY
+        sync: false
+      - key: BREVO_SENDER_EMAIL
+        sync: false
+      - key: BREVO_SENDER_NAME
+        value: PRO-LOOKUP
+      - key: FRONTEND_URL
+        sync: false
+      - key: FRONTEND_URLS
+        sync: false
+      - key: FRONTEND_REVALIDATE_URL
+        sync: false
+      - key: FRONTEND_REVALIDATE_SECRET
+        sync: false

@@ -54,6 +54,30 @@ cd pro-lookup-frontend && npx tsc --noEmit && npm run lint
 4. Stockage : le disque `public` (photos, médias) doit être persistant ou remplacé par un stockage objet ; les justificatifs restent sur le disque privé `local`.
 5. Ne pas lancer `db:seed` en production sans retirer les comptes de démonstration.
 
+### Backend Laravel sur Render (en parallèle de Railway)
+
+Le backend peut aussi tourner sur Render, **sans rien changer à Railway** : Railway continue d'utiliser
+Railpack (figé explicitement par `pro-lookup-backend/railway.json`), Render utilise le
+`pro-lookup-backend/Dockerfile` (image FrankenPHP). Les deux lisent le même dépôt ; chacun a ses
+propres variables d'environnement et sa propre base de données.
+
+1. Dans Render : **New → Blueprint**, pointer sur ce dépôt. Le fichier `render.yaml` (racine du dépôt)
+   crée un service web, un worker de file d'attente et une base PostgreSQL gratuite.
+2. Compléter les variables marquées `sync: false` dans le tableau de bord (`APP_KEY`, `APP_URL`,
+   `BREVO_*`, `FRONTEND_*`) — `php artisan key:generate --show` en local donne `APP_KEY`.
+3. Vérifier `https://<service>.onrender.com/api/ping`.
+4. Limites du **plan gratuit Render**, à connaître avant de l'utiliser en production :
+   - **Pas de disque persistant** : les photos, CV et justificatifs déposés disparaissent à chaque
+     redéploiement et à chaque redémarrage du service (le plan gratuit n'autorise pas de disque).
+     Un disque persistant demande un plan payant, ou un passage à un stockage objet (S3, Cloudflare R2).
+   - **Mise en veille après inactivité** : le premier appel après une pause peut prendre
+     plusieurs dizaines de secondes (`cold start`).
+   - **Base PostgreSQL gratuite expirée après 90 jours** : il faut la recréer (ou passer à un plan
+     payant) avant l'expiration, sous peine de perdre les données.
+5. Si Render doit devenir le site de référence, reportez son URL dans Vercel
+   (`API_URL`, `NEXT_PUBLIC_API_URL`) et dans les variables `FRONTEND_*` du service Render — comme à la
+   fin de la section Railway plus haut.
+
 ### Frontend Next.js (ex. Vercel, ou un serveur Node.js)
 
 1. Racine du projet : `pro-lookup-frontend`. Build : `npm run build`. Démarrage (hors Vercel) : `npm run start`.
